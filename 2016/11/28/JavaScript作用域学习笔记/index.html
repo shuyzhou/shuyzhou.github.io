@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript作用域学习笔记 | 大周部落格</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1.作用域和作用域链在JavaScript中，函数也是对象。对一个函数，每一个能被该函数访问的上下文对象称为该函数的作用域。作用域中的所有属性和方法都能被该函数访问到。在下面的代码中，函数f1和f2的作用域为全局活动对象，而函数f3的作用域为函数f2活动对象和全局活动对象。
+12345678910111213var i=5;funtion f1()&amp;#123;  console.log(i);">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript作用域学习笔记">
+<meta property="og:url" content="shuyzhou.space/2016/11/28/JavaScript作用域学习笔记/index.html">
+<meta property="og:site_name" content="大周部落格">
+<meta property="og:description" content="1.作用域和作用域链在JavaScript中，函数也是对象。对一个函数，每一个能被该函数访问的上下文对象称为该函数的作用域。作用域中的所有属性和方法都能被该函数访问到。在下面的代码中，函数f1和f2的作用域为全局活动对象，而函数f3的作用域为函数f2活动对象和全局活动对象。
+12345678910111213var i=5;funtion f1()&amp;#123;  console.log(i);">
+<meta property="og:updated_time" content="2017-04-21T01:30:21.622Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript作用域学习笔记">
+<meta name="twitter:description" content="1.作用域和作用域链在JavaScript中，函数也是对象。对一个函数，每一个能被该函数访问的上下文对象称为该函数的作用域。作用域中的所有属性和方法都能被该函数访问到。在下面的代码中，函数f1和f2的作用域为全局活动对象，而函数f3的作用域为函数f2活动对象和全局活动对象。
+12345678910111213var i=5;funtion f1()&amp;#123;  console.log(i);">
+  
+    <link rel="alternate" href="/atom.xml" title="大周部落格" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/styles.css">
+  
+
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/mylove/">Mylove</a></li>
+        
+          <li><a class=""
+                 href="/myworks/">Myworks</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">大周部落格</h1>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          <article id="post-JavaScript作用域学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript作用域学习笔记
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2016/11/28/JavaScript作用域学习笔记/" class="article-date"><time datetime="2016-11-28T11:43:31.000Z" itemprop="datePublished">2016-11-28</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-作用域和作用域链"><a href="#1-作用域和作用域链" class="headerlink" title="1.作用域和作用域链"></a>1.作用域和作用域链</h3><p>在JavaScript中，函数也是对象。对一个函数，每一个能被该函数访问的上下文对象称为该函数的作用域。作用域中的所有属性和方法都能被该函数访问到。在下面的代码中，函数f1和f2的作用域为全局活动对象，而函数f3的作用域为函数f2活动对象和全局活动对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var i=5;</div><div class="line">funtion f1()&#123;</div><div class="line">  console.log(i);</div><div class="line">  console.log(j);  </div><div class="line">&#125;</div><div class="line"></div><div class="line">function f2()&#123;</div><div class="line">  var j=0;</div><div class="line">  console.log(&quot;hello world&quot;);</div><div class="line">  function f3()&#123;</div><div class="line">    console.log(j);</div><div class="line">  &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>每个函数都有一个[[Scope]]的内部属性，仅供JavaScript引擎访问。这个[[Scope]]指向该函数的作用域链。当一个函数被声明时，该函数能访问到的作用域就依次被放入该函数的作用域链中。此时，作用域链中的第一个对象是该函数声明时的包含环境（一般是其父函数的活动对象），第二个对象是上一层包含环境，一直到全局对象。最后，该函数的[[Scope]]属性将会指向该作用域链。</p>
+<p>在某函数被调用时，一个名为“运行期上下文”的内部对象被创建，该对象定义了函数执行时的环境。每一个运行期上下文被创建时，它的作用域链被初始化为当前运行函数的作用域链。还有一个“活动对象”被创建，该活动对象里存放着函数被调用时的形参、函数里的所有局部变量和this，对于没有被赋值的参数会初始化为undefine。然后该活动对象被推入运行期上下文的作用域链头部。当函数执行完毕时，该运行期上下文被销毁，对应的活动对象也随之销毁。</p>
+<h3 id="2-标识符解析"><a href="#2-标识符解析" class="headerlink" title="2 标识符解析"></a>2 标识符解析</h3><p>在函数执行过程中，每遇到一个变量，都会进行一次标识符解析。从运行期上下文的作用域链头部开始，查找同名的变量，找到了就使用该变量。如果没有就查找作用域链中的下一个对象，直到找到为止。所以全局变量会被同名的局部变量覆盖。</p>
+<h3 id="3-执行时改变作用域链"><a href="#3-执行时改变作用域链" class="headerlink" title="3 执行时改变作用域链"></a>3 执行时改变作用域链</h3><p>虽然函数的作用域链在声明时已经被[[Scope]]绑定了，但是Js中有两种方法可以在函数执行时临时改变函数的作用域链（其实改变的是当前运行期上下文的作用域链）。</p>
+<p>with语句</p>
+<p>当遇到with语句时，with后面圆括号中的对象将被临时的推入作用域链的头部，当with语句后面的代码块执行完毕时，该对象会被从作用域链中删除。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">funtion f4()&#123;</div><div class="line">  var t=&quot;hello&quot;;</div><div class="line">  with(obj)&#123;//在这一句obj将被加入到作用域链头部</div><div class="line">     console.log(a);</div><div class="line">    &#125; //在这里obj从作用域链中删除</div><div class="line">console.log(t);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>try…catch语句</p>
+<p>当遇到try…catch语句时，程序首先执行try代码块中的代码，如果发生错误则跳到catch代码块，此时异常对象将被临时地推入到作用域链的头部。</p>
+<p>function f5(){<br>  try{doSomething();}<br>  catch  (e) {//这里异常对象将被加入到作用域链头部<br>    console.log(e);<br>  }//这里异常对象将被从作用域链中删除<br>}</p>
+<h3 id="4-在函数开始声明局部变量"><a href="#4-在函数开始声明局部变量" class="headerlink" title="4 在函数开始声明局部变量"></a>4 在函数开始声明局部变量</h3><p>虽然说Js是函数作用域，在某个函数内的任何地方声明一个局部变量该函数都能访问到，不过还是有理由在函数的开始声明局部变量。前面说过，活动对象里没有被赋值的参数会初始化为undefine，在遇到赋值语句后，变量才被赋值。那么在类似下面的代码中，将发生不好的事情。标识符解析时，在echo的活动对象中找到了say变量，完全的覆盖了全局活动对象中的say变量。而say变量没有被赋值，所以才会发生下面的事情。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var say = &quot;hello!&quot;;</div><div class="line">function echo() &#123;</div><div class="line">     console.log(say);//undefine</div><div class="line">     var say = &quot;hi&quot;;//将&quot;hi&quot;赋值给say变量</div><div class="line">     console.log(say);//hi</div><div class="line">&#125;</div><div class="line"> </div><div class="line">echo();</div></pre></td></tr></table></figure>
+<h3 id="5-性能优化"><a href="#5-性能优化" class="headerlink" title="5 性能优化"></a>5 性能优化</h3><p>减少全局对象的使用</p>
+<p>由于全局对象始终处于作用域链的尾部，在标识符解析时总是最后一个被查找的对象，查找效率可想而知。记住，如果一个跨作用域的对象被引用了一次以上，则先把它存储到局部变量里再使用。</p>
+<p>尽量不用with</p>
+<p>with虽然可以省略长长的变量名，但是却带来了其它的性能问题。当进入with代码块时，活动对象变成了作用域链的第二个对象，增加了对函数局部变量的访问开销。所以with代码块中最好只使用被with绑定的对象的属性和方法。另外，with也不利于阅读代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function f(x, o) &#123;</div><div class="line">  with (o) </div><div class="line">    print(x);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>f被调用时，x有可能能取到值，也可能是undefined，如果能取到, 有可能是在o上取的值，也可能是函数的第一個参数x的值（如果o中沒有這個属性的話）。如果你忘记在作为第二個参数的对象o中定义x這個属性，程序并不會报错，只是取到另一个值而已。</p>
+<p>优化try…catch语句</p>
+<p>在catch代码块中尽量只访问异常对象，而减少对局部变量的访问。</p>
+<p>参考资料：</p>
+<p>1.<a href="http://www.laruence.com/2009/05/28/863.html" target="_blank" rel="external">http://www.laruence.com/2009/05/28/863.html</a></p>
+<p>2.<a href="http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html" target="_blank" rel="external">http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html</a></p>
+<p>3.<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/with" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/with</a></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2016/11/28/JavaScript作用域学习笔记/" data-id="cj3ntiuqz000cscwp8jmbven2" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/作用域/">作用域</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  
+  <li role="presentation">
+    <a href="/2016/11/29/JavaScript原型学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">JavaScript原型学习笔记</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  	<h4>About</h4>
+  	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="40 50 140.1 140.1" xml:space="preserve">
+		<g>
+			<path id="edge" class="path" d="M134.8,81c17.8,29.7,22.6,61.3,14.1,80.1c-2.5,5.6-6.3,10.1-11.2,13c0,0-26.3,18.7-62.1,0
+		c-21.5-12.8-20.2-54.5,2.9-93.1C78.5,81,106.7,108.9,134.8,81z"/>
+			<path id="tail" class="path" d="M146.6,165.4c0,0,21.6-13,20.7-40.6"/>
+			<ellipse class="eyes" cx="88.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<ellipse class="eyes" cx="126.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<line class="path hands" x1="100" y1="143.1" x2="106.8" y2="147.8"/>
+			<line class="path hands" x1="106.8" y1="147.8" x2="100" y2="151.5"/>
+			<line class="path hands" x1="116.8" y1="143.1" x2="110" y2="147.8"/>
+			<line class="path hands" x1="110" y1="147.8" x2="116.8" y2="151.5"/>
+		</g>
+		<g id="normal">
+			<polyline id="mouth" points="116,124.8 108,124.8 100,124.8 	"/>
+		</g>
+		<g id="smile">
+			<path class="path" d="M100,125.7c0,0,2.5,4.7,7.7,0"/>
+			<path class="path" d="M115.4,125.7c0,0-2.5,4.7-7.7,0"/>
+			<ellipse class="blush" cx="81.8" cy="129.6" rx="1.8" ry="2.1"/>
+			<ellipse class="blush" cx="136.3" cy="129.6" rx="1.8" ry="2.1"/>
+		</g>
+	</svg>
+  <p>This is <em>shuyzhou</em>'s blog. Enjoy yourself!</p>
+
+</div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/HTML/">HTML</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Express/">Express</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/HTML/">HTML</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/IFE/">IFE</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Vue-js/">Vue.js</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/canvas/">canvas</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/作用域/">作用域</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/创建对象方法/">创建对象方法</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/原型/">原型</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/对象池/">对象池</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/居中/">居中</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/服务器/">服务器</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/权限控制/">权限控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/继承/">继承</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表单/">表单</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表达式/">表达式</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/语义化/">语义化</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/闭包/">闭包</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/Express/" style="font-size: 10px;">Express</a> <a href="/tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="/tags/IFE/" style="font-size: 12.5px;">IFE</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/创建对象方法/" style="font-size: 10px;">创建对象方法</a> <a href="/tags/原型/" style="font-size: 10px;">原型</a> <a href="/tags/对象池/" style="font-size: 10px;">对象池</a> <a href="/tags/居中/" style="font-size: 10px;">居中</a> <a href="/tags/服务器/" style="font-size: 10px;">服务器</a> <a href="/tags/权限控制/" style="font-size: 10px;">权限控制</a> <a href="/tags/继承/" style="font-size: 10px;">继承</a> <a href="/tags/表单/" style="font-size: 10px;">表单</a> <a href="/tags/表达式/" style="font-size: 10px;">表达式</a> <a href="/tags/语义化/" style="font-size: 15px;">语义化</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">April 2017</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/03/">March 2017</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">December 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">November 2016</a><span class="sidebar-module-list-count">6</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/04/25/有趣的鼠标悬浮模糊效果/">有趣的鼠标悬浮模糊效果</a>
+        </li>
+      
+        <li>
+          <a href="/2017/04/20/基于canvas的动画小游戏/">基于canvas的动画小游戏</a>
+        </li>
+      
+        <li>
+          <a href="/2017/04/19/Vue.js入门练习：todo-list/">Vue.js入门练习：todo-list</a>
+        </li>
+      
+        <li>
+          <a href="/2017/03/30/HTML语义化标签（三）/">HTML语义化标签（三）</a>
+        </li>
+      
+        <li>
+          <a href="/2017/03/30/HTML语义化标签（二）/">HTML语义化标签（二）</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 shuyzhou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  <a href="https://github.com/shuyzhou"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+</body>
+</html>

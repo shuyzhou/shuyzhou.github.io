@@ -1,0 +1,97 @@
+* {margin: 0;}
+body {
+	background-color: #F08A86;
+	font-family: 'Microsoft YaHei';
+	position: relative;
+}
+#startMenu {
+	margin: 100px auto;
+}
+#startMenu > button, #startMenu > img {
+	margin: 30px auto;
+	display: block;
+}
+#startMenu button {
+	color: #ffffff;
+	background-color: transparent;
+	border:3px solid #ffffff;
+	border-radius: 3px;
+	font-size: 20px;
+	font-family: 'Microsoft YaHei';
+	width: 100px;
+	height: 45px;
+}
+#configMenu {
+	width: 80%;
+	padding: 15px;
+	border:5px solid #000000;
+	border-radius: 5px;
+	position: absolute;
+	top:200px;
+	margin-left: 10%;
+	box-sizing: border-box;
+	background-color: #ffffff;
+	display: none;
+}
+#configMenu li{
+	font-size: 22px;
+	line-height: 50px;
+	list-style:none; 
+}
+#configMenu > .close{
+	position: absolute;
+	top:-25px;
+	right: -25px;
+	background-color: #ffffff;
+	border-radius: 50%;
+}
+#overMessage {
+	position: absolute;
+	top:100px;
+	width: 100%;
+	height: 400px;
+	text-align: center;
+	display: none;
+}
+#overMessage > .mask {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color:#ffffff;
+	opacity: 0.7; 
+	z-index: 10;
+}
+#overMessage > .message {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
+#overMessage button, #overMessage span, #overMessage img {
+	margin: 40px auto;
+	display: block;
+}
+#overMessage span {
+	font-size: 24px;
+}
+#overMessage span:first-Child {
+	font-size: 48px;
+}
+#overMessage button{
+	color: #000000;
+	background-color: transparent;
+	border:3px solid #000000;
+	border-radius: 3px;
+	font-size: 20px;
+	font-family: 'Microsoft YaHei';
+	width: 100px;
+	height: 45px;
+}
+#canvas {
+    width: 100%;
+    max-width: 720px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}

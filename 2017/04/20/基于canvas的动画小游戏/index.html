@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>基于canvas的动画小游戏 | 大周部落格</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="闲着做了个手机小游戏，单纯为了好玩~为了写一个小游戏，需要一些基础原理。比如，canvas动画的原理，对触屏事件的判断，角色位置或状态更新，碰撞检测等等。
+canvas动画我们所看到的动画其实是一组图片以特定速度和顺序出现，canvas动画也是如此。canvas其实是一块画布，在这个画布上我们开始绘制一帧图片，又擦掉绘制下一帧图片，重复擦掉绘制擦掉绘制就成了我们看到的动画。所以首先尝试着利用can">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于canvas的动画小游戏">
+<meta property="og:url" content="shuyzhou.space/2017/04/20/基于canvas的动画小游戏/index.html">
+<meta property="og:site_name" content="大周部落格">
+<meta property="og:description" content="闲着做了个手机小游戏，单纯为了好玩~为了写一个小游戏，需要一些基础原理。比如，canvas动画的原理，对触屏事件的判断，角色位置或状态更新，碰撞检测等等。
+canvas动画我们所看到的动画其实是一组图片以特定速度和顺序出现，canvas动画也是如此。canvas其实是一块画布，在这个画布上我们开始绘制一帧图片，又擦掉绘制下一帧图片，重复擦掉绘制擦掉绘制就成了我们看到的动画。所以首先尝试着利用can">
+<meta property="og:updated_time" content="2017-04-21T01:31:19.969Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于canvas的动画小游戏">
+<meta name="twitter:description" content="闲着做了个手机小游戏，单纯为了好玩~为了写一个小游戏，需要一些基础原理。比如，canvas动画的原理，对触屏事件的判断，角色位置或状态更新，碰撞检测等等。
+canvas动画我们所看到的动画其实是一组图片以特定速度和顺序出现，canvas动画也是如此。canvas其实是一块画布，在这个画布上我们开始绘制一帧图片，又擦掉绘制下一帧图片，重复擦掉绘制擦掉绘制就成了我们看到的动画。所以首先尝试着利用can">
+  
+    <link rel="alternate" href="/atom.xml" title="大周部落格" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/styles.css">
+  
+
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/mylove/">Mylove</a></li>
+        
+          <li><a class=""
+                 href="/myworks/">Myworks</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">大周部落格</h1>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          <article id="post-基于canvas的动画小游戏" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      基于canvas的动画小游戏
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/04/20/基于canvas的动画小游戏/" class="article-date"><time datetime="2017-04-20T06:57:49.000Z" itemprop="datePublished">2017-04-20</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>闲着做了个手机<a href="http://shuyzhou.space/love-wars/">小游戏</a>，单纯为了好玩~为了写一个小游戏，需要一些基础原理。比如，canvas动画的原理，对触屏事件的判断，角色位置或状态更新，碰撞检测等等。</p>
+<h3 id="canvas动画"><a href="#canvas动画" class="headerlink" title="canvas动画"></a><code>canvas</code>动画</h3><p>我们所看到的动画其实是一组图片以特定速度和顺序出现，<code>canvas</code>动画也是如此。<code>canvas</code>其实是一块画布，在这个画布上我们开始绘制一帧图片，又擦掉绘制下一帧图片，重复擦掉绘制擦掉绘制就成了我们看到的动画。<br>所以首先尝试着利用<code>canvas</code>绘制一个矩形：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var canvas = document.querySelector(&apos;canvas&apos;);//canvas对象</div><div class="line">var ctx = canvas.getContext(&apos;2d&apos;);//该对象的2D上下文</div><div class="line">//绘制坐标为10，10，宽高都为100的矩形</div><div class="line">ctx.fillStyle = &quot;green&quot;;</div><div class="line">ctx.fillRect(10, 10, 100, 100);</div></pre></td></tr></table></figure></p>
+<p>现代浏览器有个<code>requestAnimationFrame</code>方法，它让你在浏览器每次刷新时执行某个方法，具体戳<a href="http://www.zhangxinxu.com/wordpress/2013/09/css3-animation-requestanimationframe-tween-%E5%8A%A8%E7%94%BB%E7%AE%97%E6%B3%95/" target="_blank" rel="external">这里</a>。这正好能实现我们想要的定时重绘。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//定义定时器</div><div class="line">var w = window;</div><div class="line">var requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame || function(fn) &#123;</div><div class="line">                    setTimeout(fn, 17);</div><div class="line">                &#125;;</div><div class="line">// 定义渲染函数</div><div class="line">var render = function () &#123;</div><div class="line">    // 清除画布</div><div class="line">    context.clearRect(0, 0, canvas.width, canvas.height);</div><div class="line">    // 绘制</div><div class="line">    drawSomething();</div><div class="line">    // 继续渲染</div><div class="line">    requestAnimationFrame(render);</div><div class="line">&#125;;</div><div class="line">//开始渲染</div><div class="line">render();</div></pre></td></tr></table></figure></p>
+<h3 id="判断触屏事件"><a href="#判断触屏事件" class="headerlink" title="判断触屏事件"></a>判断触屏事件</h3><p>手机上触屏事件分很多种,所以需要根据手势进行判断用户的目的，在这里我就偷点懒，用了hammer.js手势库。手势的判断大概基于亮点：</p>
+<ol>
+<li>当前时刻位于屏幕上的手指（即触点）个数</li>
+<li>手指移动轨迹</li>
+</ol>
+<h4 id="判断当前时刻触点个数"><a href="#判断当前时刻触点个数" class="headerlink" title="判断当前时刻触点个数"></a>判断当前时刻触点个数</h4><p>触屏事件共有<code>touchstart</code>、<code>touchmove</code>、<code>touchend</code>三类事件。而这三类事件的<code>event</code>对象都包含三个属性与触点有关：</p>
+<ol>
+<li><code>touches</code>：包含当前所有触点的列表。</li>
+<li><code>targetTouches</code>：包含位于当前DOM元素上的触点的列表。</li>
+<li><code>changedTouches</code>：包含涉及当前事件的触点的列表。</li>
+</ol>
+<h4 id="判断手指移动轨迹"><a href="#判断手指移动轨迹" class="headerlink" title="判断手指移动轨迹"></a>判断手指移动轨迹</h4><p>这个一般是结合之前事件的信息进行判断的，比较复杂，有兴趣可以看看<a href="https://github.com/hammerjs/hammer.js/tree/master/" target="_blank" rel="external">hammer.js</a>源码。</p>
+<h3 id="对象池"><a href="#对象池" class="headerlink" title="对象池"></a>对象池</h3><p>游戏中一共三类角色，主角、爱心和大便（…），接到一个爱心加一分，被大便砸到失去一条命。为了方便地管理角色已经维护代码，这些角色的状态和更新方法都存放着对应的实例对象中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//constructor</div><div class="line">var Obj = function() &#123;</div><div class="line">    this.reset();</div><div class="line">    this.speed = 5 * multiple;</div><div class="line">    this.score = 1;</div><div class="line">&#125;;</div><div class="line">Obj.prototype = &#123;</div><div class="line">    constructor: Obj,</div><div class="line">    spawn: ...,//激活该对象，初始化参数</div><div class="line">    fall: ...,//物体下落</div><div class="line">    isCollision: ...,//判断是否和主角碰撞</div><div class="line">    reset: ...,//重置对象参数</div><div class="line">    draw: ...//在canvas上绘制物体</div></pre></td></tr></table></figure></p>
+<p>爱心和大便会一直从<code>canvas</code>顶部掉下，如果每次都创建一个新对象的话会在短时间内创建了大量的对象，这样将消耗大量资源。而这些对象的方法都是相似的，只有一些参数不一样，显然可以利用对象池对对象进行回收。大致思想是定义一个数组存放所有对象，当外界来“取”对象时从数组尾部弹出一个未激活对象压入数组头部，调用该对象的<code>spawn</code>方法，并将该对象标记为激活状态。在每一次<code>render</code>函数执行时，对象池将更新所有已激活对象的坐标，调用每个已激活对象的<code>draw</code>方法。并且，当某对象和主角碰撞或到<code>canvas</code>底部时对象池将对象压入数组尾部，并调用该对象的<code>reset</code>方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">var Pool = function() &#123;</div><div class="line">    var size = 20; </div><div class="line">    var pool = [];</div><div class="line">    this.init = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            var heart = new Obj();</div><div class="line">            pool[i] = heart;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.get = function(x, y, w, h, img, name) &#123;</div><div class="line">        if (!pool[size - 1].isActivated) &#123;</div><div class="line">            pool[size - 1].spawn(x, y, w, h, img, name);</div><div class="line">            pool.unshift(pool.pop());</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.update = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            if (pool[i].isActivated) &#123;</div><div class="line">                if (pool[i].fall()) &#123;</div><div class="line">                    pool[i].reset();</div><div class="line">                    pool.push((pool.splice(i, 1))[0]);</div><div class="line">                &#125;</div><div class="line">            &#125; else &#123;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.draw = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            if (pool[i].isActivated) &#123;</div><div class="line">                pool[i].draw();</div><div class="line">            &#125; else &#123;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h3><p>为了判断爱心有没有被接住，需要对两个对象进行碰撞检测。碰撞检测大致分为两步：</p>
+<ol>
+<li>计算两个矩形重叠的矩形坐标</li>
+<li>进一步检测像素级碰撞</li>
+</ol>
+<p>第2步中首先创建一个新的canvas对象，在该对象中依次画出两副图像在重叠矩形部分的图片块，并利用getImageData方法获取其像素数据，最后判断两幅图片有没有在重叠的像素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var detectImgOverlap = function(a, b, rect) &#123;</div><div class="line">    var canvas = document.createElement(&apos;canvas&apos;);</div><div class="line">    var _ctx = canvas.getContext(&apos;2d&apos;);</div><div class="line"></div><div class="line">    _ctx.drawImage(a.img, 0, 0, a.width, a.height);</div><div class="line">    var data1 = _ctx.getImageData(rect[0] - a.x, rect[1] - a.y, rect[2] - rect[0], rect[3] - rect[1]).data;</div><div class="line">    _ctx.clearRect(0, 0, b.width, b.height);</div><div class="line">    _ctx.drawImage(b.img, 0, 0, b.width, b.height);</div><div class="line">    var data2 = _ctx.getImageData(rect[0] - b.x, rect[1] - b.y, rect[2] - rect[0], rect[3] - rect[1]).data;</div><div class="line">    canvas = null;</div><div class="line"></div><div class="line">    for (var i = 3; i &lt; data1.length; i += 4) &#123;</div><div class="line">        if (data1[i] &gt; 0 &amp;&amp; data2[i] &gt; 0) &#123;</div><div class="line">            return true; </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return false;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2017/04/20/基于canvas的动画小游戏/" data-id="cj3ntiuru000wscwpaugzk1r8" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/canvas/">canvas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/对象池/">对象池</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/04/19/Vue.js入门练习：todo-list/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">Vue.js入门练习：todo-list</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/2017/04/25/有趣的鼠标悬浮模糊效果/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">有趣的鼠标悬浮模糊效果</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  	<h4>About</h4>
+  	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="40 50 140.1 140.1" xml:space="preserve">
+		<g>
+			<path id="edge" class="path" d="M134.8,81c17.8,29.7,22.6,61.3,14.1,80.1c-2.5,5.6-6.3,10.1-11.2,13c0,0-26.3,18.7-62.1,0
+		c-21.5-12.8-20.2-54.5,2.9-93.1C78.5,81,106.7,108.9,134.8,81z"/>
+			<path id="tail" class="path" d="M146.6,165.4c0,0,21.6-13,20.7-40.6"/>
+			<ellipse class="eyes" cx="88.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<ellipse class="eyes" cx="126.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<line class="path hands" x1="100" y1="143.1" x2="106.8" y2="147.8"/>
+			<line class="path hands" x1="106.8" y1="147.8" x2="100" y2="151.5"/>
+			<line class="path hands" x1="116.8" y1="143.1" x2="110" y2="147.8"/>
+			<line class="path hands" x1="110" y1="147.8" x2="116.8" y2="151.5"/>
+		</g>
+		<g id="normal">
+			<polyline id="mouth" points="116,124.8 108,124.8 100,124.8 	"/>
+		</g>
+		<g id="smile">
+			<path class="path" d="M100,125.7c0,0,2.5,4.7,7.7,0"/>
+			<path class="path" d="M115.4,125.7c0,0-2.5,4.7-7.7,0"/>
+			<ellipse class="blush" cx="81.8" cy="129.6" rx="1.8" ry="2.1"/>
+			<ellipse class="blush" cx="136.3" cy="129.6" rx="1.8" ry="2.1"/>
+		</g>
+	</svg>
+  <p>This is <em>shuyzhou</em>'s blog. Enjoy yourself!</p>
+
+</div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/HTML/">HTML</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Express/">Express</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/HTML/">HTML</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/IFE/">IFE</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Vue-js/">Vue.js</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/canvas/">canvas</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/作用域/">作用域</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/创建对象方法/">创建对象方法</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/原型/">原型</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/对象池/">对象池</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/居中/">居中</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/服务器/">服务器</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/权限控制/">权限控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/继承/">继承</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表单/">表单</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表达式/">表达式</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/语义化/">语义化</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/闭包/">闭包</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/Express/" style="font-size: 10px;">Express</a> <a href="/tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="/tags/IFE/" style="font-size: 12.5px;">IFE</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/创建对象方法/" style="font-size: 10px;">创建对象方法</a> <a href="/tags/原型/" style="font-size: 10px;">原型</a> <a href="/tags/对象池/" style="font-size: 10px;">对象池</a> <a href="/tags/居中/" style="font-size: 10px;">居中</a> <a href="/tags/服务器/" style="font-size: 10px;">服务器</a> <a href="/tags/权限控制/" style="font-size: 10px;">权限控制</a> <a href="/tags/继承/" style="font-size: 10px;">继承</a> <a href="/tags/表单/" style="font-size: 10px;">表单</a> <a href="/tags/表达式/" style="font-size: 10px;">表达式</a> <a href="/tags/语义化/" style="font-size: 15px;">语义化</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">April 2017</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/03/">March 2017</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">December 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">November 2016</a><span class="sidebar-module-list-count">6</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/04/25/有趣的鼠标悬浮模糊效果/">有趣的鼠标悬浮模糊效果</a>
+        </li>
+      
+        <li>
+          <a href="/2017/04/20/基于canvas的动画小游戏/">基于canvas的动画小游戏</a>
+        </li>
+      
+        <li>
+          <a href="/2017/04/19/Vue.js入门练习：todo-list/">Vue.js入门练习：todo-list</a>
+        </li>
+      
+        <li>
+          <a href="/2017/03/30/HTML语义化标签（三）/">HTML语义化标签（三）</a>
+        </li>
+      
+        <li>
+          <a href="/2017/03/30/HTML语义化标签（二）/">HTML语义化标签（二）</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 shuyzhou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  <a href="https://github.com/shuyzhou"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+</body>
+</html>

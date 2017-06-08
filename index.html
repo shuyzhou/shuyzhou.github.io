@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>大周部落格</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="大周部落格">
+<meta property="og:url" content="shuyzhou.space/index.html">
+<meta property="og:site_name" content="大周部落格">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="大周部落格">
+  
+    <link rel="alternate" href="/atom.xml" title="大周部落格" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/styles.css">
+  
+
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class="active"
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/mylove/">Mylove</a></li>
+        
+          <li><a class=""
+                 href="/myworks/">Myworks</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">大周部落格</h1>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          
+  
+    <article id="post-有趣的鼠标悬浮模糊效果" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/25/有趣的鼠标悬浮模糊效果/">有趣的鼠标悬浮模糊效果</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/04/25/有趣的鼠标悬浮模糊效果/" class="article-date"><time datetime="2017-04-25T06:25:24.332Z" itemprop="datePublished">2017-04-25</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CSS/">CSS</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>之前参加IFE做的一个纯CSS动态效果，<a href="http://shuyzhou.space/IFE2017/hover/">demo</a><br>图片模糊效果是用<code>filter</code>属性实现的，顾名思义，<code>filter</code>是给图像数据加滤波器，利用<code>filter</code>可以对图片进行模糊、锐化、提亮等处理。<br>文字流光效果首先用到了<code>background-clip: text;</code>这个属性可以将背景图案显示区域限制在文字上，然后是<code>background-image: linear-gradient(to right, red, yellow, green, blue, violet,  red, yellow, green, blue, violet,red);</code>CSS函数<code>linear-gradient()</code>可以产生一副颜色线性渐变的图像。这里为了让动画看上去衔接自然，借用轮播图的思想，将背景图案做成了两幅渐变拼接的图片，通过控制<code>background-position</code>属性来做出流光效果。<br>边框从中间到两边扩开利用了<code>transform</code>的<code>scale</code>函数，写两个空<code>div</code>，一个<code>div</code>描上下两条边，一个<code>div</code>描左右两条边。当容器变成<code>hover</code>状态时，利用<code>scaleX</code>和<code>scaleY</code>函数将两个<code>div</code>展开，并将展开做出动画效果。另外，也可以用<code>transition</code>属性，当使用该属性时，<code>hover</code>状态消失时边框也会有一个收起来的动画效果。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2017/04/25/有趣的鼠标悬浮模糊效果/" data-id="cj3ntiuru0015scwpmcxe26iz" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IFE/">IFE</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-基于canvas的动画小游戏" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/20/基于canvas的动画小游戏/">基于canvas的动画小游戏</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/04/20/基于canvas的动画小游戏/" class="article-date"><time datetime="2017-04-20T06:57:49.000Z" itemprop="datePublished">2017-04-20</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>闲着做了个手机<a href="http://shuyzhou.space/love-wars/">小游戏</a>，单纯为了好玩~为了写一个小游戏，需要一些基础原理。比如，canvas动画的原理，对触屏事件的判断，角色位置或状态更新，碰撞检测等等。</p>
+<h3 id="canvas动画"><a href="#canvas动画" class="headerlink" title="canvas动画"></a><code>canvas</code>动画</h3><p>我们所看到的动画其实是一组图片以特定速度和顺序出现，<code>canvas</code>动画也是如此。<code>canvas</code>其实是一块画布，在这个画布上我们开始绘制一帧图片，又擦掉绘制下一帧图片，重复擦掉绘制擦掉绘制就成了我们看到的动画。<br>所以首先尝试着利用<code>canvas</code>绘制一个矩形：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var canvas = document.querySelector(&apos;canvas&apos;);//canvas对象</div><div class="line">var ctx = canvas.getContext(&apos;2d&apos;);//该对象的2D上下文</div><div class="line">//绘制坐标为10，10，宽高都为100的矩形</div><div class="line">ctx.fillStyle = &quot;green&quot;;</div><div class="line">ctx.fillRect(10, 10, 100, 100);</div></pre></td></tr></table></figure></p>
+<p>现代浏览器有个<code>requestAnimationFrame</code>方法，它让你在浏览器每次刷新时执行某个方法，具体戳<a href="http://www.zhangxinxu.com/wordpress/2013/09/css3-animation-requestanimationframe-tween-%E5%8A%A8%E7%94%BB%E7%AE%97%E6%B3%95/" target="_blank" rel="external">这里</a>。这正好能实现我们想要的定时重绘。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//定义定时器</div><div class="line">var w = window;</div><div class="line">var requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame || function(fn) &#123;</div><div class="line">                    setTimeout(fn, 17);</div><div class="line">                &#125;;</div><div class="line">// 定义渲染函数</div><div class="line">var render = function () &#123;</div><div class="line">    // 清除画布</div><div class="line">    context.clearRect(0, 0, canvas.width, canvas.height);</div><div class="line">    // 绘制</div><div class="line">    drawSomething();</div><div class="line">    // 继续渲染</div><div class="line">    requestAnimationFrame(render);</div><div class="line">&#125;;</div><div class="line">//开始渲染</div><div class="line">render();</div></pre></td></tr></table></figure></p>
+<h3 id="判断触屏事件"><a href="#判断触屏事件" class="headerlink" title="判断触屏事件"></a>判断触屏事件</h3><p>手机上触屏事件分很多种,所以需要根据手势进行判断用户的目的，在这里我就偷点懒，用了hammer.js手势库。手势的判断大概基于亮点：</p>
+<ol>
+<li>当前时刻位于屏幕上的手指（即触点）个数</li>
+<li>手指移动轨迹</li>
+</ol>
+<h4 id="判断当前时刻触点个数"><a href="#判断当前时刻触点个数" class="headerlink" title="判断当前时刻触点个数"></a>判断当前时刻触点个数</h4><p>触屏事件共有<code>touchstart</code>、<code>touchmove</code>、<code>touchend</code>三类事件。而这三类事件的<code>event</code>对象都包含三个属性与触点有关：</p>
+<ol>
+<li><code>touches</code>：包含当前所有触点的列表。</li>
+<li><code>targetTouches</code>：包含位于当前DOM元素上的触点的列表。</li>
+<li><code>changedTouches</code>：包含涉及当前事件的触点的列表。</li>
+</ol>
+<h4 id="判断手指移动轨迹"><a href="#判断手指移动轨迹" class="headerlink" title="判断手指移动轨迹"></a>判断手指移动轨迹</h4><p>这个一般是结合之前事件的信息进行判断的，比较复杂，有兴趣可以看看<a href="https://github.com/hammerjs/hammer.js/tree/master/" target="_blank" rel="external">hammer.js</a>源码。</p>
+<h3 id="对象池"><a href="#对象池" class="headerlink" title="对象池"></a>对象池</h3><p>游戏中一共三类角色，主角、爱心和大便（…），接到一个爱心加一分，被大便砸到失去一条命。为了方便地管理角色已经维护代码，这些角色的状态和更新方法都存放着对应的实例对象中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//constructor</div><div class="line">var Obj = function() &#123;</div><div class="line">    this.reset();</div><div class="line">    this.speed = 5 * multiple;</div><div class="line">    this.score = 1;</div><div class="line">&#125;;</div><div class="line">Obj.prototype = &#123;</div><div class="line">    constructor: Obj,</div><div class="line">    spawn: ...,//激活该对象，初始化参数</div><div class="line">    fall: ...,//物体下落</div><div class="line">    isCollision: ...,//判断是否和主角碰撞</div><div class="line">    reset: ...,//重置对象参数</div><div class="line">    draw: ...//在canvas上绘制物体</div></pre></td></tr></table></figure></p>
+<p>爱心和大便会一直从<code>canvas</code>顶部掉下，如果每次都创建一个新对象的话会在短时间内创建了大量的对象，这样将消耗大量资源。而这些对象的方法都是相似的，只有一些参数不一样，显然可以利用对象池对对象进行回收。大致思想是定义一个数组存放所有对象，当外界来“取”对象时从数组尾部弹出一个未激活对象压入数组头部，调用该对象的<code>spawn</code>方法，并将该对象标记为激活状态。在每一次<code>render</code>函数执行时，对象池将更新所有已激活对象的坐标，调用每个已激活对象的<code>draw</code>方法。并且，当某对象和主角碰撞或到<code>canvas</code>底部时对象池将对象压入数组尾部，并调用该对象的<code>reset</code>方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">var Pool = function() &#123;</div><div class="line">    var size = 20; </div><div class="line">    var pool = [];</div><div class="line">    this.init = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            var heart = new Obj();</div><div class="line">            pool[i] = heart;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.get = function(x, y, w, h, img, name) &#123;</div><div class="line">        if (!pool[size - 1].isActivated) &#123;</div><div class="line">            pool[size - 1].spawn(x, y, w, h, img, name);</div><div class="line">            pool.unshift(pool.pop());</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.update = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            if (pool[i].isActivated) &#123;</div><div class="line">                if (pool[i].fall()) &#123;</div><div class="line">                    pool[i].reset();</div><div class="line">                    pool.push((pool.splice(i, 1))[0]);</div><div class="line">                &#125;</div><div class="line">            &#125; else &#123;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.draw = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            if (pool[i].isActivated) &#123;</div><div class="line">                pool[i].draw();</div><div class="line">            &#125; else &#123;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h3><p>为了判断爱心有没有被接住，需要对两个对象进行碰撞检测。碰撞检测大致分为两步：</p>
+<ol>
+<li>计算两个矩形重叠的矩形坐标</li>
+<li>进一步检测像素级碰撞</li>
+</ol>
+<p>第2步中首先创建一个新的canvas对象，在该对象中依次画出两副图像在重叠矩形部分的图片块，并利用getImageData方法获取其像素数据，最后判断两幅图片有没有在重叠的像素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var detectImgOverlap = function(a, b, rect) &#123;</div><div class="line">    var canvas = document.createElement(&apos;canvas&apos;);</div><div class="line">    var _ctx = canvas.getContext(&apos;2d&apos;);</div><div class="line"></div><div class="line">    _ctx.drawImage(a.img, 0, 0, a.width, a.height);</div><div class="line">    var data1 = _ctx.getImageData(rect[0] - a.x, rect[1] - a.y, rect[2] - rect[0], rect[3] - rect[1]).data;</div><div class="line">    _ctx.clearRect(0, 0, b.width, b.height);</div><div class="line">    _ctx.drawImage(b.img, 0, 0, b.width, b.height);</div><div class="line">    var data2 = _ctx.getImageData(rect[0] - b.x, rect[1] - b.y, rect[2] - rect[0], rect[3] - rect[1]).data;</div><div class="line">    canvas = null;</div><div class="line"></div><div class="line">    for (var i = 3; i &lt; data1.length; i += 4) &#123;</div><div class="line">        if (data1[i] &gt; 0 &amp;&amp; data2[i] &gt; 0) &#123;</div><div class="line">            return true; </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return false;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2017/04/20/基于canvas的动画小游戏/" data-id="cj3ntiuru000wscwpaugzk1r8" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/canvas/">canvas</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/对象池/">对象池</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Vue.js入门练习：todo-list" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/19/Vue.js入门练习：todo-list/">Vue.js入门练习：todo-list</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/04/19/Vue.js入门练习：todo-list/" class="article-date"><time datetime="2017-04-19T02:44:13.000Z" itemprop="datePublished">2017-04-19</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在学习Vue.js，做了一个小项目练练手，话说这个backbone的<a href="http://backbonejs.org/examples/todos/index.html" target="_blank" rel="external">Demo</a>真的很适合作为学习新框架的练手项目。。<br>我做的在<a href="http://shuyzhou.space/todo/">这里</a>。</p>
+<h3 id="创建一个Vue实例"><a href="#创建一个Vue实例" class="headerlink" title="创建一个Vue实例"></a>创建一个Vue实例</h3><p>Vue是一个专注于视图的框架，你只要给定数据和HTML模板，它能自动监听数据的变化并进行相应的DOM操作，使你可以把精力放在你的数据模型上。创建一个Vue实例非常简单，只需要给定根作用域的id，以及你的数据。这里我们需要一个标题，一个输入数据，以及一个装着todo item的列表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var data = &#123;</div><div class="line">    title: &apos;Todos&apos;,</div><div class="line">    items: [],</div><div class="line">    input: &apos;&apos;</div><div class="line">&#125;;</div><div class="line">var app = new Vue(&#123;</div><div class="line">    el: &apos;#todo-app&apos;,</div><div class="line">    data: data</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>在你的HTML代码里需要有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;todo-app&quot;&gt;</div><div class="line">    &lt;header&gt;&#123;&#123;title&#125;&#125;&lt;/header&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;script src=&quot;dep/vue.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
+<p>这样一来，Vue会绑定给定的动态数据，并且app实例会代理你的data,当数据发生变化时相应的DOM元素随之变化。你可以试试在控制台输入下面的代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">app.title = &apos;hello world&apos;;</div><div class="line">data.title = &apos;vue demo&apos;;</div></pre></td></tr></table></figure></p>
+<h3 id="数据的双向绑定"><a href="#数据的双向绑定" class="headerlink" title="数据的双向绑定"></a>数据的双向绑定</h3><p>现在我们需要一个输入表单，通过这个表单输入待办的事项，并且我们要拿到用户输入将其存储并显示出来。首先，需要进行数据双向绑定，从而当输入变化时对应数据产生变化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input v-on:keyup.enter=&quot;addItem&quot; v-model=&quot;input&quot; type=&quot;text&quot; name=&quot;input&quot; placeholder=&quot;what needs to be done?&quot;&gt;</div></pre></td></tr></table></figure></p>
+<p><code>v-model</code>是Vue的一个指令，Vue会自动识别写在HTML元素里的指令，所有指令都带有一个前缀<code>v-</code>以区别于DOM的原生属性。<code>v-model</code>指令创建双向绑定，输入变化会改变绑定数据，数据变化也会改变表单输入。</p>
+<h3 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h3><p>在用户输入事件发生时，我们需要存储待办事项并显示出来。<code>v-on</code>指令用来绑定事件的回掉函数，<code>keyup</code>是事件参数，它对应这原生DOM事件。<code>.enter</code>是修饰符，在这里指按下enter键的意思。<br>addItem函数主要做了两件事，存储输入并清空表单。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">addItem: function () &#123;</div><div class="line">    if(!!this.input)&#123;</div><div class="line">        this.items.push(&#123;id:uid++,title:this.input,done:false&#125;);</div><div class="line">        this.input = &apos;&apos;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意，所有的想要被Vue实例访问到的方法都需要写着methods对象中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var app = new Vue(&#123;</div><div class="line">    el: &apos;#todo-app&apos;,</div><div class="line">    data: data，</div><div class="line">    methods: &#123;...&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>当数据改变时，我们希望把数据存储在本地。而一个Vue实例的生命周期如下图：<br><img src="/images/lifecycle.png" alt=""><br>Vue允许在生命周期中的某个阶段放入生命周期钩子，这不就是我们想要的吗？我们只需要在updated阶段的回调函数存储。并且在created阶段获取存储的数据即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">created: function () &#123;</div><div class="line">    var store = localStorage.getItem(&apos;todos&apos;);</div><div class="line">    if (store) &#123;</div><div class="line">        this.items = JSON.parse(store);</div><div class="line">    &#125;</div><div class="line">&#125;,</div><div class="line">updated: function () &#123;</div><div class="line">    var newstore = JSON.stringify(this.items);</div><div class="line">    localStorage.setItem(&apos;todos&apos;,newstore);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Vue组件"><a href="#Vue组件" class="headerlink" title="Vue组件"></a>Vue组件</h3><p>组件的存在是为了将可以复用的代码封装出来,而我们的todo list中的每一个item都是相似的，都有着相同的结构和方法，所以我注册了一个全局组件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Vue.component(&apos;todo-item&apos;, &#123;</div><div class="line">    name: &apos;todo-item&apos;,</div><div class="line">    props: ...,</div><div class="line">    template: ...,</div><div class="line">    methods: ...</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>这样在HTML代码中我们就可以用我们的自定义组件了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;todo-item v-for=&quot;(item, index) in items&quot; :items=&quot;items&quot; :item=&quot;item&quot;  :index=&quot;index&quot; :key=&quot;item.id&quot;&gt;&lt;/todo-item&gt;</div></pre></td></tr></table></figure></p>
+<p>组件是一个特殊的Vue实例，它的作用域是独立的，组件并不能读取父实例的数据。所以父实例需要利用<code>props</code>选项向子组件传递数据，子组件要显式地用<code>props</code>选项声明它期待获得的数据：<code>props: [&#39;message&#39;]</code>。然后利用指令<code>v-bind</code>（v-bind:可缩写为:）绑定子组件的变量。这里传入了三个数据，分别是所有待办事项items、该组件对应的事项item和其在数组中的索引index。组件主要有了下面两个方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">removeItem: function () &#123;</div><div class="line">    this.items.splice(this.index, 1);</div><div class="line">&#125;,</div><div class="line">toggle: function () &#123;</div><div class="line">   var item = this.items[this.index];</div><div class="line">   item.done = !item.done;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>removeItem从数组中删除对应的事项，toggle切换事项的状态（已完成/未完成）。</p>
+<h3 id="改变item状态"><a href="#改变item状态" class="headerlink" title="改变item状态"></a>改变item状态</h3><p>选择一个item，它的状态将被标记成已完成，点击全选框可以标记/取消标记所有item。<br>首先，为全选框绑定一个数据和点击事件的回调。markAll代表全选框的选择状态，而点击事件发生时需要改变所有item的状态。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;label v-if=&quot;hasItem&quot;&gt;&lt;input v-on:click=&quot;doAll&quot; v-model=&quot;markAll&quot; type=&quot;checkbox&quot; name=&quot;allDone&quot;&gt;Mark all as complete&lt;/label&gt;</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">doAll: function () &#123;</div><div class="line">    this.items.forEach(function (item) &#123;</div><div class="line">        item.done = this.markAll;</div><div class="line">    &#125;.bind(this));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接着定义一个计算属性allDone，表示所有的item状态都为已完成，通过监控该属性的变化动态改变markAll属性的值。当item被一个一个勾选/取消时，全选框的勾选状态也相应改变。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">computed: &#123;</div><div class="line">    allDone: function () &#123;</div><div class="line">        if (this.items.length === 0) &#123;return false;&#125;</div><div class="line">        for (var item of this.items)&#123;</div><div class="line">            if (!item.done) &#123;return false;&#125;</div><div class="line">        &#125;</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">&#125;，</div><div class="line">watch: &#123;</div><div class="line">    allDone: function (val) &#123;</div><div class="line">        this.markAll = val;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p><a href="https://github.com/shuyzhou/vue-demo" target="_blank" rel="external">项目地址</a></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2017/04/19/Vue.js入门练习：todo-list/" data-id="cj3ntiuru000tscwpvf1jrghz" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue-js/">Vue.js</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-HTML语义化标签（三）" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/30/HTML语义化标签（三）/">HTML语义化标签（三）</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/03/30/HTML语义化标签（三）/" class="article-date"><time datetime="2017-03-30T06:31:56.000Z" itemprop="datePublished">2017-03-30</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/HTML/">HTML</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="插入文本"><a href="#插入文本" class="headerlink" title="插入文本"></a>插入文本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a dozen is &lt;ins&gt;12&lt;/ins&gt; pieces</div></pre></td></tr></table></figure>
+<p><code>&lt;ins&gt;</code>标签定义已经被插入文档中的文本。</p>
+<h3 id="图像映射"><a href="#图像映射" class="headerlink" title="图像映射"></a>图像映射</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;planets.jpg&quot; border=&quot;0&quot; usemap=&quot;#planetmap&quot; alt=&quot;Planets&quot; /&gt;</div><div class="line"></div><div class="line">&lt;map name=&quot;planetmap&quot; id=&quot;planetmap&quot;&gt;</div><div class="line">  &lt;area shape=&quot;circle&quot; coords=&quot;180,139,14&quot; href =&quot;venus.html&quot; alt=&quot;Venus&quot; /&gt;</div><div class="line">  &lt;area shape=&quot;circle&quot; coords=&quot;129,161,10&quot; href =&quot;mercur.html&quot; alt=&quot;Mercury&quot; /&gt;</div><div class="line">  &lt;area shape=&quot;rect&quot; coords=&quot;0,0,110,260&quot; href =&quot;sun.html&quot; alt=&quot;Sun&quot; /&gt;</div><div class="line">&lt;/map&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;map&gt;</code>定义一个带有可点击区域的图像映射，<code>&lt;area&gt;</code>定义图像中可点击区域和其映射的url，<code>img</code>元素中的 “usemap” 属性引用 map 元素中的 “id” 或 “name” 属性。</p>
+<h3 id="标记文本"><a href="#标记文本" class="headerlink" title="标记文本"></a>标记文本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;Do not forget to buy &lt;mark&gt;milk&lt;/mark&gt; today.&lt;/p&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;mark&gt;</code>标签定义带有记号的文本。</p>
+<h3 id="导航栏"><a href="#导航栏" class="headerlink" title="导航栏"></a>导航栏</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;nav&gt;</div><div class="line">&lt;a href=&quot;index.asp&quot;&gt;Home&lt;/a&gt;</div><div class="line">&lt;a href=&quot;html5_meter.asp&quot;&gt;Previous&lt;/a&gt;</div><div class="line">&lt;a href=&quot;html5_noscript.asp&quot;&gt;Next&lt;/a&gt;</div><div class="line">&lt;/nav&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;nav&gt;</code>标签定义导航链接的部分。</p>
+<h3 id="进度"><a href="#进度" class="headerlink" title="进度"></a>进度</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;progress value=&quot;22&quot; max=&quot;100&quot;&gt;&lt;/progress&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;progress&gt;</code>标签标示任务的进度（进程）</p>
+<h3 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;video src=&quot;movie.ogg&quot; controls=&quot;controls&quot;&gt;</div><div class="line">您的浏览器不支持 video 标签。</div><div class="line">&lt;/video&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;video&gt;</code>标签定义视频，比如电影片段或其他视频流。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2017/03/30/HTML语义化标签（三）/" data-id="cj3ntiuqj0007scwpw2t6dxz6" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语义化/">语义化</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-HTML语义化标签（二）" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/30/HTML语义化标签（二）/">HTML语义化标签（二）</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/03/30/HTML语义化标签（二）/" class="article-date"><time datetime="2017-03-30T06:01:22.000Z" itemprop="datePublished">2017-03-30</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/HTML/">HTML</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="删除文本"><a href="#删除文本" class="headerlink" title="删除文本"></a>删除文本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a dozen is &lt;del&gt;20&lt;/del&gt; 12 pieces</div></pre></td></tr></table></figure>
+<p><code>&lt;del&gt;</code>定义文档中已被删除的文本。</p>
+<h3 id="选项列表"><a href="#选项列表" class="headerlink" title="选项列表"></a>选项列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;myCar&quot; list=&quot;cars&quot; /&gt;</div><div class="line">&lt;datalist id=&quot;cars&quot;&gt;</div><div class="line">  &lt;option value=&quot;BMW&quot;&gt;</div><div class="line">  &lt;option value=&quot;Ford&quot;&gt;</div><div class="line">  &lt;option value=&quot;Volvo&quot;&gt;</div><div class="line">&lt;/datalist&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;datalist&gt;</code> 标签定义选项列表。一般与 input 元素配合使用该元素，来定义 input可能的值。需使用 input 元素的 list 属性来绑定 datalist。<br>关于<code>&lt;datalist&gt;</code>与<code>&lt;select&gt;</code>的区别，<code>&lt;datalist&gt;</code>允许用户自定义输入，<code>&lt;datalist&gt;</code>只是一种建议。</p>
+<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;embed src=&quot;helloworld.swf&quot; /&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;embed&gt;</code>标签定义嵌入的内容，比如插件。</p>
+<h3 id="表单组"><a href="#表单组" class="headerlink" title="表单组"></a>表单组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;form&gt;</div><div class="line">  &lt;fieldset&gt;</div><div class="line">    &lt;legend&gt;health information&lt;/legend&gt;</div><div class="line">    height: &lt;input type=&quot;text&quot; /&gt;</div><div class="line">    weight: &lt;input type=&quot;text&quot; /&gt;</div><div class="line">  &lt;/fieldset&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;fieldset&gt;</code>标签可将表单内的相关元素分组。<br>当一组表单元素放到<code>&lt;fieldset&gt;</code>标签内时，浏览器会以特殊方式来显示它们<br><code>&lt;legend&gt;</code>标签为<code>fieldset</code>元素定义标题。</p>
+<h3 id="插图"><a href="#插图" class="headerlink" title="插图"></a>插图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;figure&gt;</div><div class="line">  &lt;p&gt;黄浦江上的的卢浦大桥&lt;/p&gt;</div><div class="line">  &lt;img src=&quot;shanghai_lupu_bridge.jpg&quot; width=&quot;350&quot; height=&quot;234&quot; /&gt;</div><div class="line">&lt;/figure&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;figure&gt;</code>标签规定独立的流内容（图像、图表、照片、代码等等）。<br><code>figure</code>元素的内容应该与主内容相关，但如果被删除，则不应对文档流产生影响。</p>
+<h3 id="页脚"><a href="#页脚" class="headerlink" title="页脚"></a>页脚</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;footer&gt;</div><div class="line">  &lt;p&gt;Posted by: W3School&lt;/p&gt;</div><div class="line">  &lt;p&gt;Contact information: &lt;a href=&quot;mailto:someone@example.com&quot;&gt;someone@example.com&lt;/a&gt;.&lt;/p&gt;</div><div class="line">&lt;/footer&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;footer&gt;</code>标签定义文档或节的页脚，页脚通常包含文档的作者、版权信息、使用条款链接、联系信息等等。</p>
+<h3 id="页眉"><a href="#页眉" class="headerlink" title="页眉"></a>页眉</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;header&gt;</div><div class="line">&lt;h1&gt;Welcome to my homepage&lt;/h1&gt;</div><div class="line">&lt;p&gt;My name is Donald Duck&lt;/p&gt;</div><div class="line">&lt;/header&gt;</div><div class="line"></div><div class="line">&lt;p&gt;The rest of my home page...&lt;/p&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;header&gt;</code>标签定义文档的页眉（介绍信息）。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2017/03/30/HTML语义化标签（二）/" data-id="cj3ntiuqz000ascwpqbbk7gte" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语义化/">语义化</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-HTML语义化标签（一）" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/30/HTML语义化标签（一）/">HTML语义化标签（一）</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/03/30/HTML语义化标签（一）/" class="article-date"><time datetime="2017-03-30T05:35:41.000Z" itemprop="datePublished">2017-03-30</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/HTML/">HTML</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>总结了下自己不熟悉的且大部分浏览器支持的语义化标签，希望以后能多多注意。</p>
+<h3 id="块引用"><a href="#块引用" class="headerlink" title="块引用"></a>块引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;blockquote&gt;</div><div class="line">Here is a long quotation here is a long quotation here is a long quotation </div><div class="line">here is a long quotation here is a long quotation here is a long quotation </div><div class="line">&lt;/blockquote&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;blockquote&gt;</code>与 <code>&lt;/blockquote&gt;</code>之间的所有文本都会从常规文本中分离出来，经常会在左、右两边进行缩进（增加外边距），而且有时会使用斜体。也就是说，块引用拥有它们自己的空间。</p>
+<h3 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;article&gt;</div><div class="line">  &lt;h1&gt;Internet Explorer 9&lt;/h1&gt;</div><div class="line">  &lt;p&gt;Windows Internet Explorer 9（简称 IE9）于 2011 年 3 月 14 日发布.....&lt;/p&gt;</div><div class="line">&lt;/article&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;article&gt;</code> 标签规定独立的自包含内容，其有自身的意义，独立于站点的其余部分。</p>
+<h3 id="相关内容"><a href="#相关内容" class="headerlink" title="相关内容"></a>相关内容</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;Me and my family visited The Epcot center this summer.&lt;/p&gt;</div><div class="line">&lt;aside&gt;</div><div class="line">&lt;h4&gt;Epcot Center&lt;/h4&gt;</div><div class="line">The Epcot Center is a theme park in Disney World, Florida.</div><div class="line">&lt;/aside&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;aside&gt;</code> 标签定义其所处内容之外的与之相关的内容。</p>
+<h3 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;audio src=&quot;someaudio.wav&quot;&gt;</div><div class="line">您的浏览器不支持 audio 标签。</div><div class="line">&lt;/audio&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;audio&gt;</code> 标签定义声音，比如音乐或其他音频流</p>
+<h3 id="表格标题"><a href="#表格标题" class="headerlink" title="表格标题"></a>表格标题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;table border=&quot;1&quot;&gt;</div><div class="line">  &lt;caption&gt;Monthly savings&lt;/caption&gt;</div><div class="line">  &lt;tr&gt;</div><div class="line">    &lt;th&gt;Month&lt;/th&gt;</div><div class="line">    &lt;th&gt;Savings&lt;/th&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">  &lt;tr&gt;</div><div class="line">    &lt;td&gt;January&lt;/td&gt;</div><div class="line">    &lt;td&gt;$100&lt;/td&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;caption&gt;</code>标签定义表格标题。它必须紧随table标签之后。只能对每个表格定义一个标题，通常这个标题会被居中于表格之上。</p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;cite&gt;</div><div class="line">Here is a citation</div><div class="line">&lt;/cite&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;cite&gt;</code>标签通常表示它所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。<br>浏览器将以斜体显示引用的文本。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><code>&lt;code&gt;</code> 标签用于表示计算机源代码或者其他机器可以阅读的文本内容。这个标签将计算机代码与其它文本区分开来。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2017/03/30/HTML语义化标签（一）/" data-id="cj3ntiuqj0006scwpasbndolu" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/语义化/">语义化</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-总结：元素居中的纯CSS方法" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/16/总结：元素居中的纯CSS方法/">总结：元素居中的纯CSS方法</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/03/16/总结：元素居中的纯CSS方法/" class="article-date"><time datetime="2017-03-16T03:27:44.000Z" itemprop="datePublished">2017-03-16</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CSS/">CSS</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>总结下各种居中方式。</p>
+<h4 id="块级元素固定宽高"><a href="#块级元素固定宽高" class="headerlink" title="块级元素固定宽高"></a>块级元素固定宽高</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	position: absolute;/* or relative*/</div><div class="line">&#125;</div><div class="line">子元素 &#123;</div><div class="line">	position: absolute;</div><div class="line">	top:50%;</div><div class="line">	left:50%;</div><div class="line">	margin-top: -(元素高度/2);</div><div class="line">	margin-left: -(元素宽度/2);</div><div class="line">/* or transform:translate(-50% -50%);*/</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	border: 1px solid black;</div><div class="line">	position: absolute;</div><div class="line">	top: 0;</div><div class="line">	left: 0;</div><div class="line">	bottom: 0;</div><div class="line">	right: 0;</div><div class="line">	margin: auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里有一个很有意思的点，就是<code>position: absolute;</code>时浏览器计算元素位置的规则。规则比较复杂，粗略来讲，对于某元素，<code>left</code> + <code>margin-left</code> + <code>border-left-width</code> + <code>padding-left</code> + <code>width</code> + <code>padding-right</code> + <code>border-right-width</code> + <code>margin-right</code> + <code>right</code> = 包含块宽度。在这里，是<code>margin-left</code> + <code>width</code> + <code>margin-right</code> = 包含块宽度。而<code>margin: auto</code>使得<code>margin-left</code> = <code>margin-right</code>，导致元素居中。具体规则可以看<a href="https://segmentfault.com/a/1190000003820437#articleHeader9" target="_blank" rel="external">这里</a>。<br>这几种方式可使元素在父元素中居中。</p>
+<h4 id="块级元素固定宽"><a href="#块级元素固定宽" class="headerlink" title="块级元素固定宽"></a>块级元素固定宽</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	margin: 0 auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种方式可使元素在父元素中水平居中。</p>
+<h4 id="内联元素水平居中"><a href="#内联元素水平居中" class="headerlink" title="内联元素水平居中"></a>内联元素水平居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	text-align:center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="文本垂直居中"><a href="#文本垂直居中" class="headerlink" title="文本垂直居中"></a>文本垂直居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	line-height:想要的文本高度;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="不定宽块级元素水平居中"><a href="#不定宽块级元素水平居中" class="headerlink" title="不定宽块级元素水平居中"></a>不定宽块级元素水平居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	float: left;</div><div class="line">	position:relative;</div><div class="line">	left:50%;</div><div class="line">&#125;</div><div class="line">元素 &#123;</div><div class="line">	position:relative;</div><div class="line">	left:-50%;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里利用了浮动自适应宽高的原理。对于一个不定宽高元素，浮动会使其变成块级元素，并使该块级元素的宽高尽可能小。关于浮动的细节可以看<a href="https://segmentfault.com/a/1190000006041960" target="_blank" rel="external">这里</a>;<br>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	text-align:center;</div><div class="line">&#125;</div><div class="line">元素 &#123;</div><div class="line">	display:inline;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="块级元素垂直居中"><a href="#块级元素垂直居中" class="headerlink" title="块级元素垂直居中"></a>块级元素垂直居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	display:table-cell;</div><div class="line">	vertical-align:middle;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在表格中<code>vertical-align:middle;</code>可以使表格的子元素垂直居中。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2017/03/16/总结：元素居中的纯CSS方法/" data-id="cj3ntiuru0013scwp5522yr6w" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/居中/">居中</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-IFE学习心得" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/15/IFE学习心得/">IFE学习心得</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2017/03/15/IFE学习心得/" class="article-date"><time datetime="2017-03-15T15:38:51.000Z" itemprop="datePublished">2017-03-15</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CSS/">CSS</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近参加了IFE2017新学期的课程，通过自学的方式做题闯关，解决了很多大大小小的问题。强化了我的基础知识体系，特别是CSS3。因为之前实习一直只负责js部分，而这一次的训练让我对CSS3有了一些新的了解。下面记录下我的心得：</p>
+<h3 id="display-none和visibility-hidden"><a href="#display-none和visibility-hidden" class="headerlink" title="display:none和visibility:hidden"></a><code>display:none</code>和<code>visibility:hidden</code></h3><p>这两个规则都表示隐藏某个元素，但其实有着本质的不同。前者作用的元素在文档流中不占位，而后者作用的元素在文档流中占位。换句话收，一个元素被加上了<code>display:none</code>样式，它将不出现在浏览器生成的渲染树中，对其它元素的位置无任何影响，所以浏览器不会去计算它的偏移量（<code>offsetWidth</code>和<code>offsetHeight</code>）；而一个元素被加上了<code>visibility:hidden</code>样式的话，它会被正常渲染，只是“看不见”而已。</p>
+<h3 id="transition和animation"><a href="#transition和animation" class="headerlink" title="transition和animation"></a><code>transition</code>和<code>animation</code></h3><p>这是CSS3实现动画的两种方式，但这两个属性在多个方面都有着不同的表现。下面的表格比较了它们不同之处：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>transition</th>
+<th>animation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关键帧</td>
+<td>两帧</td>
+<td>可多帧</td>
+</tr>
+<tr>
+<td>触发方式</td>
+<td>事件触发</td>
+<td>可自动播放</td>
+</tr>
+<tr>
+<td>执行次数</td>
+<td>一次</td>
+<td>可多次</td>
+</tr>
+<tr>
+<td>可否暂停</td>
+<td>不能</td>
+<td>可以</td>
+</tr>
+<tr>
+<td>播放方向是否能逆向</td>
+<td>不能</td>
+<td>可以</td>
+</tr>
+</tbody>
+</table>
+<p>可以看出来，<code>transition</code>属性使某个CSS属性能从一个值平滑地过渡到另一个值，而<code>animation</code>属性是<code>transition</code>的补充，它能真正地实现动画效果。<code>animation</code>可以播放多关键帧的动画，动画可以多次执行并以正向-逆向-正向…的方式播放。了解所有<code>transition</code>属性看<a href="http://www.w3school.com.cn/css3/css3_transition.asp" target="_blank" rel="external">这里</a>,了解所有<code>animation</code>属性看<a href="http://www.w3school.com.cn/css3/css3_animation.asp" target="_blank" rel="external">这里</a>。</p>
+<h3 id="radio的魔力"><a href="#radio的魔力" class="headerlink" title="radio的魔力"></a>radio的魔力</h3><p>一组radio中可以被选择的只有一个，所以利用radio和label和兄弟选择器可以实现通过点击切换其状态的组件，例如导航栏、CSS3动画的播放和暂停按钮。具体Demo看<a href="http://shuyzhou.space/IFE2017/accordion/">这里</a>。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2017/03/15/IFE学习心得/" data-id="cj3ntiuqz000bscwprfnkve2x" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTML/">HTML</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IFE/">IFE</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Javascript常用表达式返回值" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/22/Javascript常用表达式返回值/">Javascript常用表达式返回值</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2016/12/22/Javascript常用表达式返回值/" class="article-date"><time datetime="2016-12-22T02:24:18.000Z" itemprop="datePublished">2016-12-22</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在写代码和阅读他人代码时，不可避免会遇到大量表达式。而了解这些表达式的返回值，有助于我们理解代码里的逻辑，写出逻辑清晰合理的代码。</p>
+<p>Javascript的操作符分为以下几类：</p>
+<ol>
+<li>一元操作符（++，–，=+，=-）</li>
+<li>位操作符（~，&amp;，|，&lt;&lt;，&gt;&gt;）</li>
+<li>布尔操作符（!，&amp;&amp;，||）</li>
+<li>乘性操作符（*，/，%）</li>
+<li>加性操作符（+，-）</li>
+<li>关系操作符（&lt;，&lt;=，&gt;，&gt;=）</li>
+<li>相等操作符（==，！=，===，！==）</li>
+<li>赋值操作符（=）</li>
+</ol>
+<p>其中一元操作符、位操作符、乘性操作符和加性操作符主要用于对数值操作，带有这些操作符的表达式一般返回值为数值，关系操作符和相等操作符用于判断左右两边的关系，返回值为布尔值。所以，本篇博文主要讨论布尔操作符和赋值操作符的返回值。（本文代码均在chrome浏览器下测试）</p>
+<h2 id="布尔操作符（-，-amp-amp-，-）"><a href="#布尔操作符（-，-amp-amp-，-）" class="headerlink" title="布尔操作符（!，&amp;&amp;，||）"></a>布尔操作符（!，&amp;&amp;，||）</h2><hr>
+<h3 id="逻辑非（！）"><a href="#逻辑非（！）" class="headerlink" title="逻辑非（！）"></a>逻辑非（！）</h3><p>在JavaScript中，逻辑非首先将操作数转换为布尔值，然后对其求反。逻辑非操作符遵循如下规则：</p>
+<ul>
+<li>如果操作数是对象，返回false</li>
+<li>如果操作数是空字符串，返回true</li>
+<li>如果操作数是非空字符串，返回false</li>
+<li>如果操作数是数值0，返回true</li>
+<li>如果操作数是任意非0数值，返回false</li>
+<li>如果操作数是null，返回true</li>
+<li>如果操作数是NaN，返回true</li>
+<li>如果操作数是undefined，返回true<br>示例如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">console.log(!false);  // true</div><div class="line">console.log(!&quot;blue&quot;); // false</div><div class="line">console.log(!0);      // true</div><div class="line">console.log(!NaN);    // true</div><div class="line">console.log(!&quot;&quot;);     // true</div><div class="line">console.log(!234);    // false</div><div class="line">console.log(!null);   // true</div><div class="line">console.log(!undefined);  // true</div><div class="line">console.log(![]);     // false</div><div class="line">console.log(!&#123;&#125;);     // false</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="逻辑与（-amp-amp-）"><a href="#逻辑与（-amp-amp-）" class="headerlink" title="逻辑与（&amp;&amp;）"></a>逻辑与（&amp;&amp;）</h3><p>逻辑与操作属于短路操作，如果第一个操作数能够决定结果，就不会对第二个操作数求值。逻辑与操作符的返回值与操作数有关，有如下规则：</p>
+<ul>
+<li>如果第一个操作数求值为真，则返回第二个操作数</li>
+<li>如果第一个操作数求值为假，则返回第一个操作数<br>示例如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var obj1 = &#123;&#125;;</div><div class="line">var obj2 = &#123;</div><div class="line">  name : &quot;shuyzhou&quot;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">console.log(true&amp;&amp;&quot;str&quot;);   //&quot;str&quot;</div><div class="line">console.log(obj2&amp;&amp;null);    //null</div><div class="line">console.log(undefined&amp;&amp;true);   //undefined</div><div class="line">console.log(0&amp;&amp;&quot;str&quot;);   //0</div><div class="line">console.log(null&amp;&amp;true);   //null</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="逻辑或（-）"><a href="#逻辑或（-）" class="headerlink" title="逻辑或（||）"></a>逻辑或（||）</h3><p>逻辑或同样属于短路操作，返回值也与操作数有关，有如下规则：</p>
+<ul>
+<li>如果第一个操作数求值为真，则返回第一个操作数</li>
+<li>如果第一个操作数求值为假，则返回第二个操作数<br>它的规则和逻辑与相反，示例如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var obj1 = &#123;&#125;;</div><div class="line">var obj2 = &#123;</div><div class="line">  name : &quot;shuyzhou&quot;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">console.log(true||&quot;str&quot;);   //true</div><div class="line">console.log(obj2||null);    //obj2</div><div class="line">console.log(NaN||true);   //true</div><div class="line">console.log(0||obj1);   //obj1</div><div class="line">console.log(null||undefined);   //undefined</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="赋值操作符（-）"><a href="#赋值操作符（-）" class="headerlink" title="赋值操作符（=）"></a>赋值操作符（=）</h2><hr>
+<p>赋值操作符将右边的值赋给左边的变量，再返回左边变量的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var obj1 = &#123;&#125;;</div><div class="line">var p1;</div><div class="line">var p2;</div><div class="line"></div><div class="line">console.log(p1 = obj1);		//obj1</div><div class="line">console.log(p2 = 1);		//1</div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2016/12/22/Javascript常用表达式返回值/" data-id="cj3ntiurf000nscwpd5xrl2d7" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/表达式/">表达式</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Nodejs+Express快速搭建服务器" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/20/Nodejs+Express快速搭建服务器/">Nodejs+Express快速搭建服务器</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2016/12/20/Nodejs+Express快速搭建服务器/" class="article-date"><time datetime="2016-12-20T08:55:16.000Z" itemprop="datePublished">2016-12-20</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Nodejs/">Nodejs</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>公司项目是前后端分离的，现在需要实现权限控制，于是抛弃了原来的tomcat，选择Nodejs+Express快速搭建了一个服务器。以下所说内容基于Windows10操作系统</p>
+<h2 id="Nodejs安装"><a href="#Nodejs安装" class="headerlink" title="Nodejs安装"></a>Nodejs安装</h2><p>1.Nodejs官网下载安装包，注意后缀名为.msi<br>2.双击安装包开始安装<br>3.打开cmd，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node -v</div></pre></td></tr></table></figure></p>
+<p>出现版本说明安装成功<br>4.在Nodejs安装目录里新建两个文件夹node_global和node_cache，在命令行键入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm config set prefix &quot;D:\Program Files\nodejs\node_global&quot;（这里为你的安装目录）</div><div class="line">npm config set cache &quot;D:\Program Files\nodejs\node_cache&quot;(这里为你的安装目录)</div></pre></td></tr></table></figure></p>
+<p>设置全局路径<br>5.设置系统遍历NODE_PATH D:\Program Files\nodejs\node_global\node_modules。这样，当你安装了一些模块后，系统能够找到你安装的模块。</p>
+<h2 id="Express安装"><a href="#Express安装" class="headerlink" title="Express安装"></a>Express安装</h2><p>在cmd中输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g express@3.2.2</div></pre></td></tr></table></figure></p>
+<p>自动安装express3.2.2，注意，express4.0和express3.2.2安装和使用方法不一样，所以不要安装错了版本。<br>打开cmd，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">express -V</div></pre></td></tr></table></figure></p>
+<p>出现版本说明安装成功</p>
+<h2 id="创建express项目"><a href="#创建express项目" class="headerlink" title="创建express项目"></a>创建express项目</h2><p>cmd进入工作目录下，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">express -e demo</div></pre></td></tr></table></figure></p>
+<p>创建express工程，并按照提示在cmd输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd demo &amp;&amp; npm install</div></pre></td></tr></table></figure></p>
+<p>这里说明下，在每个使用npm管理模块的项目根目录下会有一个文件package.json，这个文件里会有整个项目的信息，如项目名等。里面有一个属性为dependencies，这个属性表示整个项目依赖的模块。而指令npm install会自动找到当前目录下的package.json并下载dependencies里的所有模块。<br>在cmd输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node app.js</div></pre></td></tr></table></figure></p>
+<p>启动项目。我另外安装了一个工具supervisor，它可以监听项目文件的变化并自动重启服务，在开发时能节省不少时间。</p>
+<p>项目结构：<br>node_modules, 所有项目依赖模块<br>package.json，项目信息和依赖信息<br>app.js，程序入口<br>public，静态文件<br>routes，路由文件<br>Views，页面文件</p>
+<p>public目录下存放着项目所有的静态资源，如css,js，img和一部分html文件。routes目录下存放了路由文件，这个目录里的程序相当于MVC模式中的C。Views目录下存放需要用模板渲染和存在访问限制的html文件。</p>
+<p>app.js：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* 模块依赖</div><div class="line">*/</div><div class="line">var express = require(&apos;express&apos;)</div><div class="line">, routes = require(&apos;./routes&apos;)//这里自动寻找到routes目录下的index.js文件</div><div class="line">, user = require(&apos;./routes/user&apos;)</div><div class="line">, http = require(&apos;http&apos;)</div><div class="line">, path = require(&apos;path&apos;);</div><div class="line"></div><div class="line">var app = express();//生成express实例</div><div class="line"></div><div class="line">//环境变量</div><div class="line">app.set(&apos;port&apos;, process.env.PORT || 3000);//这里配置项目监听端口</div><div class="line">app.set(&apos;views&apos;, __dirname + &apos;/views&apos;);//这里配置页面文件根目录</div><div class="line">app.set(&apos;view engine&apos;, &apos;ejs&apos;);//配置模板引擎</div><div class="line">app.use(express.favicon());</div><div class="line">app.use(express.logger(&apos;dev&apos;));</div><div class="line">app.use(express.bodyParser());</div><div class="line">app.use(express.methodOverride());</div><div class="line">app.use(app.router);</div><div class="line">app.use(express.static(path.join(__dirname, &apos;public&apos;)));//静态文件根目录。当接受到一个请求时先去该目录里找，如果目录中有就直接返回被请求资源，目录里没有请求的资源才会执行下面的路径解析。</div><div class="line"></div><div class="line">// 开发模式</div><div class="line">if (&apos;development&apos; == app.get(&apos;env&apos;)) &#123;</div><div class="line">app.use(express.errorHandler());</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 路径解析</div><div class="line">app.get(&apos;/&apos;, routes.index);//为不同路径指定对应的控制器，权限控制在这里实现</div><div class="line">app.get(&apos;/users&apos;, user.list);</div><div class="line"></div><div class="line">// 启动及端口</div><div class="line">http.createServer(app).listen(app.get(&apos;port&apos;), function()&#123;</div><div class="line">console.log(&apos;Express server listening on port &apos; + app.get(&apos;port&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>我在最后一个路由里加了如下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">app.use(function (req, res, next) &#123;</div><div class="line">    var url = req.originalUrl;</div><div class="line">    if (url != &quot;/&quot;) &#123;</div><div class="line">        return res.redirect(&quot;/error.html&quot;);</div><div class="line">    &#125;</div><div class="line">    next();</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>由于路径解析是按照顺序执行的，当一个不存在的url被输入到浏览器时，由于不能匹配前面所有的路径，自动执行最后一个控制器，统一跳转到error页面，而避免出现浏览器默认的404页面。控制器参数中的next代表下一个控制器，如果一个控制器中没有return语句，则必须加上next();执行下一步路径解析，否则该请求将被挂起。</p>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>由于一个项目监听一个端口，所以采用了Nginx作为反向代理。但这不是唯一的处理方法，可根据实际需求来做相应处理。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2016/12/20/Nodejs+Express快速搭建服务器/" data-id="cj3ntiurf000kscwpfdxebhl1" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Express/">Express</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nodejs/">Nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器/">服务器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/权限控制/">权限控制</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <div id="page-nav">
+    <nav><ul class="pagination"><li class="disabled"><span class="page-prev"><i class="fa fa-chevron-left"></i> Prev</a></li><li class="active"><span class="page-number">1</span></li><li><a class="page-number" href="/page/2/">2</a></li><li><a class="page-next" rel="next" href="/page/2/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+  </div>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  	<h4>About</h4>
+  	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="40 50 140.1 140.1" xml:space="preserve">
+		<g>
+			<path id="edge" class="path" d="M134.8,81c17.8,29.7,22.6,61.3,14.1,80.1c-2.5,5.6-6.3,10.1-11.2,13c0,0-26.3,18.7-62.1,0
+		c-21.5-12.8-20.2-54.5,2.9-93.1C78.5,81,106.7,108.9,134.8,81z"/>
+			<path id="tail" class="path" d="M146.6,165.4c0,0,21.6-13,20.7-40.6"/>
+			<ellipse class="eyes" cx="88.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<ellipse class="eyes" cx="126.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<line class="path hands" x1="100" y1="143.1" x2="106.8" y2="147.8"/>
+			<line class="path hands" x1="106.8" y1="147.8" x2="100" y2="151.5"/>
+			<line class="path hands" x1="116.8" y1="143.1" x2="110" y2="147.8"/>
+			<line class="path hands" x1="110" y1="147.8" x2="116.8" y2="151.5"/>
+		</g>
+		<g id="normal">
+			<polyline id="mouth" points="116,124.8 108,124.8 100,124.8 	"/>
+		</g>
+		<g id="smile">
+			<path class="path" d="M100,125.7c0,0,2.5,4.7,7.7,0"/>
+			<path class="path" d="M115.4,125.7c0,0-2.5,4.7-7.7,0"/>
+			<ellipse class="blush" cx="81.8" cy="129.6" rx="1.8" ry="2.1"/>
+			<ellipse class="blush" cx="136.3" cy="129.6" rx="1.8" ry="2.1"/>
+		</g>
+	</svg>
+  <p>This is <em>shuyzhou</em>'s blog. Enjoy yourself!</p>
+
+</div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/HTML/">HTML</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Express/">Express</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/HTML/">HTML</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/IFE/">IFE</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Vue-js/">Vue.js</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/canvas/">canvas</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/作用域/">作用域</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/创建对象方法/">创建对象方法</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/原型/">原型</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/对象池/">对象池</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/居中/">居中</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/服务器/">服务器</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/权限控制/">权限控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/继承/">继承</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表单/">表单</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表达式/">表达式</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/语义化/">语义化</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/闭包/">闭包</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/Express/" style="font-size: 10px;">Express</a> <a href="/tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="/tags/IFE/" style="font-size: 12.5px;">IFE</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/创建对象方法/" style="font-size: 10px;">创建对象方法</a> <a href="/tags/原型/" style="font-size: 10px;">原型</a> <a href="/tags/对象池/" style="font-size: 10px;">对象池</a> <a href="/tags/居中/" style="font-size: 10px;">居中</a> <a href="/tags/服务器/" style="font-size: 10px;">服务器</a> <a href="/tags/权限控制/" style="font-size: 10px;">权限控制</a> <a href="/tags/继承/" style="font-size: 10px;">继承</a> <a href="/tags/表单/" style="font-size: 10px;">表单</a> <a href="/tags/表达式/" style="font-size: 10px;">表达式</a> <a href="/tags/语义化/" style="font-size: 15px;">语义化</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">April 2017</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/03/">March 2017</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">December 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">November 2016</a><span class="sidebar-module-list-count">6</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/04/25/有趣的鼠标悬浮模糊效果/">有趣的鼠标悬浮模糊效果</a>
+        </li>
+      
+        <li>
+          <a href="/2017/04/20/基于canvas的动画小游戏/">基于canvas的动画小游戏</a>
+        </li>
+      
+        <li>
+          <a href="/2017/04/19/Vue.js入门练习：todo-list/">Vue.js入门练习：todo-list</a>
+        </li>
+      
+        <li>
+          <a href="/2017/03/30/HTML语义化标签（三）/">HTML语义化标签（三）</a>
+        </li>
+      
+        <li>
+          <a href="/2017/03/30/HTML语义化标签（二）/">HTML语义化标签（二）</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 shuyzhou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  <a href="https://github.com/shuyzhou"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+</body>
+</html>

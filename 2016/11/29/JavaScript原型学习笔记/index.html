@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>JavaScript原型学习笔记 | 大周部落格</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="JS是一门面向对象的语言，和其它面向对象的语言不一样的是，在JS中没有类的概念。接触过C++、Java的人都清楚，类实现了对象之间的属性和方法共享，而类的继承实现了类的复用。在JS中，通过基于原型的继承实现了以上的功能。
+1 构造函数、原型和实例在JS中，除了5种基本类型，其它都是对象，函数也是对象。而函数是一类特殊的对象，在每个函数对象被创建的时候，都带有一个prototype属性，这个属性指向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript原型学习笔记">
+<meta property="og:url" content="shuyzhou.space/2016/11/29/JavaScript原型学习笔记/index.html">
+<meta property="og:site_name" content="大周部落格">
+<meta property="og:description" content="JS是一门面向对象的语言，和其它面向对象的语言不一样的是，在JS中没有类的概念。接触过C++、Java的人都清楚，类实现了对象之间的属性和方法共享，而类的继承实现了类的复用。在JS中，通过基于原型的继承实现了以上的功能。
+1 构造函数、原型和实例在JS中，除了5种基本类型，其它都是对象，函数也是对象。而函数是一类特殊的对象，在每个函数对象被创建的时候，都带有一个prototype属性，这个属性指向">
+<meta property="og:image" content="shuyzhou.space/images/prototype.png">
+<meta property="og:updated_time" content="2017-04-21T01:29:59.434Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript原型学习笔记">
+<meta name="twitter:description" content="JS是一门面向对象的语言，和其它面向对象的语言不一样的是，在JS中没有类的概念。接触过C++、Java的人都清楚，类实现了对象之间的属性和方法共享，而类的继承实现了类的复用。在JS中，通过基于原型的继承实现了以上的功能。
+1 构造函数、原型和实例在JS中，除了5种基本类型，其它都是对象，函数也是对象。而函数是一类特殊的对象，在每个函数对象被创建的时候，都带有一个prototype属性，这个属性指向">
+<meta name="twitter:image" content="shuyzhou.space/images/prototype.png">
+  
+    <link rel="alternate" href="/atom.xml" title="大周部落格" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/styles.css">
+  
+
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/mylove/">Mylove</a></li>
+        
+          <li><a class=""
+                 href="/myworks/">Myworks</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">大周部落格</h1>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          <article id="post-JavaScript原型学习笔记" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      JavaScript原型学习笔记
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2016/11/29/JavaScript原型学习笔记/" class="article-date"><time datetime="2016-11-29T07:20:39.000Z" itemprop="datePublished">2016-11-29</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>JS是一门面向对象的语言，和其它面向对象的语言不一样的是，在JS中没有类的概念。接触过C++、Java的人都清楚，类实现了对象之间的属性和方法共享，而类的继承实现了类的复用。在JS中，通过基于原型的继承实现了以上的功能。</p>
+<h3 id="1-构造函数、原型和实例"><a href="#1-构造函数、原型和实例" class="headerlink" title="1 构造函数、原型和实例"></a>1 构造函数、原型和实例</h3><p>在JS中，除了5种基本类型，其它都是对象，函数也是对象。而函数是一类特殊的对象，在每个函数对象被创建的时候，都带有一个prototype属性，这个属性指向函数的原型对象。该原型对象只有一个constructor属性，这个属性指向该函数。构造函数其实在结构上与一般的函数没有区别，但是构造函数一般被用来创建一个实例，所以为了与普通函数区分开，构造函数的函数名的第一个字母一般都是大写。</p>
+<p>通过new操作符，我们可以用一个构造函数创建一个实例。如果一个函数前面加上new操作符，JS引擎其实进行了如下几步操作：</p>
+<p>1.创建一个新对象并将该对象绑定在this上。</p>
+<p>2.使该新对象的[[prototype]]属性指向该构造函数的原型。这个[[prototype]]属性是一个内部属性，但很多浏览器都给每一个对象提供<strong>proto</strong>用于找到其[[prototype]]属性指向的对象。</p>
+<p>3.执行函数代码。</p>
+<p>4.返回新对象的引用。</p>
+<p>如果前面没有加new操作符，就会像普通函数一样执行构造函数。所以构造函数前面一定记得加上new。</p>
+<p>var a = new A();//构造一个实例并使a指向它　　<br>A();//执行该函数<br>通过给构造函数的原型添加属性和方法，能实现对象之间的属性和方法共享。对于一个实例，如果某个属性或者方法在其内部找不到的话JS引擎将去该实例的原型中查找。而p1和p2共享一个原型，所以相当于共享这个原型里的所有属性和方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function Person(name)&#123;</div><div class="line">    this.name = name;</div><div class="line">&#125;</div><div class="line">Person.prototype.say=function()&#123;console.log(this.name);&#125;</div><div class="line">var p1 = new Person(&quot;joe&quot;);</div><div class="line">var p2 = new Person(&quot;sophia&quot;);</div><div class="line">p1.say();</div><div class="line">p2.say();</div></pre></td></tr></table></figure>
+<h3 id="2-原型链"><a href="#2-原型链" class="headerlink" title="2. 原型链"></a>2. 原型链</h3><p>当一个构造函数的原型对象是另外一个构造函数的实例时，就形成了原型链。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function SuperType()&#123;</div><div class="line">    this.property = true;</div><div class="line">&#125;</div><div class="line">SuperType.prototype.getSuperValue = function()&#123;</div><div class="line">　　return this.property;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function SubType()&#123;</div><div class="line">　　this.subproperty = false;</div><div class="line">&#125;</div><div class="line">//继承了SuperType</div><div class="line">SubType.prototype = new SuperType();</div><div class="line">SubType.prototype.getSubValue = function()&#123;</div><div class="line">　　return this.subproperty;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var instance = new SubType();</div><div class="line">alert(instance.getSuperValue());//true</div></pre></td></tr></table></figure>
+<p>以上代码定义了两个类型SuperType和SubType，通过重新赋值给SubType的原型实现了SubType对SuperType的继承。然后给SubType.prototype添加了一个新方法，这样就在继承SuperType.prototype的继承上添加了新方法。这个例子中的构造函数、实例和原型的关系如图：</p>
+<p><img src="/images/prototype.png" alt=""></p>
+<p>可以看到的是，当一个构造函数的原型被赋值语句改变值后（实际上是让构造函数的prototype属性指向了另一个对象），它不会再有一个指向该构造函数的constructor属性。而且，由于SubType的原型是SuperType的一个实例，SubType的所有实例都会共享该SuperType实例的属性和方法。原型链的顶端是Object.prototype。Object.prototype的[[prototype]]属性为空。</p>
+<h3 id="3-确定原型和实例的关系"><a href="#3-确定原型和实例的关系" class="headerlink" title="3.确定原型和实例的关系"></a>3.确定原型和实例的关系</h3><p>有了原型链后，原型和实例的关系变得不那么直接了，有两种方法可以确定原型和实例的关系。</p>
+<p> instanceof<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alert(instance instanceof Object);//true</div><div class="line">alert(instance instanceof SuperType);//true</div><div class="line">alert(instance instanceof SubType);//true</div></pre></td></tr></table></figure></p>
+<p>只要是实例原型链上的对象，instanceof操作符都会返回true。</p>
+<p>isPrototypeOf()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alert(Object.prototype.isPrototypeOf(instance));//true</div><div class="line">alert(SuperType.prototype.isPrototypeOf(instance));//true</div><div class="line">alert(SubType.prototype.isPrototypeOf(instance));//true</div></pre></td></tr></table></figure></p>
+<h3 id="4-重新原型方法"><a href="#4-重新原型方法" class="headerlink" title="4.重新原型方法"></a>4.重新原型方法</h3><p>虽然，当某些原生原型或第三方JS库定义的原型方法不满足我们的需求时，可以通过SuperType.prototype.xxx = function ooo(){…}的方式重写原型方法，但不建议这么做。可以重写我们自定义的类型SubType的原型方法。养成只修改自己创建的类型的习惯，可以避免一些将来可能会出现的错误。</p>
+<h3 id="5-hasOwnProperty"><a href="#5-hasOwnProperty" class="headerlink" title="5.hasOwnProperty"></a>5.hasOwnProperty</h3><p>在使用for in语句遍历对象时，它先查找对象的属性，如果没有会沿着原型链查找对象的原型，一直到Object的原型上。这样不可避免地会出现查找效率问题。hasOwnProperty是Object.prototype的一个方法，它能判断一个对象是否包含自定义属性而不是原型链上的属性。但如果一个对象改写了这个属性，就需要使用外部的 hasOwnProperty 函数来获取正确的结果。</p>
+<p>参考文章：</p>
+<p>1.<a href="http://www.nowamagic.net/librarys/veda/detail/1648" target="_blank" rel="external">http://www.nowamagic.net/librarys/veda/detail/1648</a></p>
+<p>2.JS高级程序设计</p>
+<p>3.知乎</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2016/11/29/JavaScript原型学习笔记/" data-id="cj3ntiuqz000fscwphz0ezduy" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/原型/">原型</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2016/11/28/JavaScript作用域学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">JavaScript作用域学习笔记</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/2016/11/29/JavaScript闭包学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">JavaScript闭包学习笔记</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  	<h4>About</h4>
+  	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="40 50 140.1 140.1" xml:space="preserve">
+		<g>
+			<path id="edge" class="path" d="M134.8,81c17.8,29.7,22.6,61.3,14.1,80.1c-2.5,5.6-6.3,10.1-11.2,13c0,0-26.3,18.7-62.1,0
+		c-21.5-12.8-20.2-54.5,2.9-93.1C78.5,81,106.7,108.9,134.8,81z"/>
+			<path id="tail" class="path" d="M146.6,165.4c0,0,21.6-13,20.7-40.6"/>
+			<ellipse class="eyes" cx="88.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<ellipse class="eyes" cx="126.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<line class="path hands" x1="100" y1="143.1" x2="106.8" y2="147.8"/>
+			<line class="path hands" x1="106.8" y1="147.8" x2="100" y2="151.5"/>
+			<line class="path hands" x1="116.8" y1="143.1" x2="110" y2="147.8"/>
+			<line class="path hands" x1="110" y1="147.8" x2="116.8" y2="151.5"/>
+		</g>
+		<g id="normal">
+			<polyline id="mouth" points="116,124.8 108,124.8 100,124.8 	"/>
+		</g>
+		<g id="smile">
+			<path class="path" d="M100,125.7c0,0,2.5,4.7,7.7,0"/>
+			<path class="path" d="M115.4,125.7c0,0-2.5,4.7-7.7,0"/>
+			<ellipse class="blush" cx="81.8" cy="129.6" rx="1.8" ry="2.1"/>
+			<ellipse class="blush" cx="136.3" cy="129.6" rx="1.8" ry="2.1"/>
+		</g>
+	</svg>
+  <p>This is <em>shuyzhou</em>'s blog. Enjoy yourself!</p>
+
+</div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/HTML/">HTML</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Express/">Express</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/HTML/">HTML</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/IFE/">IFE</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Vue-js/">Vue.js</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/canvas/">canvas</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/作用域/">作用域</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/创建对象方法/">创建对象方法</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/原型/">原型</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/对象池/">对象池</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/居中/">居中</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/服务器/">服务器</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/权限控制/">权限控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/继承/">继承</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表单/">表单</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表达式/">表达式</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/语义化/">语义化</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/闭包/">闭包</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/Express/" style="font-size: 10px;">Express</a> <a href="/tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="/tags/IFE/" style="font-size: 12.5px;">IFE</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/创建对象方法/" style="font-size: 10px;">创建对象方法</a> <a href="/tags/原型/" style="font-size: 10px;">原型</a> <a href="/tags/对象池/" style="font-size: 10px;">对象池</a> <a href="/tags/居中/" style="font-size: 10px;">居中</a> <a href="/tags/服务器/" style="font-size: 10px;">服务器</a> <a href="/tags/权限控制/" style="font-size: 10px;">权限控制</a> <a href="/tags/继承/" style="font-size: 10px;">继承</a> <a href="/tags/表单/" style="font-size: 10px;">表单</a> <a href="/tags/表达式/" style="font-size: 10px;">表达式</a> <a href="/tags/语义化/" style="font-size: 15px;">语义化</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">April 2017</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/03/">March 2017</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">December 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">November 2016</a><span class="sidebar-module-list-count">6</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/04/25/有趣的鼠标悬浮模糊效果/">有趣的鼠标悬浮模糊效果</a>
+        </li>
+      
+        <li>
+          <a href="/2017/04/20/基于canvas的动画小游戏/">基于canvas的动画小游戏</a>
+        </li>
+      
+        <li>
+          <a href="/2017/04/19/Vue.js入门练习：todo-list/">Vue.js入门练习：todo-list</a>
+        </li>
+      
+        <li>
+          <a href="/2017/03/30/HTML语义化标签（三）/">HTML语义化标签（三）</a>
+        </li>
+      
+        <li>
+          <a href="/2017/03/30/HTML语义化标签（二）/">HTML语义化标签（二）</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 shuyzhou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  <a href="https://github.com/shuyzhou"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+</body>
+</html>

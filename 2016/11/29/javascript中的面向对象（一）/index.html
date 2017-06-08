@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>javascript中的面向对象（一） | 大周部落格</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ES6中已有类class
+创建对象工厂模式用函数封装创建特定对象的细节123456789101112131415function createPerson(name, age, job)&amp;#123;var o = new Object();o.name = name;o.age = age;o.job = job;o.sayName = function()&amp;#123;alert(this.nam">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript中的面向对象（一）">
+<meta property="og:url" content="shuyzhou.space/2016/11/29/javascript中的面向对象（一）/index.html">
+<meta property="og:site_name" content="大周部落格">
+<meta property="og:description" content="ES6中已有类class
+创建对象工厂模式用函数封装创建特定对象的细节123456789101112131415function createPerson(name, age, job)&amp;#123;var o = new Object();o.name = name;o.age = age;o.job = job;o.sayName = function()&amp;#123;alert(this.nam">
+<meta property="og:updated_time" content="2017-04-21T01:30:14.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript中的面向对象（一）">
+<meta name="twitter:description" content="ES6中已有类class
+创建对象工厂模式用函数封装创建特定对象的细节123456789101112131415function createPerson(name, age, job)&amp;#123;var o = new Object();o.name = name;o.age = age;o.job = job;o.sayName = function()&amp;#123;alert(this.nam">
+  
+    <link rel="alternate" href="/atom.xml" title="大周部落格" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/css/styles.css">
+  
+
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class=""
+                 href="/index.html">Home</a></li>
+        
+          <li><a class=""
+                 href="/archives/">Archives</a></li>
+        
+          <li><a class=""
+                 href="/mylove/">Mylove</a></li>
+        
+          <li><a class=""
+                 href="/myworks/">Myworks</a></li>
+        
+      </ul>
+
+      <!--
+      <ul class="nav navbar-nav navbar-right">
+        
+          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+      </ul>
+      -->
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <div class="blog-header">
+  <h1 class="blog-title">大周部落格</h1>
+  
+</div>
+
+    <div class="row">
+        <div class="col-sm-8 blog-main">
+          <article id="post-javascript中的面向对象（一）" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      javascript中的面向对象（一）
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    <div class="article-datetime">
+  <a href="/2016/11/29/javascript中的面向对象（一）/" class="article-date"><time datetime="2016-11-29T07:30:08.000Z" itemprop="datePublished">2016-11-29</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>ES6中已有类class</em></p>
+<h3 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h3><h4 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h4><p>用函数封装创建特定对象的细节<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function createPerson(name, age, job)&#123;</div><div class="line">var o = new Object();</div><div class="line">o.name = name;</div><div class="line">o.age = age;</div><div class="line">o.job = job;</div><div class="line">o.sayName = function()&#123;</div><div class="line">alert(this.name);</div><div class="line">&#125;;</div><div class="line">return o;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var person1 = createPerson(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);</div><div class="line">var person2 = createPerson(&quot;Greg&quot;, 27, &quot;Doctor&quot;);</div><div class="line">person1.sayName();   //&quot;Nicholas&quot;</div><div class="line">person2.sayName();   //&quot;Greg&quot;</div></pre></td></tr></table></figure></p>
+<p>优点：对创建对象的细节进行封装，方便创建多个相似对象<br>缺点：同一个工厂创建的对象间没有联系；未解决对象识别问题。</p>
+<h4 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h4><p>利用构造函数创建对象，不用显式创建对象。new 操作符使得this绑定在新对象上，并且可以用instanceof操作符判断对象的来源。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function Person(name, age, job)&#123;</div><div class="line">    this.name = name;</div><div class="line">    this.age = age;</div><div class="line">    this.job = job;</div><div class="line">    this.sayName = function()&#123;</div><div class="line">        alert(this.name);</div><div class="line">    &#125;;    </div><div class="line">&#125;     </div><div class="line">var person1 = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);</div><div class="line">var person2 = new Person(&quot;Greg&quot;, 27, &quot;Doctor&quot;);</div><div class="line">person1.sayName();   //&quot;Nicholas&quot;</div><div class="line">person2.sayName();   //&quot;Greg&quot; </div><div class="line">alert(person1 instanceof Object);  //true</div><div class="line">alert(person1 instanceof Person);  //true</div><div class="line">alert(person2 instanceof Object);  //true</div><div class="line">alert(person2 instanceof Person);  //true</div><div class="line">alert(person1.constructor == Person);  //true</div><div class="line">alert(person2.constructor == Person);  //true </div><div class="line">alert(person1.sayName == person2.sayName);  //false</div></pre></td></tr></table></figure></p>
+<p>优点：解决了对象识别问题<br>缺点：每个方法要在每个实例上创建一遍</p>
+<h4 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">function Person()&#123;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype.name = &quot;Nicholas&quot;;</div><div class="line">Person.prototype.age = 29;</div><div class="line">Person.prototype.job = &quot;Software Engineer&quot;;</div><div class="line">Person.prototype.sayName = function()&#123;</div><div class="line">    alert(this.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var person1 = new Person();</div><div class="line">person1.sayName();   //&quot;Nicholas&quot;</div><div class="line"></div><div class="line">var person2 = new Person();</div><div class="line">person2.sayName();   //&quot;Nicholas&quot;</div><div class="line">  </div><div class="line">alert(person1.sayName == person2.sayName);  //true</div><div class="line"></div><div class="line">alert(Person.prototype.isPrototypeOf(person1));  //true</div><div class="line">alert(Person.prototype.isPrototypeOf(person2));  //true</div><div class="line"></div><div class="line">//only works if Object.getPrototypeOf() is available</div><div class="line">if (Object.getPrototypeOf)&#123;</div><div class="line">    alert(Object.getPrototypeOf(person1) == Person.prototype);  //true</div><div class="line">    alert(Object.getPrototypeOf(person1).name);  //&quot;Nicholas&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>优点：实例之间共享原型的属性和方法<br>缺点：以对象字面量方法重写原型对象会切断之前所创建的对象与构造函数的联系；对象字面量重写原型时需加上constructor属性。<br>注意：1.对对象某属性进行赋值以外的操作时会发生标识符解析，若该属性只存在于原型中且为引用，操作将改变引用指向的对象。如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function Person()&#123;&#125;</div><div class="line">Person.prototype.name = [&quot;Nicola&quot;];</div><div class="line">Person.prototype.age = 18;</div><div class="line">var person1 = new Person();</div><div class="line">var person2 = new Person();</div><div class="line">person1.name.push(&quot;Alice&quot;);</div><div class="line">console.log(person1.name);//[&quot;Nicola&quot;,&quot;Alice&quot;]</div><div class="line">console.log(person2.name);//[&quot;Nicola&quot;,&quot;Alice&quot;]</div><div class="line">而如果是赋值操作，则不能改写原型中的值，而是新增一个该对象的同名属性。如下：</div><div class="line">function Person()&#123;&#125;</div><div class="line">Person.prototype.name = [&quot;Nicola&quot;];</div><div class="line">Person.prototype.age = 18;</div><div class="line">var person1 = new Person();</div><div class="line">var person2 = new Person();</div><div class="line">person1.name = [&quot;Alice&quot;];</div><div class="line">console.log(person1.name);//[&quot;Alice&quot;]</div><div class="line">console.log(person2.name);//[&quot;Nicola&quot;]</div><div class="line">delete person1.name;</div><div class="line">console.log(person1.name);//[&quot;Nicola&quot;]</div></pre></td></tr></table></figure></p>
+<p>2.可通过hasOwnProperty方法判断某属性属于对象自己还是原型。<br>3.最好不要给原生对象添加原型方法。</p>
+<h4 id="组合使用构造函数和原型"><a href="#组合使用构造函数和原型" class="headerlink" title="组合使用构造函数和原型"></a>组合使用构造函数和原型</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">function Person(name, age, job)&#123;</div><div class="line">    this.name = name;</div><div class="line">    this.age = age;</div><div class="line">    this.job = job;</div><div class="line">    this.friends = [&quot;Shelby&quot;, &quot;Court&quot;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype = &#123;</div><div class="line">    constructor: Person,</div><div class="line">    sayName : function () &#123;</div><div class="line">        alert(this.name);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var person1 = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);</div><div class="line">var person2 = new Person(&quot;Greg&quot;, 27, &quot;Doctor&quot;);</div><div class="line"></div><div class="line">person1.friends.push(&quot;Van&quot;);</div><div class="line"></div><div class="line">alert(person1.friends);    //&quot;Shelby,Court,Van&quot;</div><div class="line">alert(person2.friends);    //&quot;Shelby,Court&quot;</div><div class="line">alert(person1.friends === person2.friends);  //false</div><div class="line">alert(person1.sayName === person2.sayName);  //true</div></pre></td></tr></table></figure>
+<h4 id="动态原型模式"><a href="#动态原型模式" class="headerlink" title="动态原型模式"></a>动态原型模式</h4><p>把所有信息封装到构造函数中，在构造函数中初始化原型，是一种让有其它OO语言经验的开发人员更方便的语法糖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">function Person(name, age, job)&#123;</div><div class="line"></div><div class="line">        //properties</div><div class="line">        this.name = name;</div><div class="line">        this.age = age;</div><div class="line">        this.job = job;</div><div class="line">        </div><div class="line">        //methods</div><div class="line">        if (typeof this.sayName != &quot;function&quot;)&#123;</div><div class="line">        </div><div class="line">            Person.prototype.sayName = function()&#123;</div><div class="line">                alert(this.name);</div><div class="line">            &#125;;</div><div class="line">            </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var friend = new Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);</div><div class="line">    friend.sayName();</div></pre></td></tr></table></figure></p>
+<p>优点：方便有其它OO语言经验的开发人员上手。<br>缺点：同组合模式。</p>
+<h4 id="寄生构造函数模式"><a href="#寄生构造函数模式" class="headerlink" title="寄生构造函数模式"></a>寄生构造函数模式</h4><p>本质是工厂模式，只不过通过new操作符调用函数。主要用来扩展原生对象，其实还是语法糖。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">function SpecialArray()&#123;</div><div class="line"></div><div class="line">        //create the array</div><div class="line">        var values = new Array();</div><div class="line">        </div><div class="line">        //add the values</div><div class="line">        values.push.apply(values, arguments);</div><div class="line">        </div><div class="line">        //assign the method</div><div class="line">        values.toPipedString = function()&#123;</div><div class="line">            return this.join(&quot;|&quot;);</div><div class="line">        &#125;;</div><div class="line">        </div><div class="line">        //return it</div><div class="line">        return values;        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    var colors = new SpecialArray(&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;);</div><div class="line">    alert(colors.toPipedString()); //&quot;red|blue|green&quot;</div><div class="line"></div><div class="line">    alert(colors instanceof SpecialArray);</div></pre></td></tr></table></figure></p>
+<p>优点：可以像使用原生构造函数一样使用特殊构造函数创建经过扩展后的新对象，并不会影响到原生对象。<br>缺点：同工厂模式。</p>
+<h4 id="稳妥构造函数模式"><a href="#稳妥构造函数模式" class="headerlink" title="稳妥构造函数模式"></a>稳妥构造函数模式</h4><p>实例方法不引用this，不使用new调用构造函数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function Person(name, age, job)&#123;</div><div class="line">var o = new Object();</div><div class="line">o.sayName = function()&#123;</div><div class="line">alert(name);</div><div class="line">&#125;;</div><div class="line">return o;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var person1 = Person(&quot;Nicholas&quot;, 29, &quot;Software Engineer&quot;);</div><div class="line">person1.sayName();   //&quot;Nicholas&quot;</div></pre></td></tr></table></figure></p>
+<p>优点：除了特定方法没有其它访问构造函数传入参数的途径。<br>缺点：同工厂模式。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2016/11/29/javascript中的面向对象（一）/" data-id="cj3ntiurf000rscwpvghfctdr" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaScript/">JavaScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/创建对象方法/">创建对象方法</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2016/11/29/JavaScript闭包学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">JavaScript闭包学习笔记</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/2016/11/29/javascript中的面向对象（二）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">javascript中的面向对象（二）</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
+          
+  <div class="sidebar-module sidebar-module-inset">
+  	<h4>About</h4>
+  	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="40 50 140.1 140.1" xml:space="preserve">
+		<g>
+			<path id="edge" class="path" d="M134.8,81c17.8,29.7,22.6,61.3,14.1,80.1c-2.5,5.6-6.3,10.1-11.2,13c0,0-26.3,18.7-62.1,0
+		c-21.5-12.8-20.2-54.5,2.9-93.1C78.5,81,106.7,108.9,134.8,81z"/>
+			<path id="tail" class="path" d="M146.6,165.4c0,0,21.6-13,20.7-40.6"/>
+			<ellipse class="eyes" cx="88.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<ellipse class="eyes" cx="126.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<line class="path hands" x1="100" y1="143.1" x2="106.8" y2="147.8"/>
+			<line class="path hands" x1="106.8" y1="147.8" x2="100" y2="151.5"/>
+			<line class="path hands" x1="116.8" y1="143.1" x2="110" y2="147.8"/>
+			<line class="path hands" x1="110" y1="147.8" x2="116.8" y2="151.5"/>
+		</g>
+		<g id="normal">
+			<polyline id="mouth" points="116,124.8 108,124.8 100,124.8 	"/>
+		</g>
+		<g id="smile">
+			<path class="path" d="M100,125.7c0,0,2.5,4.7,7.7,0"/>
+			<path class="path" d="M115.4,125.7c0,0-2.5,4.7-7.7,0"/>
+			<ellipse class="blush" cx="81.8" cy="129.6" rx="1.8" ry="2.1"/>
+			<ellipse class="blush" cx="136.3" cy="129.6" rx="1.8" ry="2.1"/>
+		</g>
+	</svg>
+  <p>This is <em>shuyzhou</em>'s blog. Enjoy yourself!</p>
+
+</div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/HTML/">HTML</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tags</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Express/">Express</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/HTML/">HTML</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/IFE/">IFE</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Vue-js/">Vue.js</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/canvas/">canvas</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/作用域/">作用域</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/创建对象方法/">创建对象方法</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/原型/">原型</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/对象池/">对象池</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/居中/">居中</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/服务器/">服务器</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/权限控制/">权限控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/继承/">继承</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表单/">表单</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表达式/">表达式</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/语义化/">语义化</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/闭包/">闭包</a><span class="sidebar-module-list-count">1</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/Express/" style="font-size: 10px;">Express</a> <a href="/tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="/tags/IFE/" style="font-size: 12.5px;">IFE</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/创建对象方法/" style="font-size: 10px;">创建对象方法</a> <a href="/tags/原型/" style="font-size: 10px;">原型</a> <a href="/tags/对象池/" style="font-size: 10px;">对象池</a> <a href="/tags/居中/" style="font-size: 10px;">居中</a> <a href="/tags/服务器/" style="font-size: 10px;">服务器</a> <a href="/tags/权限控制/" style="font-size: 10px;">权限控制</a> <a href="/tags/继承/" style="font-size: 10px;">继承</a> <a href="/tags/表单/" style="font-size: 10px;">表单</a> <a href="/tags/表达式/" style="font-size: 10px;">表达式</a> <a href="/tags/语义化/" style="font-size: 15px;">语义化</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">April 2017</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/03/">March 2017</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">December 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">November 2016</a><span class="sidebar-module-list-count">6</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/2017/04/25/有趣的鼠标悬浮模糊效果/">有趣的鼠标悬浮模糊效果</a>
+        </li>
+      
+        <li>
+          <a href="/2017/04/20/基于canvas的动画小游戏/">基于canvas的动画小游戏</a>
+        </li>
+      
+        <li>
+          <a href="/2017/04/19/Vue.js入门练习：todo-list/">Vue.js入门练习：todo-list</a>
+        </li>
+      
+        <li>
+          <a href="/2017/03/30/HTML语义化标签（三）/">HTML语义化标签（三）</a>
+        </li>
+      
+        <li>
+          <a href="/2017/03/30/HTML语义化标签（二）/">HTML语义化标签（二）</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      &copy; 2017 shuyzhou<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+  
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+
+<script src="/js/script.js"></script>
+
+  <a href="https://github.com/shuyzhou"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+</body>
+</html>
