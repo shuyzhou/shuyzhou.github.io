@@ -669,12 +669,12 @@ figure.highlight table tbody tr td pre .deletion {
 svg {
   line-height:0;
   font-size:0;
-  width:150px;
-  height:150px;
+  width:140px;
+  height:140px;
 }
 .icon-box{
-    width: 180px;
-    height: 180px;
+    width: 150px;
+    height: 150px;
     margin: auto;
     border-radius: 5px;
     background-color: #d7ecff;
@@ -686,6 +686,7 @@ svg {
   fill:none;
   stroke:#000000;
   stroke-dasharray: 1000;
+  stroke-width: 1.5px;
   -webkit-animation: dash 5s ease-in-out;
   animation: dash 5s ease-in-out;
 }
