@@ -672,6 +672,12 @@ svg {
   width:140px;
   height:140px;
 }
+.icon-box{
+    width: 200px;
+    height: 200px;
+    background-color: #d7ecff;
+    text-shadow: 0 0 1px #fff, 0 0 5px #fff, 0 0 15px #228dff;
+}
 .path {
   fill:none;
   stroke:#000000;
