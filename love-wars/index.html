@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>love</title>
+		<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" type="text/css" href="style/style.css">
+		<script src="js/hammer.min.js"></script>
+	</head>
+	<body>
+		<audio id="audio" src="music/music.mp3" autoplay="autoplay" loop="loop"></audio>
+		<div id='startMenu'>
+			<img src='images/title.png' width="75%">
+			<button type='button' id='start'>开始游戏
+			</button>
+			<button type='button' id='endless'>无尽模式
+			</button>
+			<button type='button' id='config'>设置
+			</button>
+		</div>
+		<ul id='configMenu'>
+			<img class="close" src="images/close.png" width="50px" height="50px">
+			<li>
+				<span>音乐</span>
+				<label><input name="music" type="radio" value="on" checked="checked">开</label>
+				<label><input name="music" type="radio" value="off">关</label>
+			</li>
+			<li>
+				<span>速度</span>
+				<label><input name="multiple" type="radio" value="normal" checked="checked">常速</label>
+				<label><input name="multiple" type="radio" value="faster">加速</label>
+			</li>
+		</ul>
+		<canvas id="canvas"></canvas>
+		<div id="overMessage">
+			<div class="mask"></div>
+			<div class="message">
+				<img src='images/over.png' width="75%">
+				<!--span>游戏结束</span-->
+				<span id="score"></span>
+				<span id="best"></span>
+				<button type='button' id='back'>返回菜单
+				</button>
+			</div>
+		</div>
+		<script src="js/lover.js"></script>
+	</body>
+</html>

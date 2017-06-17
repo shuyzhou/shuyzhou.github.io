@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Demo</title>
+    <link rel="stylesheet" type="text/css" href="src/styles/main.css">
+</head>
+<body>
+    <div id="todo-app">
+        <header>{{title}}</header>
+        <input v-on:keyup.enter="addItem" v-model="input" type="text" name="input" placeholder="what needs to be done?">
+        <br>
+        <label v-if="hasItem"><input v-on:click="doAll" v-model="markAll" type="checkbox" name="allDone">Mark all as complete</label>
+        <ul>
+            <todo-item v-for="(item, index) in items" :items="items" :item="item"  :index="index" :key="item.id"></todo-item>
+        </ul>
+        <footer v-if="hasItem">
+            <span>{{left}} item left</span>
+            <button v-on:click="clearCompletedItems" v-if="hasItemDone">Clear completed items</button>    
+        </footer>
+    </div>
+    <script src="dep/vue.js"></script>
+    <script src="src/main.js"></script>
+</body>
+</html>
