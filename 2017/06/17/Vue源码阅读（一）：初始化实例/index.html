@@ -3,14 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: 闭包 | 大周部落格</title>
+  <title>Vue源码阅读（一）：初始化实例 | 大周部落格</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="大周部落格">
-<meta property="og:url" content="shuyzhou.space/tags/闭包/index.html">
+  <meta name="description" content="###12```###
+1###
+123456789作为一个前端工程师，在不断研究技术的道路上，必不可少的需要深入研究一些已经成熟的开发框架。之前在网上看到有位高人曾总结过研究框架的步骤，原话我已记不太清，现加上我自己的理解总结出下面几步：1. 查看框架介绍和与其它框架的对比，大致了解框架的特点2. 按照教程做出一个入门`Demo`3. 过一遍`API`，了解框架的功能4. 阅读源码通过以上四个步">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue源码阅读（一）：初始化实例">
+<meta property="og:url" content="shuyzhou.space/2017/06/17/Vue源码阅读（一）：初始化实例/index.html">
 <meta property="og:site_name" content="大周部落格">
+<meta property="og:description" content="###12```###
+1###
+123456789作为一个前端工程师，在不断研究技术的道路上，必不可少的需要深入研究一些已经成熟的开发框架。之前在网上看到有位高人曾总结过研究框架的步骤，原话我已记不太清，现加上我自己的理解总结出下面几步：1. 查看框架介绍和与其它框架的对比，大致了解框架的特点2. 按照教程做出一个入门`Demo`3. 过一遍`API`，了解框架的功能4. 阅读源码通过以上四个步">
+<meta property="og:updated_time" content="2017-06-17T08:59:17.453Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大周部落格">
+<meta name="twitter:title" content="Vue源码阅读（一）：初始化实例">
+<meta name="twitter:description" content="###12```###
+1###
+123456789作为一个前端工程师，在不断研究技术的道路上，必不可少的需要深入研究一些已经成熟的开发框架。之前在网上看到有位高人曾总结过研究框架的步骤，原话我已记不太清，现加上我自己的理解总结出下面几步：1. 查看框架介绍和与其它框架的对比，大致了解框架的特点2. 按照教程做出一个入门`Demo`3. 过一遍`API`，了解框架的功能4. 阅读源码通过以上四个步">
   
     <link rel="alternate" href="/atom.xml" title="大周部落格" type="application/atom+xml">
   
@@ -81,40 +91,81 @@
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
+          <article id="post-Vue源码阅读（一）：初始化实例" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
     
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/29/JavaScript闭包学习笔记/">JavaScript闭包学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      Vue源码阅读（一）：初始化实例
     </h1>
   
 
 
+  </header>
+
+  <div class="article-meta">
     <div class="article-datetime">
-  <a href="/2016/11/29/JavaScript闭包学习笔记/" class="archive-article-date"><time datetime="2016-11-29T07:27:08.000Z" itemprop="datePublished">November 29th</time></a>
+  <a href="/2017/06/17/Vue源码阅读（一）：初始化实例/" class="article-date"><time datetime="2017-06-17T08:59:17.000Z" itemprop="datePublished">2017-06-17</time></a>
 </div>
 
-  </header>
-</article>
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">###</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">###</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">作为一个前端工程师，在不断研究技术的道路上，必不可少的需要深入研究一些已经成熟的开发框架。之前在网上看到有位高人曾总结过研究框架的步骤，原话我已记不太清，现加上我自己的理解总结出下面几步：</div><div class="line">1. 查看框架介绍和与其它框架的对比，大致了解框架的特点</div><div class="line">2. 按照教程做出一个入门`Demo`</div><div class="line">3. 过一遍`API`，了解框架的功能</div><div class="line">4. 阅读源码</div><div class="line">通过以上四个步骤，基本上就能把握这个框架，从而运用自如了。  </div><div class="line">我因为工作的关系接触到`Vue.js`，所以趁着平时休闲时间看看源码，并把心得记录下来。最新版本的源码对目前的我来说还是有点难度，所以我选择了看[1.0.26](https://github.com/vuejs/vue/tree/e7932f80eeacf6f7d392bf520e98c4790db9d5c1/src)版本的源码。由于篇幅关系，这个系列的文章主要介绍vue核心功能的实现思路，而不会放上太多源码。</div><div class="line">### 找到入口函数</div><div class="line">我看源码的习惯是找到一个入口函数，通过这个入口函数了解框架做了哪些初始化操作，然后把主要操作单独拎出来。从`Vue`入口来看，`Vue`构造函数是在`instance/vue.js`这个文件里，我们打开看看。</div></pre></td></tr></table></figure>
+<p>function Vue (options) {<br>  this._init(options)<br>}<br>// install internals<br>initMixin(Vue)<br>stateMixin(Vue)<br>eventsMixin(Vue)<br>lifecycleMixin(Vue)<br>miscMixin(Vue)<br>// install instance APIs<br>dataAPI(Vue)<br>domAPI(Vue)<br>eventsAPI(Vue)<br>lifecycleAPI(Vue)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">可以看到，`Vue`构造函数利用内部的`_init`函数对`Vue`实例进行初始化,注入实例属性并通过Mixin方式为Vue安装实例方法。`Vue`的实例方法分为`init`、`state`、`events`、`lifecycle`和`misc`几个模块。</div><div class="line">### 初始化实例</div><div class="line">我们来看看`_init`函数主要做了哪些事：</div></pre></td></tr></table></figure></p>
+<p>//…实例属性的初始化操作<br>// push self into parent / transclusion host<br>if (this.$parent) {<br>    this.$parent.$children.push(this)<br>}<br>options = this.$options = mergeOptions(<br>    this.constructor.options,<br>    options,<br>    this<br>)</p>
+<p>// call init hook<br>this._callHook(‘init’)<br>// initialize data observation and scope inheritance.<br>this._initState()<br>// setup event system and option events.<br>this._initEvents()<br>// call created hook<br>this._callHook(‘created’)<br>// if <code>el</code> option is passed, start compilation.<br>if (options.el) {<br>    this.$mount(options.el)<br>}<br><code>``
+</code>_init<code>函数建立父子实例之间的联系，合并了自定义</code>option<code>和默认</code>option<code>，调用相应的生命周期的回调函数，初始化</code>data observation<code>机制和</code>Vue<code>事件机制，如果确定了</code>Vue<code>实例的作用域的话还要挂载</code>Vue<code>实例。可以看出，生命周期是独立的一部分，主要操作集中于</code>_initState<code>、</code>_initEvents<code>和</code>$mount<code>三个函数。在下一篇博客里，我将分析</code>_initState<code>中的</code>_initData<code>函数，以便理解</code>Vue`是怎样监听数据变化的。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2017/06/17/Vue源码阅读（一）：初始化实例/" data-id="cj411yxpm000n9owpcolmur55" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/04/25/有趣的鼠标悬浮模糊效果/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">有趣的鼠标悬浮模糊效果</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/2017/06/17/Vue源码阅读（三）：模板解析/" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">Vue源码阅读（三）：模板解析</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
 
   
-  
-    </div></section>
-  
+</article>
 
 
 

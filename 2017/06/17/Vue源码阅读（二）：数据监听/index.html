@@ -3,14 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: 闭包 | 大周部落格</title>
+  <title>Vue源码阅读（二）：数据监听 | 大周部落格</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="大周部落格">
-<meta property="og:url" content="shuyzhou.space/tags/闭包/index.html">
+  <meta name="description" content="###12```###
+1###
+1234567当刚开始看源码的时候，很多人都会觉得源码很难看懂，很容易让人想要放弃。对使用者来说，源码就像一个黑盒子，我们只会用它的功能，却不知道它的内部是怎么实现这些API的。所以，我们不妨先抛出一些相关问题：1. Vue怎么对输入的数据进行代理的？2. Vue怎么监听数据变化的？3. 通过$data获取原始数据或重置数据是怎么实现的？接下来，让我们从源码中寻找">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue源码阅读（二）：数据监听">
+<meta property="og:url" content="shuyzhou.space/2017/06/17/Vue源码阅读（二）：数据监听/index.html">
 <meta property="og:site_name" content="大周部落格">
+<meta property="og:description" content="###12```###
+1###
+1234567当刚开始看源码的时候，很多人都会觉得源码很难看懂，很容易让人想要放弃。对使用者来说，源码就像一个黑盒子，我们只会用它的功能，却不知道它的内部是怎么实现这些API的。所以，我们不妨先抛出一些相关问题：1. Vue怎么对输入的数据进行代理的？2. Vue怎么监听数据变化的？3. 通过$data获取原始数据或重置数据是怎么实现的？接下来，让我们从源码中寻找">
+<meta property="og:updated_time" content="2017-06-17T09:00:10.735Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="大周部落格">
+<meta name="twitter:title" content="Vue源码阅读（二）：数据监听">
+<meta name="twitter:description" content="###12```###
+1###
+1234567当刚开始看源码的时候，很多人都会觉得源码很难看懂，很容易让人想要放弃。对使用者来说，源码就像一个黑盒子，我们只会用它的功能，却不知道它的内部是怎么实现这些API的。所以，我们不妨先抛出一些相关问题：1. Vue怎么对输入的数据进行代理的？2. Vue怎么监听数据变化的？3. 通过$data获取原始数据或重置数据是怎么实现的？接下来，让我们从源码中寻找">
   
     <link rel="alternate" href="/atom.xml" title="大周部落格" type="application/atom+xml">
   
@@ -81,40 +91,78 @@
 
     <div class="row">
         <div class="col-sm-8 blog-main">
-          
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
+          <article id="post-Vue源码阅读（二）：数据监听" class="article article-type-post" itemscope itemprop="blogPost">
+
+  <header class="article-header">
     
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/11/29/JavaScript闭包学习笔记/">JavaScript闭包学习笔记</a>
+    <h1 class="article-title" itemprop="name">
+      Vue源码阅读（二）：数据监听
     </h1>
   
 
 
+  </header>
+
+  <div class="article-meta">
     <div class="article-datetime">
-  <a href="/2016/11/29/JavaScript闭包学习笔记/" class="archive-article-date"><time datetime="2016-11-29T07:27:08.000Z" itemprop="datePublished">November 29th</time></a>
+  <a href="/2017/06/17/Vue源码阅读（二）：数据监听/" class="article-date"><time datetime="2017-06-17T09:00:10.000Z" itemprop="datePublished">2017-06-17</time></a>
 </div>
 
-  </header>
-</article>
+    
+    
+
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>###<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">###</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">###</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">当刚开始看源码的时候，很多人都会觉得源码很难看懂，很容易让人想要放弃。对使用者来说，源码就像一个黑盒子，我们只会用它的功能，却不知道它的内部是怎么实现这些API的。所以，我们不妨先抛出一些相关问题：</div><div class="line">1. Vue怎么对输入的数据进行代理的？</div><div class="line">2. Vue怎么监听数据变化的？</div><div class="line">3. 通过$data获取原始数据或重置数据是怎么实现的？</div><div class="line">接下来，让我们从源码中寻找答案。</div><div class="line">### 对输入数据进行代理</div><div class="line">`vue`实例有一个内部属性`_data`，用来保存该实例的数据。`vue`通过`_proxy`方法绑定对`_data`的代理。</div></pre></td></tr></table></figure>
+<p>  Vue.prototype._proxy = function (key) {<br>    if (!isReserved(key)) {<br>      var self = this<br>      Object.defineProperty(self, key, {<br>        configurable: true,<br>        enumerable: true,<br>        get: function proxyGetter () {<br>          return self._data[key]<br>        },<br>        set: function proxySetter (val) {<br>          self._data[key] = val<br>        }<br>      })<br>    }<br>  }<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">### 监听数据变化</div><div class="line">`vue`利用`Observer`构造函数的实例来监听数据变化，首先看看`Observer`构造函数：</div></pre></td></tr></table></figure></p>
+<p>function Observer (value) {<br>  this.value = value<br>  this.dep = new Dep()<br>  def(value, ‘<strong>ob</strong>‘, this)<br>  if (isArray(value)) {<br>    var augment = hasProto<br>      ? protoAugment<br>      : copyAugment<br>    augment(value, arrayMethods, arrayKeys)<br>    this.observeArray(value)<br>  } else {<br>    this.walk(value)<br>  }<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">看下来发现有点晕了，`Observer`构造函数里又出现了新的构造函数和一大堆实例方法，因为`vue`发展了一个比较成熟的阶段，出现这种情况是很正常的。不要急，我们一个一个看。先粗略的看了下Dep构造函数，原来是管理订阅者的，先放在一边，我们以后再研究。`walk`方法对数据的每个属性都调用`convert`方法，`convert`方法其实是对`defineReactive`方法的包装，对数据的核心操作其实都在`defineReactive`方法里：</div></pre></td></tr></table></figure></p>
+<p>function defineReactive (obj, key, val) {<br>  var dep = new Dep()</p>
+<p>  var property = Object.getOwnPropertyDescriptor(obj, key)<br>  if (property &amp;&amp; property.configurable === false) {<br>    return<br>  }</p>
+<p>  // cater for pre-defined getter/setters<br>  var getter = property &amp;&amp; property.get<br>  var setter = property &amp;&amp; property.set<br>  //递归监听该属性的值<br>  var childOb = observe(val)<br>  Object.defineProperty(obj, key, {<br>    enumerable: true,<br>    configurable: true,<br>    get: function reactiveGetter () {<br>      var value = getter ? getter.call(obj) : val<br>      //这里省略了对dep的操作<br>      return value<br>    },<br>    set: function reactiveSetter (newVal) {<br>      var value = getter ? getter.call(obj) : val<br>      if (newVal === value) {<br>        return<br>      }<br>      if (setter) {<br>        setter.call(obj, newVal)<br>      } else {<br>        val = newVal<br>      }<br>      childOb = observe(newVal)<br>      dep.notify()<br>    }<br>  })<br>}<br><code>``
+</code>defineReactive<code>方法重新定义每个属性的</code>getter<code>和</code>setter<code>，并对该属性的值进行监听。在</code>observe<code>方法中，对这个值又new了一个新的</code>Observer<code>实例并返回，这样就实现了对数据的深层次的监听。在setter中，同样对新的值进行监听，并且利用notify方法发送消息给与该属性相关的</code>directive`。</p>
+<h3 id="data属性"><a href="#data属性" class="headerlink" title="$data属性"></a><code>$data</code>属性</h3><p><code>$data</code>属性定义在Vue的原型上的，<code>Vue</code>利用<code>defineProperty</code>方法重新定义了<code>$data</code>的<code>getter</code>和<code>setter</code>，当<code>$data</code>被访问时返回当前<code>vue</code>实例的<code>_data属性，该实例的数据实际上是保存在这个属性里，而给</code>$data<code>赋值时则会调用实例方法</code>_setData<code>。
+在</code>_setData<code>方法中，将新的data赋值给实例的</code>_data<code>属性。比较新的data和旧的data，对需要删除的属性解除代理，对于需要新增的属性绑定代理。接着，断开旧data对该实例的引用，调用</code>observe<code>方法对新的data进行监听，最后调用实例的</code>_digest<code>方法强制更新所有</code>watcher`。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="shuyzhou.space/2017/06/17/Vue源码阅读（二）：数据监听/" data-id="cj411yxps000t9owphksmjpso" class="article-share-link">
+        <i class="fa fa-share"></i> Share
+      </a>
+      
+      
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/2017/06/17/Vue源码阅读（三）：模板解析/" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">Vue源码阅读（三）：模板解析</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
 
   
-  
-    </div></section>
-  
+</article>
 
 
 
