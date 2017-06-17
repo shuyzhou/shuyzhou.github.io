@@ -1,122 +1,184 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
+<!-- Head tag -->
 <head>
-  <meta charset="utf-8">
-  
-  <title>Vue源码阅读（二）：数据监听 | 大周部落格</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="###12```###
-1###
-1234567当刚开始看源码的时候，很多人都会觉得源码很难看懂，很容易让人想要放弃。对使用者来说，源码就像一个黑盒子，我们只会用它的功能，却不知道它的内部是怎么实现这些API的。所以，我们不妨先抛出一些相关问题：1. Vue怎么对输入的数据进行代理的？2. Vue怎么监听数据变化的？3. 通过$data获取原始数据或重置数据是怎么实现的？接下来，让我们从源码中寻找">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Vue源码阅读（二）：数据监听">
-<meta property="og:url" content="shuyzhou.space/2017/06/17/Vue源码阅读（二）：数据监听/index.html">
-<meta property="og:site_name" content="大周部落格">
-<meta property="og:description" content="###12```###
-1###
-1234567当刚开始看源码的时候，很多人都会觉得源码很难看懂，很容易让人想要放弃。对使用者来说，源码就像一个黑盒子，我们只会用它的功能，却不知道它的内部是怎么实现这些API的。所以，我们不妨先抛出一些相关问题：1. Vue怎么对输入的数据进行代理的？2. Vue怎么监听数据变化的？3. 通过$data获取原始数据或重置数据是怎么实现的？接下来，让我们从源码中寻找">
-<meta property="og:updated_time" content="2017-06-17T09:00:10.735Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue源码阅读（二）：数据监听">
-<meta name="twitter:description" content="###12```###
-1###
-1234567当刚开始看源码的时候，很多人都会觉得源码很难看懂，很容易让人想要放弃。对使用者来说，源码就像一个黑盒子，我们只会用它的功能，却不知道它的内部是怎么实现这些API的。所以，我们不妨先抛出一些相关问题：1. Vue怎么对输入的数据进行代理的？2. Vue怎么监听数据变化的？3. 通过$data获取原始数据或重置数据是怎么实现的？接下来，让我们从源码中寻找">
-  
-    <link rel="alternate" href="/atom.xml" title="大周部落格" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.jpg">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+    <!--Description-->
+    
+        <meta name="description" content="###12```###
+1###
+1234567当刚开始看源码的时候，很多人都会觉得源码很难看懂，很容易让人想要放弃。对使用者来说，源码就像一个黑盒子，我们只会用它的功能，却不知道它的内部是怎么实现这些API的。所以，我们不妨先抛出一些相关问题：1. Vue怎么对输入的数据进行代理的？2. Vue怎">
+    
 
-  <link rel="stylesheet" href="/css/styles.css">
-  
+    <!--Author-->
+    
+        <meta name="author" content="shuyzhou">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Vue源码阅读（二）：数据监听"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="大周部落格"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Vue源码阅读（二）：数据监听 - 大周部落格</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
 
 </head>
 
+
 <body>
-  <nav class="navbar navbar-inverse">
-  <div class="container">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/about.html">
+                    About
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/contact.html">
+                    Contact
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/mylove/">
+                    Mylove
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/myworks/">
+                    Myworks
+                </a>
+            </li>
+            
+        </ul>
     </div>
+</div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="main-menu-navbar">
-      <ul class="nav navbar-nav">
-        
-          <li><a class=""
-                 href="/index.html">Home</a></li>
-        
-          <li><a class=""
-                 href="/archives/">Archives</a></li>
-        
-          <li><a class=""
-                 href="/mylove/">Mylove</a></li>
-        
-          <li><a class=""
-                 href="/myworks/">Myworks</a></li>
-        
-      </ul>
-
-      <!--
-      <ul class="nav navbar-nav navbar-right">
-        
-          <li><a href="/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
-        
-      </ul>
-      -->
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
 </nav>
 
-  <div class="container">
-    <div class="blog-header">
-  <h1 class="blog-title">大周部落格</h1>
-  
-</div>
+<div class="container">
 
+    <!-- Main Content -->
     <div class="row">
-        <div class="col-sm-8 blog-main">
-          <article id="post-Vue源码阅读（二）：数据监听" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="col-sm-12">
 
-  <header class="article-header">
-    
-  
-    <h1 class="article-title" itemprop="name">
-      Vue源码阅读（二）：数据监听
-    </h1>
-  
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+    </div>
+</header>
 
+        <section class="main">
+            
+<div class="post">
 
-  </header>
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2017/06/17/Vue源码阅读（二）：数据监听/">
+                Vue源码阅读（二）：数据监听
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-06-17</span>
+            
+            
+            
+        </div>
+    </div>
 
-  <div class="article-meta">
-    <div class="article-datetime">
-  <a href="/2017/06/17/Vue源码阅读（二）：数据监听/" class="article-date"><time datetime="2017-06-17T09:00:10.000Z" itemprop="datePublished">2017-06-17</time></a>
-</div>
+    <div class="content">
 
-    
-    
+        <!-- Gallery -->
+        
 
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
+        <!-- Post Content -->
         <p>###<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">###</div></pre></td></tr></table></figure></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">###</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">当刚开始看源码的时候，很多人都会觉得源码很难看懂，很容易让人想要放弃。对使用者来说，源码就像一个黑盒子，我们只会用它的功能，却不知道它的内部是怎么实现这些API的。所以，我们不妨先抛出一些相关问题：</div><div class="line">1. Vue怎么对输入的数据进行代理的？</div><div class="line">2. Vue怎么监听数据变化的？</div><div class="line">3. 通过$data获取原始数据或重置数据是怎么实现的？</div><div class="line">接下来，让我们从源码中寻找答案。</div><div class="line">### 对输入数据进行代理</div><div class="line">`vue`实例有一个内部属性`_data`，用来保存该实例的数据。`vue`通过`_proxy`方法绑定对`_data`的代理。</div></pre></td></tr></table></figure>
@@ -129,162 +191,210 @@
 <h3 id="data属性"><a href="#data属性" class="headerlink" title="$data属性"></a><code>$data</code>属性</h3><p><code>$data</code>属性定义在Vue的原型上的，<code>Vue</code>利用<code>defineProperty</code>方法重新定义了<code>$data</code>的<code>getter</code>和<code>setter</code>，当<code>$data</code>被访问时返回当前<code>vue</code>实例的<code>_data属性，该实例的数据实际上是保存在这个属性里，而给</code>$data<code>赋值时则会调用实例方法</code>_setData<code>。
 在</code>_setData<code>方法中，将新的data赋值给实例的</code>_data<code>属性。比较新的data和旧的data，对需要删除的属性解除代理，对于需要新增的属性绑定代理。接着，断开旧data对该实例的引用，调用</code>observe<code>方法对新的data进行监听，最后调用实例的</code>_digest<code>方法强制更新所有</code>watcher`。</p>
 
-      
     </div>
 
     
-      
 
     
 
-    <footer class="article-footer">
-      <a data-url="shuyzhou.space/2017/06/17/Vue源码阅读（二）：数据监听/" data-id="cj411yxps000t9owphksmjpso" class="article-share-link">
-        <i class="fa fa-share"></i> Share
-      </a>
-      
-      
-
-    </footer>
-  </div>
-  
+    <!-- Comments -->
     
-<ul id="article-nav" class="nav nav-pills nav-justified">
-  
-  <li role="presentation">
-    <a href="/2017/06/17/Vue源码阅读（三）：模板解析/" id="article-nav-older" class="article-nav-link-wrap">
-      <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">Vue源码阅读（三）：模板解析</span>
-    </a>
-  </li>
-  
-  
-</ul>
 
+</div>
+        </section>
 
-  
-</article>
-
-
-
-
-        </div>
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          
-  <div class="sidebar-module sidebar-module-inset">
-  	<h4>About</h4>
-  	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-	 viewBox="40 50 140.1 140.1" xml:space="preserve">
-		<g>
-			<path id="edge" class="path" d="M134.8,81c17.8,29.7,22.6,61.3,14.1,80.1c-2.5,5.6-6.3,10.1-11.2,13c0,0-26.3,18.7-62.1,0
-		c-21.5-12.8-20.2-54.5,2.9-93.1C78.5,81,106.7,108.9,134.8,81z"/>
-			<path id="tail" class="path" d="M146.6,165.4c0,0,21.6-13,20.7-40.6"/>
-			<ellipse class="eyes" cx="88.3" cy="114.8" rx="2.7" ry="2.8"/>
-			<ellipse class="eyes" cx="126.3" cy="114.8" rx="2.7" ry="2.8"/>
-			<line class="path hands" x1="100" y1="143.1" x2="106.8" y2="147.8"/>
-			<line class="path hands" x1="106.8" y1="147.8" x2="100" y2="151.5"/>
-			<line class="path hands" x1="116.8" y1="143.1" x2="110" y2="147.8"/>
-			<line class="path hands" x1="110" y1="147.8" x2="116.8" y2="151.5"/>
-		</g>
-		<g id="normal">
-			<polyline id="mouth" points="116,124.8 108,124.8 100,124.8 	"/>
-		</g>
-		<g id="smile">
-			<path class="path" d="M100,125.7c0,0,2.5,4.7,7.7,0"/>
-			<path class="path" d="M115.4,125.7c0,0-2.5,4.7-7.7,0"/>
-			<ellipse class="blush" cx="81.8" cy="129.6" rx="1.8" ry="2.1"/>
-			<ellipse class="blush" cx="136.3" cy="129.6" rx="1.8" ry="2.1"/>
-		</g>
-	</svg>
-  <p>This is <em>shuyzhou</em>'s blog. Enjoy yourself!</p>
+    </div>
+</div>
 
 </div>
 
+<!-- Footer -->
+<div class="push"></div>
 
-  
-  <div class="sidebar-module">
-    <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/HTML/">HTML</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/categories/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li></ul>
-  </div>
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This theme was developed by <a href="https://github.com/klugjo">Jonathan Klughertz</a>. The source code is available on Github. Create Websites. Make Magic.
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2017/06/17/Vue源码阅读（二）：数据监听/">Vue源码阅读（二）：数据监听</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/06/17/Vue源码阅读（三）：模板解析/">Vue源码阅读（三）：模板解析</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/06/17/Vue源码阅读（一）：初始化实例/">Vue源码阅读（一）：初始化实例</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2017/04/25/有趣的鼠标悬浮模糊效果/">有趣的鼠标悬浮模糊效果</a>
+            </li>
+            
+        </ul>
+    </div>
 
 
 
-  
-  <div class="sidebar-module">
-    <h4>Tags</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/CSS/">CSS</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Express/">Express</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/HTML/">HTML</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/IFE/">IFE</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/JavaScript/">JavaScript</a><span class="sidebar-module-list-count">8</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Nodejs/">Nodejs</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/Vue-js/">Vue.js</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/canvas/">canvas</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/作用域/">作用域</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/创建对象方法/">创建对象方法</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/原型/">原型</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/对象池/">对象池</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/居中/">居中</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/服务器/">服务器</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/权限控制/">权限控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/继承/">继承</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表单/">表单</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/表达式/">表达式</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/语义化/">语义化</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/tags/闭包/">闭包</a><span class="sidebar-module-list-count">1</span></li></ul>
-  </div>
-
-
-
-  
-  <div class="sidebar-module">
-    <h4>Tag Cloud</h4>
-    <p class="tagcloud">
-      <a href="/tags/CSS/" style="font-size: 15px;">CSS</a> <a href="/tags/Express/" style="font-size: 10px;">Express</a> <a href="/tags/HTML/" style="font-size: 17.5px;">HTML</a> <a href="/tags/IFE/" style="font-size: 12.5px;">IFE</a> <a href="/tags/JavaScript/" style="font-size: 20px;">JavaScript</a> <a href="/tags/Nodejs/" style="font-size: 10px;">Nodejs</a> <a href="/tags/Vue-js/" style="font-size: 10px;">Vue.js</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/作用域/" style="font-size: 10px;">作用域</a> <a href="/tags/创建对象方法/" style="font-size: 10px;">创建对象方法</a> <a href="/tags/原型/" style="font-size: 10px;">原型</a> <a href="/tags/对象池/" style="font-size: 10px;">对象池</a> <a href="/tags/居中/" style="font-size: 10px;">居中</a> <a href="/tags/服务器/" style="font-size: 10px;">服务器</a> <a href="/tags/权限控制/" style="font-size: 10px;">权限控制</a> <a href="/tags/继承/" style="font-size: 10px;">继承</a> <a href="/tags/表单/" style="font-size: 10px;">表单</a> <a href="/tags/表达式/" style="font-size: 10px;">表达式</a> <a href="/tags/语义化/" style="font-size: 15px;">语义化</a> <a href="/tags/闭包/" style="font-size: 10px;">闭包</a>
-    </p>
-  </div>
-
-
-  
-  <div class="sidebar-module">
-    <h4>Archives</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/06/">June 2017</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/04/">April 2017</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2017/03/">March 2017</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/12/">December 2016</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/archives/2016/11/">November 2016</a><span class="sidebar-module-list-count">6</span></li></ul>
-  </div>
-
-
-
-  
-  <div class="sidebar-module">
-    <h4>Recents</h4>
-    <ul class="sidebar-module-list">
-      
+            
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-categories">
+    <h2>Categories</h2>
+    <ul>
+        
         <li>
-          <a href="/2017/06/17/Vue源码阅读（二）：数据监听/">Vue源码阅读（二）：数据监听</a>
+            <a class="footer-post" href="/categories/Nodejs/">Nodejs</a>
         </li>
-      
+        
         <li>
-          <a href="/2017/06/17/Vue源码阅读（三）：模板解析/">Vue源码阅读（三）：模板解析</a>
+            <a class="footer-post" href="/categories/CSS/">CSS</a>
         </li>
-      
+        
         <li>
-          <a href="/2017/06/17/Vue源码阅读（一）：初始化实例/">Vue源码阅读（一）：初始化实例</a>
+            <a class="footer-post" href="/categories/HTML/">HTML</a>
         </li>
-      
+        
         <li>
-          <a href="/2017/04/25/有趣的鼠标悬浮模糊效果/">有趣的鼠标悬浮模糊效果</a>
+            <a class="footer-post" href="/categories/JavaScript/">JavaScript</a>
         </li>
-      
-        <li>
-          <a href="/2017/04/20/基于canvas的动画小游戏/">基于canvas的动画小游戏</a>
-        </li>
-      
+        
     </ul>
-  </div>
-
-
+</div>
 
         </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/klugjo/hexo-theme-alpha-dust">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://twitter.com/?lang=en">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-twitter"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.facebook.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-facebook"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.instagram.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-instagram"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://dribbble.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-dribbble"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://plus.google.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-google-plus"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://www.behance.net/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-behance"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="https://500px.com/">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-500px"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:test@example.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="\#">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-rss"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Untitled. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <footer class="blog-footer">
-  <div class="container">
-    <div id="footer-info" class="inner">
-      &copy; 2017 shuyzhou<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
 </footer>
 
-  
+<!-- After footer scripts -->
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js" integrity="sha384-8gBf6Y4YYq7Jx97PIqmTwLPin4hxIzQw5aDmUg/DDhul9fFpbbLcLh3nTIIDJKhx" crossorigin="anonymous"></script>
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
 
 
 
-<script src="/js/script.js"></script>
-
-  <a href="https://github.com/shuyzhou"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
 </body>
+
 </html>
