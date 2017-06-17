@@ -64,10 +64,31 @@ var alphaDust = function () {
         TweenMax.staggerTo('.archive-post', 0.4, {opacity: 1}, 0.15);
     }
 
+    //about icon animation
+    function iconAni() {
+        $("#bigzhou").on("mouseenter",function () {
+            $("#normal").css("display","none");
+            $("#smile").css("display","inline");
+            $(".eyes").animate({"ry":0.1},{
+                    duration: 100,
+                    step: function(now) { $(this).attr("ry", now); }
+            });
+            $(".eyes").animate({"ry":2.8},{
+                duration: 100,
+                step: function(now) { $(this).attr("ry", now); }
+            });
+        })
+        $("#bigzhou").on("mouseleave",function () {
+            $("#normal").css("display","inline");
+            $("#smile").css("display","none");
+        })
+    }
+
     return {
         initPostHeader: initPostHeader,
         initMenu: initMenu,
-        displayArchives: displayArchives
+        displayArchives: displayArchives,
+        iconAni: iconAni
     };
 }();
 
@@ -76,4 +97,5 @@ $(document).ready(function () {
     alphaDust.initPostHeader();
     alphaDust.initMenu();
     alphaDust.displayArchives();
+    alphaDust.iconAni();
 });
