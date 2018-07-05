@@ -165,6 +165,48 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2017/03/16/总结：元素居中的纯CSS方法/">
+                总结：元素居中的纯CSS方法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-03-16</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/CSS/">CSS</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>总结下各种居中方式。</p>
+<h4 id="块级元素固定宽高"><a href="#块级元素固定宽高" class="headerlink" title="块级元素固定宽高"></a>块级元素固定宽高</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	position: absolute;/* or relative*/</div><div class="line">&#125;</div><div class="line">子元素 &#123;</div><div class="line">	position: absolute;</div><div class="line">	top:50%;</div><div class="line">	left:50%;</div><div class="line">	margin-top: -(元素高度/2);</div><div class="line">	margin-left: -(元素宽度/2);</div><div class="line">/* or transform:translate(-50% -50%);*/</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	border: 1px solid black;</div><div class="line">	position: absolute;</div><div class="line">	top: 0;</div><div class="line">	left: 0;</div><div class="line">	bottom: 0;</div><div class="line">	right: 0;</div><div class="line">	margin: auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里有一个很有意思的点，就是<code>position: absolute;</code>时浏览器计算元素位置的规则。规则比较复杂，粗略来讲，对于某元素，<code>left</code> + <code>margin-left</code> + <code>border-left-width</code> + <code>padding-left</code> + <code>width</code> + <code>padding-right</code> + <code>border-right-width</code> + <code>margin-right</code> + <code>right</code> = 包含块宽度。在这里，是<code>margin-left</code> + <code>width</code> + <code>margin-right</code> = 包含块宽度。而<code>margin: auto</code>使得<code>margin-left</code> = <code>margin-right</code>，导致元素居中。具体规则可以看<a href="https://segmentfault.com/a/1190000003820437#articleHeader9" target="_blank" rel="external">这里</a>。<br>这几种方式可使元素在父元素中居中。</p>
+<h4 id="块级元素固定宽"><a href="#块级元素固定宽" class="headerlink" title="块级元素固定宽"></a>块级元素固定宽</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	margin: 0 auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种方式可使元素在父元素中水平居中。</p>
+<h4 id="内联元素水平居中"><a href="#内联元素水平居中" class="headerlink" title="内联元素水平居中"></a>内联元素水平居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	text-align:center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="文本垂直居中"><a href="#文本垂直居中" class="headerlink" title="文本垂直居中"></a>文本垂直居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	line-height:想要的文本高度;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="不定宽块级元素水平居中"><a href="#不定宽块级元素水平居中" class="headerlink" title="不定宽块级元素水平居中"></a>不定宽块级元素水平居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	float: left;</div><div class="line">	position:relative;</div><div class="line">	left:50%;</div><div class="line">&#125;</div><div class="line">元素 &#123;</div><div class="line">	position:relative;</div><div class="line">	left:-50%;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里利用了浮动自适应宽高的原理。对于一个不定宽高元素，浮动会使其变成块级元素，并使该块级元素的宽高尽可能小。关于浮动的细节可以看<a href="https://segmentfault.com/a/1190000006041960" target="_blank" rel="external">这里</a>;<br>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	text-align:center;</div><div class="line">&#125;</div><div class="line">元素 &#123;</div><div class="line">	display:inline;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="块级元素垂直居中"><a href="#块级元素垂直居中" class="headerlink" title="块级元素垂直居中"></a>块级元素垂直居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	display:table-cell;</div><div class="line">	vertical-align:middle;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在表格中<code>vertical-align:middle;</code>可以使表格的子元素垂直居中。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2017/03/15/IFE学习心得/">
                 IFE学习心得
             </a>
@@ -686,6 +728,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/05/ES6中的Promise对象/">ES6中的Promise对象</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2017/06/17/Vue源码阅读（二）：数据监听/">Vue源码阅读（二）：数据监听</a>
             </li>
             
@@ -695,10 +741,6 @@
             
             <li>
                 <a class="footer-post" href="/2017/06/17/Vue源码阅读（一）：初始化实例/">Vue源码阅读（一）：初始化实例</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/04/25/有趣的鼠标悬浮模糊效果/">有趣的鼠标悬浮模糊效果</a>
             </li>
             
         </ul>
