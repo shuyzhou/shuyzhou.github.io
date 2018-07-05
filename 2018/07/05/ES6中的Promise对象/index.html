@@ -10,9 +10,8 @@
 
     <!--Description-->
     
-        <meta name="description" content="###12```###
-1###
-12345### 解决的问题由于浏览器中JavaScript的执行是单线程的，所以所有的网络操作、浏览器事件都是异步的，通过回调函数来执行的。当回调函数嵌套很深时，代码的可读性将下降，Promise就是为了解决这个问题而出现的。### 基本概念使用new Promi">
+        <meta name="description" content="解决的问题由于浏览器中JavaScript的执行是单线程的，所以所有的网络操作、浏览器事件都是异步的，通过回调函数来执行的。当回调函数嵌套很深时，代码的可读性将下降，Promise就是为了解决这个问题而出现的。
+基本概念使用new Promise(fn)的语法会得到一个Promise对象，它的参数（">
     
 
     <!--Author-->
@@ -177,6 +176,10 @@
             
             
             
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
         </div>
     </div>
 
@@ -186,21 +189,24 @@
         
 
         <!-- Post Content -->
-        <p>###<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">###</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">###</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">### 解决的问题</div><div class="line">由于浏览器中JavaScript的执行是单线程的，所以所有的网络操作、浏览器事件都是异步的，通过回调函数来执行的。当回调函数嵌套很深时，代码的可读性将下降，Promise就是为了解决这个问题而出现的。</div><div class="line">### 基本概念</div><div class="line">使用new Promise(fn)的语法会得到一个Promise对象，它的参数（通常是一个异步函数）将会被立刻执行。Promise对象有三种状态：Pending（进行中）、Resolved（已完成，又称 Fulfilled）和 Rejected（已失败），状态的转变只有两种可能：从 Pending 变为 Resolved 和从 Pending 变为 Rejected，而什么时候进行什么转变取决于异步函数的执行结果。</div><div class="line">Promise基本语法如下：</div></pre></td></tr></table></figure>
-<p>var promise = new Promise(function(resolve, reject) {<br>    if (/<em> 异步操作成功 </em>/){<br>        resolve(value)<br>    } else {<br>        reject(error)<br>    }<br>})</p>
-<p>promise.then(function(value) {<br>    // success<br>}, function(value) {<br>    // failure<br>})<br>```<br>当一个Promise对象被resolve掉时，它的状态将变成resolved，回调函数的参数就是resolve方法的参数。当它被reject掉时，它的状态将变为rejected，回调函数的参数则是reject方法的参数。当对一个Promise对象执行then方法时，如果它是pending状态，则在它状态变为resolved或rejected时将回调函数放入js的执行队列，如果它已经是resolved或rejected状态时则立刻将回调函数放入执行队列。</p>
-<h3 id="基本API"><a href="#基本API" class="headerlink" title="基本API"></a>基本API</h3><h4 id="1-Promise-prototype-then"><a href="#1-Promise-prototype-then" class="headerlink" title="1.Promise.prototype.then()"></a>1.Promise.prototype.then()</h4><p>then方法是Promise对象的实例方法，用来给Promise对象定义回调函数，接受参数为两个函数：Promise的成功和失败情况的回调函数。then方法的返回值同样是一个Promise对象，这个对象的状态和回调函数的返回值有关。<br>简单来说，如果回调函数返回的是一个Promise对象，那么then方法返回的Promise对象状态与之同步，回调函数的参数也是一致的；如果回调函数返回的是一个值，么then方法返回的Promise对象状态为resolved；如果回调函数抛出了一个错误，那么then方法返回的Promise对象状态为rejected。当对应某个状态的回调被省略或为非函数时，then方法会丢失该状态的回调函数，但不会产生错误。</p>
-<h4 id="2-Promise-prototype-catch"><a href="#2-Promise-prototype-catch" class="headerlink" title="2.Promise.prototype.catch()"></a>2.Promise.prototype.catch()</h4><p>catch方法是Promise对象的实例方法，用来给Promise对象定义失败是回调函数，是then(null, …) 的别名。它的返回值同样是一个Promise对象。</p>
-<h4 id="3-Promise-resolve-和Promise-reject"><a href="#3-Promise-resolve-和Promise-reject" class="headerlink" title="3.Promise.resolve()和Promise.reject()"></a>3.Promise.resolve()和Promise.reject()</h4><p>resolve方法返回一个状态为resolved的Promise对象，接受的参数将作为该Promise对象的值；reject方法返回一个状态为rejected的Promise对象，接受的参数将作为该Promise对象的值</p>
-<h4 id="4-Promise-all"><a href="#4-Promise-all" class="headerlink" title="4.Promise.all()"></a>4.Promise.all()</h4><p>该方法接受参数为可迭代的对象（例如数组），返回一个Promise对象。当该数组里所有Promise对象resolve时，该Promise对象的状态变为resolved；若有其中一个被reject，该Promise对象的状态变为rejected。</p>
-<h4 id="5-Promise-prototype-finally"><a href="#5-Promise-prototype-finally" class="headerlink" title="5.Promise.prototype.finally()"></a>5.Promise.prototype.finally()</h4><p>不管调用finally的Promise对象状态为resolved或rejected，该方法的回调函数都会被调用，且回调函数不接受参数。</p>
+        <h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><p>由于浏览器中<code>JavaScript</code>的执行是单线程的，所以所有的网络操作、浏览器事件都是异步的，通过回调函数来执行的。当回调函数嵌套很深时，代码的可读性将下降，<code>Promise</code>就是为了解决这个问题而出现的。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>使用<code>new Promise(fn)</code>的语法会得到一个<code>Promise</code>对象，它的参数（通常是一个异步函数）将会被立刻执行。<code>Promise</code>对象有三种状态：<code>Pending</code>（进行中）、<code>Resolved</code>（已完成，又称 <code>Fulfilled</code>）和 <code>Rejected</code>（已失败），状态的转变只有两种可能：从 Pending 变为 <code>Resolved</code> 和从 <code>Pending</code> 变为 <code>Rejected</code>，而什么时候进行什么转变取决于异步函数的执行结果。<br><code>Promise</code>基本语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var promise = new Promise(function(resolve, reject) &#123;</div><div class="line">    if (/* 异步操作成功 */)&#123;</div><div class="line">        resolve(value)</div><div class="line">    &#125; else &#123;</div><div class="line">        reject(error)</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">promise.then(function(value) &#123;</div><div class="line">    // success</div><div class="line">&#125;, function(value) &#123;</div><div class="line">    // failure</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>当一个<code>Promise</code>对象被<code>resolve</code>掉时，它的状态将变成<code>resolved</code>，回调函数的参数就是<code>resolve</code>方法的参数。当它被reject掉时，它的状态将变为<code>rejected</code>，回调函数的参数则是<code>reject</code>方法的参数。当对一个<code>Promise</code>对象执行<code>then</code>方法时，如果它是<code>pending</code>状态，则在它状态变为<code>resolved</code>或<code>rejected</code>时将回调函数放入<code>js</code>的执行队列，如果它已经是<code>resolved</code>或<code>rejected</code>状态时则立刻将回调函数放入执行队列。</p>
+<h3 id="基本API"><a href="#基本API" class="headerlink" title="基本API"></a>基本<code>API</code></h3><h4 id="1-Promise-prototype-then"><a href="#1-Promise-prototype-then" class="headerlink" title="1.Promise.prototype.then()"></a>1.<code>Promise.prototype.then()</code></h4><p><code>then</code>方法是<code>Promise</code>对象的实例方法，用来给<code>Promise</code>对象定义回调函数，接受参数为两个函数：<code>Promise</code>的成功和失败情况的回调函数。<code>then</code>方法的返回值同样是一个<code>Promise</code>对象，这个对象的状态和回调函数的返回值有关。<br>简单来说，如果回调函数返回的是一个<code>Promise</code>对象，那么<code>then</code>方法返回的<code>Promise</code>对象状态与之同步，回调函数的参数也是一致的；如果回调函数返回的是一个值，那么<code>then</code>方法返回的<code>Promise</code>对象状态为<code>resolved</code>；如果回调函数抛出了一个错误，那么<code>then</code>方法返回的<code>Promise</code>对象状态为<code>rejected</code>。当对应某个状态的回调被省略或为非函数时，<code>then</code>方法会丢失该状态的回调函数，但不会产生错误。</p>
+<h4 id="2-Promise-prototype-catch"><a href="#2-Promise-prototype-catch" class="headerlink" title="2.Promise.prototype.catch()"></a>2.<code>Promise.prototype.catch()</code></h4><p><code>catch</code>方法是<code>Promise</code>对象的实例方法，用来给<code>Promise</code>对象定义失败是回调函数，是<code>then(null, ...)</code>的别名。它的返回值同样是一个<code>Promise</code>对象。</p>
+<h4 id="3-Promise-resolve-和Promise-reject"><a href="#3-Promise-resolve-和Promise-reject" class="headerlink" title="3.Promise.resolve()和Promise.reject()"></a>3.<code>Promise.resolve()</code>和<code>Promise.reject()</code></h4><p><code>resolve</code>方法返回一个状态为<code>resolved</code>的<code>Promise</code>对象，接受的参数将作为该<code>Promise</code>对象的值；<code>reject</code>方法返回一个状态为<code>rejected</code>的<code>Promise</code>对象，接受的参数将作为该<code>Promise</code>对象的值</p>
+<h4 id="4-Promise-all"><a href="#4-Promise-all" class="headerlink" title="4.Promise.all()"></a>4.<code>Promise.all()</code></h4><p>该方法接受参数为可迭代的对象（例如数组），返回一个<code>Promise</code>对象。当该数组里所有<code>Promise</code>对象<code>resolve</code>时，该<code>Promise</code>对象的状态变为<code>resolved</code>；若有其中一个被<code>reject</code>，该<code>Promise</code>对象的状态变为<code>rejected</code>。</p>
+<h4 id="5-Promise-prototype-finally"><a href="#5-Promise-prototype-finally" class="headerlink" title="5.Promise.prototype.finally()"></a>5.<code>Promise.prototype.finally()</code></h4><p>不管调用<code>finally</code>的<code>Promise</code>对象状态为<code>resolved</code>或<code>rejected</code>，该方法的回调函数都会被调用，且回调函数不接受参数。</p>
 
     </div>
 
     
 
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/JavaScript/">#JavaScript</a>
+        </div>
     
 
     <!-- Comments -->
