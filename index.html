@@ -165,6 +165,38 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2018/07/06/保存函数局部变量的方法/">
+                保存函数局部变量的方法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-06</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>大家都知道，js里某个函数的局部变量只能在该函数执行期间被该函数访问，那么怎样才能在函数结束后访问到该函数里的某些局部变量呢？下面是我总结的一些方法：</p>
+<h4 id="1-将给变量的值赋给更高层级的变量，比如全局变量"><a href="#1-将给变量的值赋给更高层级的变量，比如全局变量" class="headerlink" title="1.将给变量的值赋给更高层级的变量，比如全局变量"></a>1.将给变量的值赋给更高层级的变量，比如全局变量</h4><p>这种方法应该不用多说，大家都知道</p>
+<h4 id="2-利用闭包"><a href="#2-利用闭包" class="headerlink" title="2.利用闭包"></a>2.利用闭包</h4><p>什么是闭包，我之前的博文里已经说过了，就不多解释了。下面看一段代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(let i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line">//5,5,5,5,5</div></pre></td></tr></table></figure></p>
+<p>当setTimeout函数执行时，i的值已经变成5了，那我们看看怎么利用闭包打印出0，1，2，3，4：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">for(let i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function(i)&#123;</div><div class="line">        return function()&#123;</div><div class="line">            console.log(i)</div><div class="line">        &#125;</div><div class="line">    &#125;(i))</div><div class="line">&#125;</div><div class="line">//0,1,2,3,4</div></pre></td></tr></table></figure></p>
+<p>在每次循环时，一个匿名函数被执行，并返回一个闭包，所以i的值被保存下来。</p>
+<h4 id="3-利用Function-prototype-bind方法"><a href="#3-利用Function-prototype-bind方法" class="headerlink" title="3.利用Function.prototype.bind方法"></a>3.利用Function.prototype.bind方法</h4><p>闭包需要在外面再包裹一层函数，有没有觉得很麻烦？其实函数的实例方法bind同样也能将变量保存下来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(let i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;.bind(this,i))</div><div class="line">&#125;</div><div class="line">//0,1,2,3,4</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2018/07/05/ES6中的Promise对象/">
                 ES6中的Promise对象
             </a>
@@ -192,6 +224,7 @@
 <h4 id="3-Promise-resolve-和Promise-reject"><a href="#3-Promise-resolve-和Promise-reject" class="headerlink" title="3.Promise.resolve()和Promise.reject()"></a>3.<code>Promise.resolve()</code>和<code>Promise.reject()</code></h4><p><code>resolve</code>方法返回一个状态为<code>resolved</code>的<code>Promise</code>对象，接受的参数将作为该<code>Promise</code>对象的值；<code>reject</code>方法返回一个状态为<code>rejected</code>的<code>Promise</code>对象，接受的参数将作为该<code>Promise</code>对象的值</p>
 <h4 id="4-Promise-all"><a href="#4-Promise-all" class="headerlink" title="4.Promise.all()"></a>4.<code>Promise.all()</code></h4><p>该方法接受参数为可迭代的对象（例如数组），返回一个<code>Promise</code>对象。当该数组里所有<code>Promise</code>对象<code>resolve</code>时，该<code>Promise</code>对象的状态变为<code>resolved</code>；若有其中一个被<code>reject</code>，该<code>Promise</code>对象的状态变为<code>rejected</code>。</p>
 <h4 id="5-Promise-prototype-finally"><a href="#5-Promise-prototype-finally" class="headerlink" title="5.Promise.prototype.finally()"></a>5.<code>Promise.prototype.finally()</code></h4><p>不管调用<code>finally</code>的<code>Promise</code>对象状态为<code>resolved</code>或<code>rejected</code>，该方法的回调函数都会被调用，且回调函数不接受参数。</p>
+<h3 id="异步执行"><a href="#异步执行" class="headerlink" title="异步执行"></a>异步执行</h3><p>知道了Promise异步编程的思想，下面的代码的打印信息就很容易理解了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">setTimeout(function()&#123;</div><div class="line">    console.log(1)</div><div class="line">&#125;)</div><div class="line">new Promise(function()&#123;</div><div class="line">    console.log(2)</div><div class="line">&#125;)</div><div class="line">Promise.resolve(function()&#123;</div><div class="line">    console.log(3)</div><div class="line">&#125;)</div><div class="line">console.log(4)</div><div class="line">//2，4，1</div></pre></td></tr></table></figure></p>
 
         </div>
     
@@ -533,50 +566,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/03/30/HTML语义化标签（一）/">
-                HTML语义化标签（一）
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-03-30</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/HTML/">HTML</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>总结了下自己不熟悉的且大部分浏览器支持的语义化标签，希望以后能多多注意。</p>
-<h3 id="块引用"><a href="#块引用" class="headerlink" title="块引用"></a>块引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;blockquote&gt;</div><div class="line">Here is a long quotation here is a long quotation here is a long quotation </div><div class="line">here is a long quotation here is a long quotation here is a long quotation </div><div class="line">&lt;/blockquote&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;blockquote&gt;</code>与 <code>&lt;/blockquote&gt;</code>之间的所有文本都会从常规文本中分离出来，经常会在左、右两边进行缩进（增加外边距），而且有时会使用斜体。也就是说，块引用拥有它们自己的空间。</p>
-<h3 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;article&gt;</div><div class="line">  &lt;h1&gt;Internet Explorer 9&lt;/h1&gt;</div><div class="line">  &lt;p&gt;Windows Internet Explorer 9（简称 IE9）于 2011 年 3 月 14 日发布.....&lt;/p&gt;</div><div class="line">&lt;/article&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;article&gt;</code> 标签规定独立的自包含内容，其有自身的意义，独立于站点的其余部分。</p>
-<h3 id="相关内容"><a href="#相关内容" class="headerlink" title="相关内容"></a>相关内容</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;Me and my family visited The Epcot center this summer.&lt;/p&gt;</div><div class="line">&lt;aside&gt;</div><div class="line">&lt;h4&gt;Epcot Center&lt;/h4&gt;</div><div class="line">The Epcot Center is a theme park in Disney World, Florida.</div><div class="line">&lt;/aside&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;aside&gt;</code> 标签定义其所处内容之外的与之相关的内容。</p>
-<h3 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;audio src=&quot;someaudio.wav&quot;&gt;</div><div class="line">您的浏览器不支持 audio 标签。</div><div class="line">&lt;/audio&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;audio&gt;</code> 标签定义声音，比如音乐或其他音频流</p>
-<h3 id="表格标题"><a href="#表格标题" class="headerlink" title="表格标题"></a>表格标题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;table border=&quot;1&quot;&gt;</div><div class="line">  &lt;caption&gt;Monthly savings&lt;/caption&gt;</div><div class="line">  &lt;tr&gt;</div><div class="line">    &lt;th&gt;Month&lt;/th&gt;</div><div class="line">    &lt;th&gt;Savings&lt;/th&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">  &lt;tr&gt;</div><div class="line">    &lt;td&gt;January&lt;/td&gt;</div><div class="line">    &lt;td&gt;$100&lt;/td&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;caption&gt;</code>标签定义表格标题。它必须紧随table标签之后。只能对每个表格定义一个标题，通常这个标题会被居中于表格之上。</p>
-<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;cite&gt;</div><div class="line">Here is a citation</div><div class="line">&lt;/cite&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;cite&gt;</code>标签通常表示它所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。<br>浏览器将以斜体显示引用的文本。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><code>&lt;code&gt;</code> 标签用于表示计算机源代码或者其他机器可以阅读的文本内容。这个标签将计算机代码与其它文本区分开来。</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -618,6 +607,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/06/保存函数局部变量的方法/">保存函数局部变量的方法</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/05/ES6中的Promise对象/">ES6中的Promise对象</a>
             </li>
             
@@ -627,10 +620,6 @@
             
             <li>
                 <a class="footer-post" href="/2017/06/17/Vue源码阅读（三）：模板解析/">Vue源码阅读（三）：模板解析</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/06/17/Vue源码阅读（一）：初始化实例/">Vue源码阅读（一）：初始化实例</a>
             </li>
             
         </ul>

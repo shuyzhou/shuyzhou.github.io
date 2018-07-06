@@ -10,9 +10,6 @@
 
     <!--Description-->
     
-        <meta name="description" content="1.作用域和作用域链在JavaScript中，函数也是对象。对一个函数，每一个能被该函数访问的上下文对象称为该函数的作用域。作用域中的所有属性和方法都能被该函数访问到。在下面的代码中，函数f1和f2的作用域为全局活动对象，而函数f3的作用域为函数f2活动对象和全局活动对象。
-123456789101">
-    
 
     <!--Author-->
     
@@ -21,7 +18,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="JavaScript作用域学习笔记"/>
+        <meta property="og:title" content="大周部落格"/>
     
 
     <!--Open Graph Description-->
@@ -32,7 +29,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="article" />
+        <meta property="og:type" content="website" />
     
 
     <!--Page Cover-->
@@ -43,7 +40,7 @@
 
     <!-- Title -->
     
-    <title>JavaScript作用域学习笔记 - 大周部落格</title>
+    <title>page - 大周部落格</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -132,6 +129,8 @@
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
         
+            <h1 id="main-title" class="title">大周部落格</h1>
+        
         <div class="icon-box">
   	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
 	 viewBox="40 50 140.1 140.1" xml:space="preserve">
@@ -159,12 +158,12 @@
 </div>
     </div>
 </header>
-
         <section class="main">
             
+                
 <div class="post">
 
-    <div class="post-header">
+    <div class="post-header index">
         <h1 class="title">
             <a href="/2016/11/28/JavaScript作用域学习笔记/">
                 JavaScript作用域学习笔记
@@ -183,13 +182,9 @@
         </div>
     </div>
 
-    <div class="content">
-
-        <!-- Gallery -->
-        
-
-        <!-- Post Content -->
-        <h3 id="1-作用域和作用域链"><a href="#1-作用域和作用域链" class="headerlink" title="1.作用域和作用域链"></a>1.作用域和作用域链</h3><p>在JavaScript中，函数也是对象。对一个函数，每一个能被该函数访问的上下文对象称为该函数的作用域。作用域中的所有属性和方法都能被该函数访问到。在下面的代码中，函数f1和f2的作用域为全局活动对象，而函数f3的作用域为函数f2活动对象和全局活动对象。</p>
+    
+        <div class="content">
+            <h3 id="1-作用域和作用域链"><a href="#1-作用域和作用域链" class="headerlink" title="1.作用域和作用域链"></a>1.作用域和作用域链</h3><p>在JavaScript中，函数也是对象。对一个函数，每一个能被该函数访问的上下文对象称为该函数的作用域。作用域中的所有属性和方法都能被该函数访问到。在下面的代码中，函数f1和f2的作用域为全局活动对象，而函数f3的作用域为函数f2活动对象和全局活动对象。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var i=5;</div><div class="line">funtion f1()&#123;</div><div class="line">  console.log(i);</div><div class="line">  console.log(j);  </div><div class="line">&#125;</div><div class="line"></div><div class="line">function f2()&#123;</div><div class="line">  var j=0;</div><div class="line">  console.log(&quot;hello world&quot;);</div><div class="line">  function f3()&#123;</div><div class="line">    console.log(j);</div><div class="line">  &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>每个函数都有一个[[Scope]]的内部属性，仅供JavaScript引擎访问。这个[[Scope]]指向该函数的作用域链。当一个函数被声明时，该函数能访问到的作用域就依次被放入该函数的作用域链中。此时，作用域链中的第一个对象是该函数声明时的包含环境（一般是其父函数的活动对象），第二个对象是上一层包含环境，一直到全局对象。最后，该函数的[[Scope]]属性将会指向该作用域链。</p>
 <p>在某函数被调用时，一个名为“运行期上下文”的内部对象被创建，该对象定义了函数执行时的环境。每一个运行期上下文被创建时，它的作用域链被初始化为当前运行函数的作用域链。还有一个“活动对象”被创建，该活动对象里存放着函数被调用时的形参、函数里的所有局部变量和this，对于没有被赋值的参数会初始化为undefine。然后该活动对象被推入运行期上下文的作用域链头部。当函数执行完毕时，该运行期上下文被销毁，对应的活动对象也随之销毁。</p>
@@ -215,25 +210,31 @@
 <p>2.<a href="http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html" target="_blank" rel="external">http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html</a></p>
 <p>3.<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/with" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/with</a></p>
 
-    </div>
-
-    
-
-    
-        <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/JavaScript/">#JavaScript</a> <a href="/tags/作用域/">#作用域</a>
         </div>
     
 
-    <!-- Comments -->
-    
-
 </div>
+            
         </section>
-
     </div>
 </div>
+
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="wrap-pagination">
+                <a class="" href="/page/2/">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                </a>
+                <a class="disabled" href="/">
+                    <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
 
 </div>
 

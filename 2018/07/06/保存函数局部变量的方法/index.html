@@ -10,6 +10,10 @@
 
     <!--Description-->
     
+        <meta name="description" content="大家都知道，js里某个函数的局部变量只能在该函数执行期间被该函数访问，那么怎样才能在函数结束后访问到该函数里的某些局部变量呢？下面是我总结的一些方法：
+1.将给变量的值赋给更高层级的变量，比如全局变量这种方法应该不用多说，大家都知道
+2.利用闭包什么是闭包，我之前的博文里已经说过了，就不多解释了。下">
+    
 
     <!--Author-->
     
@@ -18,7 +22,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="大周部落格"/>
+        <meta property="og:title" content="保存函数局部变量的方法"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>JavaScript - 大周部落格</title>
+    <title>保存函数局部变量的方法 - 大周部落格</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -121,17 +125,13 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
         <header>
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
-        
-            <h1 id="main-title" class="title">JavaScript</h1>
         
         <div class="icon-box">
   	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -161,117 +161,50 @@
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2018/07/05/ES6中的Promise对象/">
-        <span class="archive-date">
-            Jul 2018
-        </span>
-        ES6中的Promise对象
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/07/06/保存函数局部变量的方法/">
+                保存函数局部变量的方法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-06</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>大家都知道，js里某个函数的局部变量只能在该函数执行期间被该函数访问，那么怎样才能在函数结束后访问到该函数里的某些局部变量呢？下面是我总结的一些方法：</p>
+<h4 id="1-将给变量的值赋给更高层级的变量，比如全局变量"><a href="#1-将给变量的值赋给更高层级的变量，比如全局变量" class="headerlink" title="1.将给变量的值赋给更高层级的变量，比如全局变量"></a>1.将给变量的值赋给更高层级的变量，比如全局变量</h4><p>这种方法应该不用多说，大家都知道</p>
+<h4 id="2-利用闭包"><a href="#2-利用闭包" class="headerlink" title="2.利用闭包"></a>2.利用闭包</h4><p>什么是闭包，我之前的博文里已经说过了，就不多解释了。下面看一段代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(let i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line">//5,5,5,5,5</div></pre></td></tr></table></figure></p>
+<p>当setTimeout函数执行时，i的值已经变成5了，那我们看看怎么利用闭包打印出0，1，2，3，4：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">for(let i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function(i)&#123;</div><div class="line">        return function()&#123;</div><div class="line">            console.log(i)</div><div class="line">        &#125;</div><div class="line">    &#125;(i))</div><div class="line">&#125;</div><div class="line">//0,1,2,3,4</div></pre></td></tr></table></figure></p>
+<p>在每次循环时，一个匿名函数被执行，并返回一个闭包，所以i的值被保存下来。</p>
+<h4 id="3-利用Function-prototype-bind方法"><a href="#3-利用Function-prototype-bind方法" class="headerlink" title="3.利用Function.prototype.bind方法"></a>3.利用Function.prototype.bind方法</h4><p>闭包需要在外面再包裹一层函数，有没有觉得很麻烦？其实函数的实例方法bind同样也能将变量保存下来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(let i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;.bind(this,i))</div><div class="line">&#125;</div><div class="line">//0,1,2,3,4</div></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
-                <div class="archive-post">
-    <a href="/2016/11/29/JavaScript原型学习笔记/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        JavaScript原型学习笔记
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/11/28/JavaScript作用域学习笔记/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        JavaScript作用域学习笔记
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/12/22/Javascript常用表达式返回值/">
-        <span class="archive-date">
-            Dec 2016
-        </span>
-        Javascript常用表达式返回值
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/11/29/JavaScript闭包学习笔记/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        JavaScript闭包学习笔记
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/04/19/Vue.js入门练习：todo-list/">
-        <span class="archive-date">
-            Apr 2017
-        </span>
-        Vue.js入门练习：todo-list
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/06/17/Vue源码阅读（二）：数据监听/">
-        <span class="archive-date">
-            Jun 2017
-        </span>
-        Vue源码阅读（二）：数据监听
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/06/17/Vue源码阅读（三）：模板解析/">
-        <span class="archive-date">
-            Jun 2017
-        </span>
-        Vue源码阅读（三）：模板解析
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/11/29/javascript中的面向对象（一）/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        javascript中的面向对象（一）
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/06/17/Vue源码阅读（一）：初始化实例/">
-        <span class="archive-date">
-            Jun 2017
-        </span>
-        Vue源码阅读（一）：初始化实例
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2017/04/20/基于canvas的动画小游戏/">
-        <span class="archive-date">
-            Apr 2017
-        </span>
-        基于canvas的动画小游戏
-    </a>
-</div>
-            
-                <div class="archive-post">
-    <a href="/2016/11/29/javascript中的面向对象（二）/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        javascript中的面向对象（二）
-    </a>
-</div>
-            
         </section>
+
     </div>
 </div>
 

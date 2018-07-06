@@ -197,6 +197,7 @@
 <h4 id="3-Promise-resolve-和Promise-reject"><a href="#3-Promise-resolve-和Promise-reject" class="headerlink" title="3.Promise.resolve()和Promise.reject()"></a>3.<code>Promise.resolve()</code>和<code>Promise.reject()</code></h4><p><code>resolve</code>方法返回一个状态为<code>resolved</code>的<code>Promise</code>对象，接受的参数将作为该<code>Promise</code>对象的值；<code>reject</code>方法返回一个状态为<code>rejected</code>的<code>Promise</code>对象，接受的参数将作为该<code>Promise</code>对象的值</p>
 <h4 id="4-Promise-all"><a href="#4-Promise-all" class="headerlink" title="4.Promise.all()"></a>4.<code>Promise.all()</code></h4><p>该方法接受参数为可迭代的对象（例如数组），返回一个<code>Promise</code>对象。当该数组里所有<code>Promise</code>对象<code>resolve</code>时，该<code>Promise</code>对象的状态变为<code>resolved</code>；若有其中一个被<code>reject</code>，该<code>Promise</code>对象的状态变为<code>rejected</code>。</p>
 <h4 id="5-Promise-prototype-finally"><a href="#5-Promise-prototype-finally" class="headerlink" title="5.Promise.prototype.finally()"></a>5.<code>Promise.prototype.finally()</code></h4><p>不管调用<code>finally</code>的<code>Promise</code>对象状态为<code>resolved</code>或<code>rejected</code>，该方法的回调函数都会被调用，且回调函数不接受参数。</p>
+<h3 id="异步执行"><a href="#异步执行" class="headerlink" title="异步执行"></a>异步执行</h3><p>知道了Promise异步编程的思想，下面的代码的打印信息就很容易理解了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">setTimeout(function()&#123;</div><div class="line">    console.log(1)</div><div class="line">&#125;)</div><div class="line">new Promise(function()&#123;</div><div class="line">    console.log(2)</div><div class="line">&#125;)</div><div class="line">Promise.resolve(function()&#123;</div><div class="line">    console.log(3)</div><div class="line">&#125;)</div><div class="line">console.log(4)</div><div class="line">//2，4，1</div></pre></td></tr></table></figure></p>
 
     </div>
 
@@ -238,6 +239,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/06/保存函数局部变量的方法/">保存函数局部变量的方法</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/05/ES6中的Promise对象/">ES6中的Promise对象</a>
             </li>
             
@@ -247,10 +252,6 @@
             
             <li>
                 <a class="footer-post" href="/2017/06/17/Vue源码阅读（三）：模板解析/">Vue源码阅读（三）：模板解析</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/06/17/Vue源码阅读（一）：初始化实例/">Vue源码阅读（一）：初始化实例</a>
             </li>
             
         </ul>
