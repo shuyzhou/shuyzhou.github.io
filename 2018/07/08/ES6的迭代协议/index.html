@@ -10,9 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="大家都知道，js里某个函数的局部变量只能在该函数执行期间被该函数访问，那么怎样才能在函数结束后访问到该函数里的某些局部变量呢？下面是我总结的一些方法：
-1.将给变量的值赋给更高层级的变量，比如全局变量这种方法应该不用多说，大家都知道
-2.利用闭包什么是闭包，我之前的博文里已经说过了，就不多解释了。下">
+        <meta name="description" content="可迭代协议如果一个Javascript对象遵循可迭代协议，那么这个对象是可迭代的，可以在例如for..of等一些操作中被遍历。一个可迭代的对象，必须实现@@iterator方法，即对象或者对象原型链上某个对象必须有一个属性名为Symbol.itertor的无参函数，这个函数返回的对象遵守迭代器协议。">
     
 
     <!--Author-->
@@ -22,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="保存函数局部变量的方法"/>
+        <meta property="og:title" content="ES6的迭代协议"/>
     
 
     <!--Open Graph Description-->
@@ -44,7 +42,7 @@
 
     <!-- Title -->
     
-    <title>保存函数局部变量的方法 - 大周部落格</title>
+    <title>ES6的迭代协议 - 大周部落格</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -167,19 +165,15 @@
 
     <div class="post-header">
         <h1 class="title">
-            <a href="/2018/07/06/保存函数局部变量的方法/">
-                保存函数局部变量的方法
+            <a href="/2018/07/08/ES6的迭代协议/">
+                ES6的迭代协议
             </a>
         </h1>
         <div class="post-info">
             
-                <span class="date">2018-07-06</span>
+                <span class="date">2018-07-08</span>
             
             
-            
-                <span class="category">
-                    <a href="/categories/JavaScript/">JavaScript</a>
-                </span>
             
         </div>
     </div>
@@ -190,23 +184,24 @@
         
 
         <!-- Post Content -->
-        <p>大家都知道，<code>js</code>里某个函数的局部变量只能在该函数执行期间被该函数访问，那么怎样才能在函数结束后访问到该函数里的某些局部变量呢？下面是我总结的一些方法：</p>
-<h4 id="1-将给变量的值赋给更高层级的变量，比如全局变量"><a href="#1-将给变量的值赋给更高层级的变量，比如全局变量" class="headerlink" title="1.将给变量的值赋给更高层级的变量，比如全局变量"></a>1.将给变量的值赋给更高层级的变量，比如全局变量</h4><p>这种方法应该不用多说，大家都知道</p>
-<h4 id="2-利用闭包"><a href="#2-利用闭包" class="headerlink" title="2.利用闭包"></a>2.利用闭包</h4><p>什么是闭包，我之前的博文里已经说过了，就不多解释了。下面看一段代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line">//5,5,5,5,5</div></pre></td></tr></table></figure></p>
-<p>当<code>setTimeout</code>的参数函数执行时，<code>i</code>的值已经变成5了，那我们看看怎么利用闭包打印出0，1，2，3，4：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function(i)&#123;</div><div class="line">        return function()&#123;</div><div class="line">            console.log(i)</div><div class="line">        &#125;</div><div class="line">    &#125;(i))</div><div class="line">&#125;</div><div class="line">//0,1,2,3,4</div></pre></td></tr></table></figure></p>
-<p>在每次循环时，一个匿名函数被执行，并返回一个闭包，所以i的值被保存下来。</p>
-<h4 id="3-利用Function-prototype-bind方法"><a href="#3-利用Function-prototype-bind方法" class="headerlink" title="3.利用Function.prototype.bind方法"></a>3.利用<code>Function.prototype.bind</code>方法</h4><p>闭包需要在外面再包裹一层函数，有没有觉得很麻烦？其实函数的实例方法<code>bind</code>同样也能将变量保存下来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;.bind(this,i))</div><div class="line">&#125;</div><div class="line">//0,1,2,3,4</div></pre></td></tr></table></figure></p>
-<h3 id="4-Generator"><a href="#4-Generator" class="headerlink" title="4.Generator"></a>4.<code>Generator</code></h3><p>利用<code>Generator</code>对象的<code>next</code>可以在其生成器函数外部访问该函数的内部变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function * exampleGenerator()&#123;</div><div class="line">    var x = 5</div><div class="line">    yield x</div><div class="line">&#125;</div><div class="line">var example = exampleGenerator()</div><div class="line">console.log(example.next().value)</div></pre></td></tr></table></figure></p>
+        <h3 id="可迭代协议"><a href="#可迭代协议" class="headerlink" title="可迭代协议"></a>可迭代协议</h3><p>如果一个<code>Javascript</code>对象遵循可迭代协议，那么这个对象是可迭代的，可以在例如<code>for..of</code>等一些操作中被遍历。一个可迭代的对象，必须实现<code>@@iterator</code>方法，即对象或者对象原型链上某个对象必须有一个属性名为<code>Symbol.itertor</code>的无参函数，这个函数返回的对象遵守迭代器协议。当一个对象需要被迭代时，它的<code>@@iterator</code>会被调用，然后返回一个在迭代中获得值的迭代器。</p>
+<h3 id="迭代器协议"><a href="#迭代器协议" class="headerlink" title="迭代器协议"></a>迭代器协议</h3><p>迭代器对象实现了<code>next</code>方法，<code>next</code>方法不接受参数，返回的对象拥有<code>done</code>和<code>value</code>两个属性。当迭代未完成时，<code>done</code>为false,<code>value</code>为任意<code>Javascript</code>值；当迭代完成时，<code>done</code>为<code>true</code>,<code>value</code>的值可省略。</p>
+<h3 id="相关的内置对象、API和语法"><a href="#相关的内置对象、API和语法" class="headerlink" title="相关的内置对象、API和语法"></a>相关的内置对象、API和语法</h3><ul>
+<li>内置可迭代对象<br><code>String</code>、<code>Array</code>、<code>TypedArray</code>、<code>Map</code>和<code>Set</code>时所有内置可迭代对象</li>
+<li>用于可迭代对象的语法<br><code>for..of</code>、<code>spread</code>、<code>yield*</code>和结构操作符</li>
+<li>接受可迭代对象的内置API<br><code>Map</code>、<code>WeakMap</code>、<code>Set</code>和<code>WeakSet</code>构造函数，以及<code>Promise.all()</code>、<code>Promise.race()</code>、<code>Array.from()</code>方法<h3 id="Generator"><a href="#Generator" class="headerlink" title="Generator"></a><code>Generator</code></h3><code>Generator</code>对象由一种特殊的函数（<code>Generator</code>生成器）返回，基本语法如下，它既是迭代器又是可迭代对象：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function * gen()&#123;</div><div class="line">   yield 1</div><div class="line">   yield 2</div><div class="line">   yield 3</div><div class="line">&#125;</div><div class="line">var g = gen()</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>当<code>Generator</code>生成器被执行时，写在函数里的代码并不会立即执行，而是会被包装成一个<code>Generator</code>对象并被返回。<code>Generator</code>对象共有三个实例方法：<code>next</code>、<code>return</code>和<code>throw</code>。</p>
+<h4 id="Generator-prototype-next"><a href="#Generator-prototype-next" class="headerlink" title="Generator.prototype.next()"></a><code>Generator.prototype.next()</code></h4><p>当<code>next</code>方法每次被调用时，生成器函数会从函数最开始或上一个<code>yield</code>语句之后开始执行，只到下一个<code>yield</code>语句或者函数结束。<code>next</code>方法返回对象的<code>value</code>为<code>yield</code>语句后面的表达式的值或者是函数的返回值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">function * gen()&#123;</div><div class="line">    yield 1</div><div class="line">    yield 2</div><div class="line">    return 3</div><div class="line">&#125;</div><div class="line">var g = gen()</div><div class="line">g.next()//&#123;value: 1, done: false&#125;</div><div class="line">g.next()//&#123;value: 2, done: false&#125;</div><div class="line">g.next()//&#123;value: 3, done: true&#125;</div></pre></td></tr></table></figure></p>
+<p><code>next</code>方法可以带参数，参数将作为<code>yield</code>语句的返回值，如果是第一次执行，该参数将被忽略。</p>
+<h4 id="Generator-prototype-return"><a href="#Generator-prototype-return" class="headerlink" title="Generator.prototype.return()"></a><code>Generator.prototype.return()</code></h4><p>当<code>return</code>方法被调用时，<code>Generator</code>对象将提前结束迭代并将返回值置为接受的参数。当一个已经结束的<code>Generator</code>对象调用<code>return</code>方法时，它的返回值将会被置为传入的参数，已结束的状态不变。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function * gen()&#123;</div><div class="line">    yield 1</div><div class="line">    yield 2</div><div class="line">&#125;</div><div class="line">var g = gen()</div><div class="line">g.next()//&#123;value: 1, done: false&#125;</div><div class="line">g.return(&apos;foo&apos;)//&#123;value: &quot;foo&quot;, done: true&#125;</div><div class="line">g.next()//&#123;value: undefined, done: true&#125;</div><div class="line">g.return()//&#123;value: undefined, done: true&#125;</div><div class="line">g.return(&apos;bar&apos;)//&#123;value: &quot;bar&quot;, done: true&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="Generator-prototype-throw"><a href="#Generator-prototype-throw" class="headerlink" title="Generator.prototype.throw()"></a><code>Generator.prototype.throw()</code></h4><p><code>throw</code>方法向<code>Generator</code>函数内部传入一个错误，并继续下一次迭代，返回值和<code>next</code>函数一样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function * gen()&#123;</div><div class="line">    try &#123;</div><div class="line">        yield 4</div><div class="line">    &#125;</div><div class="line">    catch(e)&#123;</div><div class="line">        console.log(e)</div><div class="line">    &#125;</div><div class="line">    return 2</div><div class="line">&#125;</div><div class="line">var g = gen()</div><div class="line">g.next()//&#123;value: 4, done: false&#125;</div><div class="line">g.throw(new Error(&apos;Something went wrong&apos;))</div><div class="line">//Error: Something went wrong</div><div class="line">//&#123;value: 2, done: true&#125;</div></pre></td></tr></table></figure></p>
 
     </div>
 
     
 
-    
-        <div class="post-tags">
-            <i class="fa fa-tags" aria-hidden="true"></i>
-            <a href="/tags/JavaScript/">#JavaScript</a>
-        </div>
     
 
     <!-- Comments -->
