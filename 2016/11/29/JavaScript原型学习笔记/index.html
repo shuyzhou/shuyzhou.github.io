@@ -196,8 +196,8 @@
 <p>2.使该新对象的[[prototype]]属性指向该构造函数的原型。这个[[prototype]]属性是一个内部属性，但很多浏览器都给每一个对象提供<strong>proto</strong>用于找到其[[prototype]]属性指向的对象。</p>
 <p>3.执行函数代码。</p>
 <p>4.返回新对象的引用。</p>
-<p>如果前面没有加new操作符，就会像普通函数一样执行构造函数。所以构造函数前面一定记得加上new。</p>
-<p>var a = new A();//构造一个实例并使a指向它　　<br>A();//执行该函数<br>通过给构造函数的原型添加属性和方法，能实现对象之间的属性和方法共享。对于一个实例，如果某个属性或者方法在其内部找不到的话JS引擎将去该实例的原型中查找。而p1和p2共享一个原型，所以相当于共享这个原型里的所有属性和方法。</p>
+<p>如果前面没有加new操作符，就会像普通函数一样执行构造函数。所以构造函数前面一定记得加上new。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var a = new A();//构造一个实例并使a指向它　　</div><div class="line">A();//执行该函数</div></pre></td></tr></table></figure></p>
+<p>通过给构造函数的原型添加属性和方法，能实现对象之间的属性和方法共享。对于一个实例，如果某个属性或者方法在其内部找不到的话JS引擎将去该实例的原型中查找。而p1和p2共享一个原型，所以相当于共享这个原型里的所有属性和方法。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function Person(name)&#123;</div><div class="line">    this.name = name;</div><div class="line">&#125;</div><div class="line">Person.prototype.say=function()&#123;console.log(this.name);&#125;</div><div class="line">var p1 = new Person(&quot;joe&quot;);</div><div class="line">var p2 = new Person(&quot;sophia&quot;);</div><div class="line">p1.say();</div><div class="line">p2.say();</div></pre></td></tr></table></figure>
 <h3 id="2-原型链"><a href="#2-原型链" class="headerlink" title="2. 原型链"></a>2. 原型链</h3><p>当一个构造函数的原型对象是另外一个构造函数的实例时，就形成了原型链。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function SuperType()&#123;</div><div class="line">    this.property = true;</div><div class="line">&#125;</div><div class="line">SuperType.prototype.getSuperValue = function()&#123;</div><div class="line">　　return this.property;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function SubType()&#123;</div><div class="line">　　this.subproperty = false;</div><div class="line">&#125;</div><div class="line">//继承了SuperType</div><div class="line">SubType.prototype = new SuperType();</div><div class="line">SubType.prototype.getSubValue = function()&#123;</div><div class="line">　　return this.subproperty;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var instance = new SubType();</div><div class="line">alert(instance.getSuperValue());//true</div></pre></td></tr></table></figure>
@@ -255,6 +255,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/08/Javascript中获取对象属性的方法/">Javascript中获取对象属性的方法</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/06/保存函数局部变量的方法/">保存函数局部变量的方法</a>
             </li>
             
@@ -264,10 +268,6 @@
             
             <li>
                 <a class="footer-post" href="/2017/06/17/Vue源码阅读（二）：数据监听/">Vue源码阅读（二）：数据监听</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/06/17/Vue源码阅读（三）：模板解析/">Vue源码阅读（三）：模板解析</a>
             </li>
             
         </ul>

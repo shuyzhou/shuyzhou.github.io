@@ -165,6 +165,38 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2018/07/08/Javascript中获取对象属性的方法/">
+                Javascript中获取对象属性的方法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-08</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p><code>Javascript</code>中获取一个对象全部属性的方法一共有三种：<code>for..in</code>操作符、<code>Object.getOwnPropertyNames()</code>和<code>Object.keys()</code>方法，而这三种方法不管是在使用上和结果都有不同的地方。</p>
+<h3 id="for-in"><a href="#for-in" class="headerlink" title="for..in"></a><code>for..in</code></h3><p>该语句是<code>Javascript</code>中最早用来遍历对象的语句，用法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for (variable in object) &#123;</div><div class="line">    //对对象的每个属性进行操作</div><div class="line">    //在每次迭代时，将不同的属性名分配给变量variable</div><div class="line">&#125;</div><div class="line">`for..in`以任意顺序遍历一个对象的可枚举属性，它不能保证属性被访问的顺序。循环将遍历对象本身的所有可枚举属性，以及对象从其原型中继承的可枚举属性</div></pre></td></tr></table></figure></p>
+<h3 id="Object-getOwnPropertyNames"><a href="#Object-getOwnPropertyNames" class="headerlink" title="Object.getOwnPropertyNames()"></a><code>Object.getOwnPropertyNames()</code></h3><p><code>Object.getOwnPropertyNames()</code>是ES5新增的获取变量自身属性的方法，该方法返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性但不包括Symbol值作为名称的属性）组成的数组，基本语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object.getOwnPropertyNames(obj)</div><div class="line">//返回obj对象所有自身属性的属性名构成的数组</div></pre></td></tr></table></figure></p>
+<p>返回的数组中枚举属性的顺序与通过 for…in 循环（或 Object.keys）迭代该对象属性时一致，不可枚举属性的顺序未定义。<br>在<code>ES5</code>里，如果此方法的参数不是对象而是一个原始值，那么它会抛出 <code>TypeError</code>。在<code>ES2015</code>中，非对象的参数将被强制转换为一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Object.getOwnPropertyNames(&apos;foo&apos;);</div><div class="line">// TypeError: &quot;foo&quot; is not an object (ES5 code)</div><div class="line"></div><div class="line">Object.getOwnPropertyNames(&apos;foo&apos;);</div><div class="line">// [&apos;length&apos;, &apos;0&apos;, &apos;1&apos;, &apos;2&apos;]  (ES2015 code)</div></pre></td></tr></table></figure></p>
+<h3 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys()"></a><code>Object.keys()</code></h3><p><code>Object.keys()</code>同样也是ES5新增的获取变量自身属性的方法，它与<code>Object.getOwnPropertyNames()</code>方法不同之处在于它只遍历对象自身的可枚举属性，不会返回不可枚举属性。其基本语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object.keys(obj)</div><div class="line">//返回obj对象所有自身可枚举属性的属性名构成的数组</div></pre></td></tr></table></figure></p>
+<p>在<code>ES5</code>里，如果此方法的参数不是对象而是一个原始值，那么它会抛出 <code>TypeError</code>。在<code>ES2015</code>中，非对象的参数将被强制转换为一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Object.keys(&quot;foo&quot;);</div><div class="line">// TypeError: &quot;foo&quot; is not an object (ES5 code)</div><div class="line"></div><div class="line">Object.keys(&quot;foo&quot;);</div><div class="line">// [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;]                   (ES2015 code)</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2018/07/06/保存函数局部变量的方法/">
                 保存函数局部变量的方法
             </a>
@@ -527,50 +559,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/03/30/HTML语义化标签（二）/">
-                HTML语义化标签（二）
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-03-30</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/HTML/">HTML</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="删除文本"><a href="#删除文本" class="headerlink" title="删除文本"></a>删除文本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a dozen is &lt;del&gt;20&lt;/del&gt; 12 pieces</div></pre></td></tr></table></figure>
-<p><code>&lt;del&gt;</code>定义文档中已被删除的文本。</p>
-<h3 id="选项列表"><a href="#选项列表" class="headerlink" title="选项列表"></a>选项列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;myCar&quot; list=&quot;cars&quot; /&gt;</div><div class="line">&lt;datalist id=&quot;cars&quot;&gt;</div><div class="line">  &lt;option value=&quot;BMW&quot;&gt;</div><div class="line">  &lt;option value=&quot;Ford&quot;&gt;</div><div class="line">  &lt;option value=&quot;Volvo&quot;&gt;</div><div class="line">&lt;/datalist&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;datalist&gt;</code> 标签定义选项列表。一般与 input 元素配合使用该元素，来定义 input可能的值。需使用 input 元素的 list 属性来绑定 datalist。<br>关于<code>&lt;datalist&gt;</code>与<code>&lt;select&gt;</code>的区别，<code>&lt;datalist&gt;</code>允许用户自定义输入，<code>&lt;datalist&gt;</code>只是一种建议。</p>
-<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;embed src=&quot;helloworld.swf&quot; /&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;embed&gt;</code>标签定义嵌入的内容，比如插件。</p>
-<h3 id="表单组"><a href="#表单组" class="headerlink" title="表单组"></a>表单组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;form&gt;</div><div class="line">  &lt;fieldset&gt;</div><div class="line">    &lt;legend&gt;health information&lt;/legend&gt;</div><div class="line">    height: &lt;input type=&quot;text&quot; /&gt;</div><div class="line">    weight: &lt;input type=&quot;text&quot; /&gt;</div><div class="line">  &lt;/fieldset&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;fieldset&gt;</code>标签可将表单内的相关元素分组。<br>当一组表单元素放到<code>&lt;fieldset&gt;</code>标签内时，浏览器会以特殊方式来显示它们<br><code>&lt;legend&gt;</code>标签为<code>fieldset</code>元素定义标题。</p>
-<h3 id="插图"><a href="#插图" class="headerlink" title="插图"></a>插图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;figure&gt;</div><div class="line">  &lt;p&gt;黄浦江上的的卢浦大桥&lt;/p&gt;</div><div class="line">  &lt;img src=&quot;shanghai_lupu_bridge.jpg&quot; width=&quot;350&quot; height=&quot;234&quot; /&gt;</div><div class="line">&lt;/figure&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;figure&gt;</code>标签规定独立的流内容（图像、图表、照片、代码等等）。<br><code>figure</code>元素的内容应该与主内容相关，但如果被删除，则不应对文档流产生影响。</p>
-<h3 id="页脚"><a href="#页脚" class="headerlink" title="页脚"></a>页脚</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;footer&gt;</div><div class="line">  &lt;p&gt;Posted by: W3School&lt;/p&gt;</div><div class="line">  &lt;p&gt;Contact information: &lt;a href=&quot;mailto:someone@example.com&quot;&gt;someone@example.com&lt;/a&gt;.&lt;/p&gt;</div><div class="line">&lt;/footer&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;footer&gt;</code>标签定义文档或节的页脚，页脚通常包含文档的作者、版权信息、使用条款链接、联系信息等等。</p>
-<h3 id="页眉"><a href="#页眉" class="headerlink" title="页眉"></a>页眉</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;header&gt;</div><div class="line">&lt;h1&gt;Welcome to my homepage&lt;/h1&gt;</div><div class="line">&lt;p&gt;My name is Donald Duck&lt;/p&gt;</div><div class="line">&lt;/header&gt;</div><div class="line"></div><div class="line">&lt;p&gt;The rest of my home page...&lt;/p&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;header&gt;</code>标签定义文档的页眉（介绍信息）。</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -612,6 +600,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/08/Javascript中获取对象属性的方法/">Javascript中获取对象属性的方法</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/06/保存函数局部变量的方法/">保存函数局部变量的方法</a>
             </li>
             
@@ -621,10 +613,6 @@
             
             <li>
                 <a class="footer-post" href="/2017/06/17/Vue源码阅读（二）：数据监听/">Vue源码阅读（二）：数据监听</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/06/17/Vue源码阅读（三）：模板解析/">Vue源码阅读（三）：模板解析</a>
             </li>
             
         </ul>

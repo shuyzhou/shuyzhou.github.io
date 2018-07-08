@@ -165,6 +165,50 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2017/03/30/HTML语义化标签（二）/">
+                HTML语义化标签（二）
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-03-30</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/HTML/">HTML</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="删除文本"><a href="#删除文本" class="headerlink" title="删除文本"></a>删除文本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a dozen is &lt;del&gt;20&lt;/del&gt; 12 pieces</div></pre></td></tr></table></figure>
+<p><code>&lt;del&gt;</code>定义文档中已被删除的文本。</p>
+<h3 id="选项列表"><a href="#选项列表" class="headerlink" title="选项列表"></a>选项列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;myCar&quot; list=&quot;cars&quot; /&gt;</div><div class="line">&lt;datalist id=&quot;cars&quot;&gt;</div><div class="line">  &lt;option value=&quot;BMW&quot;&gt;</div><div class="line">  &lt;option value=&quot;Ford&quot;&gt;</div><div class="line">  &lt;option value=&quot;Volvo&quot;&gt;</div><div class="line">&lt;/datalist&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;datalist&gt;</code> 标签定义选项列表。一般与 input 元素配合使用该元素，来定义 input可能的值。需使用 input 元素的 list 属性来绑定 datalist。<br>关于<code>&lt;datalist&gt;</code>与<code>&lt;select&gt;</code>的区别，<code>&lt;datalist&gt;</code>允许用户自定义输入，<code>&lt;datalist&gt;</code>只是一种建议。</p>
+<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;embed src=&quot;helloworld.swf&quot; /&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;embed&gt;</code>标签定义嵌入的内容，比如插件。</p>
+<h3 id="表单组"><a href="#表单组" class="headerlink" title="表单组"></a>表单组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;form&gt;</div><div class="line">  &lt;fieldset&gt;</div><div class="line">    &lt;legend&gt;health information&lt;/legend&gt;</div><div class="line">    height: &lt;input type=&quot;text&quot; /&gt;</div><div class="line">    weight: &lt;input type=&quot;text&quot; /&gt;</div><div class="line">  &lt;/fieldset&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;fieldset&gt;</code>标签可将表单内的相关元素分组。<br>当一组表单元素放到<code>&lt;fieldset&gt;</code>标签内时，浏览器会以特殊方式来显示它们<br><code>&lt;legend&gt;</code>标签为<code>fieldset</code>元素定义标题。</p>
+<h3 id="插图"><a href="#插图" class="headerlink" title="插图"></a>插图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;figure&gt;</div><div class="line">  &lt;p&gt;黄浦江上的的卢浦大桥&lt;/p&gt;</div><div class="line">  &lt;img src=&quot;shanghai_lupu_bridge.jpg&quot; width=&quot;350&quot; height=&quot;234&quot; /&gt;</div><div class="line">&lt;/figure&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;figure&gt;</code>标签规定独立的流内容（图像、图表、照片、代码等等）。<br><code>figure</code>元素的内容应该与主内容相关，但如果被删除，则不应对文档流产生影响。</p>
+<h3 id="页脚"><a href="#页脚" class="headerlink" title="页脚"></a>页脚</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;footer&gt;</div><div class="line">  &lt;p&gt;Posted by: W3School&lt;/p&gt;</div><div class="line">  &lt;p&gt;Contact information: &lt;a href=&quot;mailto:someone@example.com&quot;&gt;someone@example.com&lt;/a&gt;.&lt;/p&gt;</div><div class="line">&lt;/footer&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;footer&gt;</code>标签定义文档或节的页脚，页脚通常包含文档的作者、版权信息、使用条款链接、联系信息等等。</p>
+<h3 id="页眉"><a href="#页眉" class="headerlink" title="页眉"></a>页眉</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;header&gt;</div><div class="line">&lt;h1&gt;Welcome to my homepage&lt;/h1&gt;</div><div class="line">&lt;p&gt;My name is Donald Duck&lt;/p&gt;</div><div class="line">&lt;/header&gt;</div><div class="line"></div><div class="line">&lt;p&gt;The rest of my home page...&lt;/p&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;header&gt;</code>标签定义文档的页眉（介绍信息）。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2017/03/30/HTML语义化标签（一）/">
                 HTML语义化标签（一）
             </a>
@@ -621,61 +665,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2016/11/29/JavaScript原型学习笔记/">
-                JavaScript原型学习笔记
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2016-11-29</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/JavaScript/">JavaScript</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>JS是一门面向对象的语言，和其它面向对象的语言不一样的是，在JS中没有类的概念。接触过C++、Java的人都清楚，类实现了对象之间的属性和方法共享，而类的继承实现了类的复用。在JS中，通过基于原型的继承实现了以上的功能。</p>
-<h3 id="1-构造函数、原型和实例"><a href="#1-构造函数、原型和实例" class="headerlink" title="1 构造函数、原型和实例"></a>1 构造函数、原型和实例</h3><p>在JS中，除了5种基本类型，其它都是对象，函数也是对象。而函数是一类特殊的对象，在每个函数对象被创建的时候，都带有一个prototype属性，这个属性指向函数的原型对象。该原型对象只有一个constructor属性，这个属性指向该函数。构造函数其实在结构上与一般的函数没有区别，但是构造函数一般被用来创建一个实例，所以为了与普通函数区分开，构造函数的函数名的第一个字母一般都是大写。</p>
-<p>通过new操作符，我们可以用一个构造函数创建一个实例。如果一个函数前面加上new操作符，JS引擎其实进行了如下几步操作：</p>
-<p>1.创建一个新对象并将该对象绑定在this上。</p>
-<p>2.使该新对象的[[prototype]]属性指向该构造函数的原型。这个[[prototype]]属性是一个内部属性，但很多浏览器都给每一个对象提供<strong>proto</strong>用于找到其[[prototype]]属性指向的对象。</p>
-<p>3.执行函数代码。</p>
-<p>4.返回新对象的引用。</p>
-<p>如果前面没有加new操作符，就会像普通函数一样执行构造函数。所以构造函数前面一定记得加上new。</p>
-<p>var a = new A();//构造一个实例并使a指向它　　<br>A();//执行该函数<br>通过给构造函数的原型添加属性和方法，能实现对象之间的属性和方法共享。对于一个实例，如果某个属性或者方法在其内部找不到的话JS引擎将去该实例的原型中查找。而p1和p2共享一个原型，所以相当于共享这个原型里的所有属性和方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function Person(name)&#123;</div><div class="line">    this.name = name;</div><div class="line">&#125;</div><div class="line">Person.prototype.say=function()&#123;console.log(this.name);&#125;</div><div class="line">var p1 = new Person(&quot;joe&quot;);</div><div class="line">var p2 = new Person(&quot;sophia&quot;);</div><div class="line">p1.say();</div><div class="line">p2.say();</div></pre></td></tr></table></figure>
-<h3 id="2-原型链"><a href="#2-原型链" class="headerlink" title="2. 原型链"></a>2. 原型链</h3><p>当一个构造函数的原型对象是另外一个构造函数的实例时，就形成了原型链。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function SuperType()&#123;</div><div class="line">    this.property = true;</div><div class="line">&#125;</div><div class="line">SuperType.prototype.getSuperValue = function()&#123;</div><div class="line">　　return this.property;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function SubType()&#123;</div><div class="line">　　this.subproperty = false;</div><div class="line">&#125;</div><div class="line">//继承了SuperType</div><div class="line">SubType.prototype = new SuperType();</div><div class="line">SubType.prototype.getSubValue = function()&#123;</div><div class="line">　　return this.subproperty;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var instance = new SubType();</div><div class="line">alert(instance.getSuperValue());//true</div></pre></td></tr></table></figure>
-<p>以上代码定义了两个类型SuperType和SubType，通过重新赋值给SubType的原型实现了SubType对SuperType的继承。然后给SubType.prototype添加了一个新方法，这样就在继承SuperType.prototype的继承上添加了新方法。这个例子中的构造函数、实例和原型的关系如图：</p>
-<p><img src="/images/prototype.png" alt=""></p>
-<p>可以看到的是，当一个构造函数的原型被赋值语句改变值后（实际上是让构造函数的prototype属性指向了另一个对象），它不会再有一个指向该构造函数的constructor属性。而且，由于SubType的原型是SuperType的一个实例，SubType的所有实例都会共享该SuperType实例的属性和方法。原型链的顶端是Object.prototype。Object.prototype的[[prototype]]属性为空。</p>
-<h3 id="3-确定原型和实例的关系"><a href="#3-确定原型和实例的关系" class="headerlink" title="3.确定原型和实例的关系"></a>3.确定原型和实例的关系</h3><p>有了原型链后，原型和实例的关系变得不那么直接了，有两种方法可以确定原型和实例的关系。</p>
-<p> instanceof<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alert(instance instanceof Object);//true</div><div class="line">alert(instance instanceof SuperType);//true</div><div class="line">alert(instance instanceof SubType);//true</div></pre></td></tr></table></figure></p>
-<p>只要是实例原型链上的对象，instanceof操作符都会返回true。</p>
-<p>isPrototypeOf()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alert(Object.prototype.isPrototypeOf(instance));//true</div><div class="line">alert(SuperType.prototype.isPrototypeOf(instance));//true</div><div class="line">alert(SubType.prototype.isPrototypeOf(instance));//true</div></pre></td></tr></table></figure></p>
-<h3 id="4-重新原型方法"><a href="#4-重新原型方法" class="headerlink" title="4.重新原型方法"></a>4.重新原型方法</h3><p>虽然，当某些原生原型或第三方JS库定义的原型方法不满足我们的需求时，可以通过SuperType.prototype.xxx = function ooo(){…}的方式重写原型方法，但不建议这么做。可以重写我们自定义的类型SubType的原型方法。养成只修改自己创建的类型的习惯，可以避免一些将来可能会出现的错误。</p>
-<h3 id="5-hasOwnProperty"><a href="#5-hasOwnProperty" class="headerlink" title="5.hasOwnProperty"></a>5.hasOwnProperty</h3><p>在使用for in语句遍历对象时，它先查找对象的属性，如果没有会沿着原型链查找对象的原型，一直到Object的原型上。这样不可避免地会出现查找效率问题。hasOwnProperty是Object.prototype的一个方法，它能判断一个对象是否包含自定义属性而不是原型链上的属性。但如果一个对象改写了这个属性，就需要使用外部的 hasOwnProperty 函数来获取正确的结果。</p>
-<p>参考文章：</p>
-<p>1.<a href="http://www.nowamagic.net/librarys/veda/detail/1648" target="_blank" rel="external">http://www.nowamagic.net/librarys/veda/detail/1648</a></p>
-<p>2.JS高级程序设计</p>
-<p>3.知乎</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -717,6 +706,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/08/Javascript中获取对象属性的方法/">Javascript中获取对象属性的方法</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/06/保存函数局部变量的方法/">保存函数局部变量的方法</a>
             </li>
             
@@ -726,10 +719,6 @@
             
             <li>
                 <a class="footer-post" href="/2017/06/17/Vue源码阅读（二）：数据监听/">Vue源码阅读（二）：数据监听</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2017/06/17/Vue源码阅读（三）：模板解析/">Vue源码阅读（三）：模板解析</a>
             </li>
             
         </ul>

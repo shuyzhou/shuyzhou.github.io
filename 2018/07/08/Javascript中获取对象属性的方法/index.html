@@ -10,6 +10,9 @@
 
     <!--Description-->
     
+        <meta name="description" content="Javascript中获取一个对象全部属性的方法一共有三种：for..in操作符、Object.getOwnPropertyNames()和Object.keys()方法，而这三种方法不管是在使用上和结果都有不同的地方。
+for..in该语句是Javascript中最早用来遍历对象的语句，用法如下：">
+    
 
     <!--Author-->
     
@@ -18,7 +21,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="大周部落格"/>
+        <meta property="og:title" content="Javascript中获取对象属性的方法"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +32,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +43,7 @@
 
     <!-- Title -->
     
-    <title>表单 - 大周部落格</title>
+    <title>Javascript中获取对象属性的方法 - 大周部落格</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -121,17 +124,13 @@
 <div class="container">
 
     <!-- Main Content -->
-    
-
-<div class="row">
+    <div class="row">
     <div class="col-sm-12">
 
         <!--Title and Logo-->
         <header>
     <div class="logo">
         <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
-        
-            <h1 id="main-title" class="title">#表单</h1>
         
         <div class="icon-box">
   	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -161,18 +160,50 @@
     </div>
 </header>
 
-        <section class="main archive-container">
+        <section class="main">
             
-                <div class="archive-post">
-    <a href="/2016/11/29/记form的二三事/">
-        <span class="archive-date">
-            Nov 2016
-        </span>
-        记form的二三事
-    </a>
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/07/08/Javascript中获取对象属性的方法/">
+                Javascript中获取对象属性的方法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-08</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p><code>Javascript</code>中获取一个对象全部属性的方法一共有三种：<code>for..in</code>操作符、<code>Object.getOwnPropertyNames()</code>和<code>Object.keys()</code>方法，而这三种方法不管是在使用上和结果都有不同的地方。</p>
+<h3 id="for-in"><a href="#for-in" class="headerlink" title="for..in"></a><code>for..in</code></h3><p>该语句是<code>Javascript</code>中最早用来遍历对象的语句，用法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for (variable in object) &#123;</div><div class="line">    //对对象的每个属性进行操作</div><div class="line">    //在每次迭代时，将不同的属性名分配给变量variable</div><div class="line">&#125;</div><div class="line">`for..in`以任意顺序遍历一个对象的可枚举属性，它不能保证属性被访问的顺序。循环将遍历对象本身的所有可枚举属性，以及对象从其原型中继承的可枚举属性</div></pre></td></tr></table></figure></p>
+<h3 id="Object-getOwnPropertyNames"><a href="#Object-getOwnPropertyNames" class="headerlink" title="Object.getOwnPropertyNames()"></a><code>Object.getOwnPropertyNames()</code></h3><p><code>Object.getOwnPropertyNames()</code>是ES5新增的获取变量自身属性的方法，该方法返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性但不包括Symbol值作为名称的属性）组成的数组，基本语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object.getOwnPropertyNames(obj)</div><div class="line">//返回obj对象所有自身属性的属性名构成的数组</div></pre></td></tr></table></figure></p>
+<p>返回的数组中枚举属性的顺序与通过 for…in 循环（或 Object.keys）迭代该对象属性时一致，不可枚举属性的顺序未定义。<br>在<code>ES5</code>里，如果此方法的参数不是对象而是一个原始值，那么它会抛出 <code>TypeError</code>。在<code>ES2015</code>中，非对象的参数将被强制转换为一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Object.getOwnPropertyNames(&apos;foo&apos;);</div><div class="line">// TypeError: &quot;foo&quot; is not an object (ES5 code)</div><div class="line"></div><div class="line">Object.getOwnPropertyNames(&apos;foo&apos;);</div><div class="line">// [&apos;length&apos;, &apos;0&apos;, &apos;1&apos;, &apos;2&apos;]  (ES2015 code)</div></pre></td></tr></table></figure></p>
+<h3 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys()"></a><code>Object.keys()</code></h3><p><code>Object.keys()</code>同样也是ES5新增的获取变量自身属性的方法，它与<code>Object.getOwnPropertyNames()</code>方法不同之处在于它只遍历对象自身的可枚举属性，不会返回不可枚举属性。其基本语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object.keys(obj)</div><div class="line">//返回obj对象所有自身可枚举属性的属性名构成的数组</div></pre></td></tr></table></figure></p>
+<p>在<code>ES5</code>里，如果此方法的参数不是对象而是一个原始值，那么它会抛出 <code>TypeError</code>。在<code>ES2015</code>中，非对象的参数将被强制转换为一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Object.keys(&quot;foo&quot;);</div><div class="line">// TypeError: &quot;foo&quot; is not an object (ES5 code)</div><div class="line"></div><div class="line">Object.keys(&quot;foo&quot;);</div><div class="line">// [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;]                   (ES2015 code)</div></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
 </div>
-            
         </section>
+
     </div>
 </div>
 
