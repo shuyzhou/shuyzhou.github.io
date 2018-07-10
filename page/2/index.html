@@ -165,6 +165,59 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2017/04/20/基于canvas的动画小游戏/">
+                基于canvas的动画小游戏
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-04-20</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>闲着做了个手机<a href="http://shuyzhou.space/love-wars/">小游戏</a>，单纯为了好玩~为了写一个小游戏，需要一些基础原理。比如，canvas动画的原理，对触屏事件的判断，角色位置或状态更新，碰撞检测等等。</p>
+<h3 id="canvas动画"><a href="#canvas动画" class="headerlink" title="canvas动画"></a><code>canvas</code>动画</h3><p>我们所看到的动画其实是一组图片以特定速度和顺序出现，<code>canvas</code>动画也是如此。<code>canvas</code>其实是一块画布，在这个画布上我们开始绘制一帧图片，又擦掉绘制下一帧图片，重复擦掉绘制擦掉绘制就成了我们看到的动画。<br>所以首先尝试着利用<code>canvas</code>绘制一个矩形：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var canvas = document.querySelector(&apos;canvas&apos;);//canvas对象</div><div class="line">var ctx = canvas.getContext(&apos;2d&apos;);//该对象的2D上下文</div><div class="line">//绘制坐标为10，10，宽高都为100的矩形</div><div class="line">ctx.fillStyle = &quot;green&quot;;</div><div class="line">ctx.fillRect(10, 10, 100, 100);</div></pre></td></tr></table></figure></p>
+<p>现代浏览器有个<code>requestAnimationFrame</code>方法，它让你在浏览器每次刷新时执行某个方法，具体戳<a href="http://www.zhangxinxu.com/wordpress/2013/09/css3-animation-requestanimationframe-tween-%E5%8A%A8%E7%94%BB%E7%AE%97%E6%B3%95/" target="_blank" rel="external">这里</a>。这正好能实现我们想要的定时重绘。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//定义定时器</div><div class="line">var w = window;</div><div class="line">var requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame || function(fn) &#123;</div><div class="line">                    setTimeout(fn, 17);</div><div class="line">                &#125;;</div><div class="line">// 定义渲染函数</div><div class="line">var render = function () &#123;</div><div class="line">    // 清除画布</div><div class="line">    context.clearRect(0, 0, canvas.width, canvas.height);</div><div class="line">    // 绘制</div><div class="line">    drawSomething();</div><div class="line">    // 继续渲染</div><div class="line">    requestAnimationFrame(render);</div><div class="line">&#125;;</div><div class="line">//开始渲染</div><div class="line">render();</div></pre></td></tr></table></figure></p>
+<h3 id="判断触屏事件"><a href="#判断触屏事件" class="headerlink" title="判断触屏事件"></a>判断触屏事件</h3><p>手机上触屏事件分很多种,所以需要根据手势进行判断用户的目的，在这里我就偷点懒，用了hammer.js手势库。手势的判断大概基于亮点：</p>
+<ol>
+<li>当前时刻位于屏幕上的手指（即触点）个数</li>
+<li>手指移动轨迹</li>
+</ol>
+<h4 id="判断当前时刻触点个数"><a href="#判断当前时刻触点个数" class="headerlink" title="判断当前时刻触点个数"></a>判断当前时刻触点个数</h4><p>触屏事件共有<code>touchstart</code>、<code>touchmove</code>、<code>touchend</code>三类事件。而这三类事件的<code>event</code>对象都包含三个属性与触点有关：</p>
+<ol>
+<li><code>touches</code>：包含当前所有触点的列表。</li>
+<li><code>targetTouches</code>：包含位于当前DOM元素上的触点的列表。</li>
+<li><code>changedTouches</code>：包含涉及当前事件的触点的列表。</li>
+</ol>
+<h4 id="判断手指移动轨迹"><a href="#判断手指移动轨迹" class="headerlink" title="判断手指移动轨迹"></a>判断手指移动轨迹</h4><p>这个一般是结合之前事件的信息进行判断的，比较复杂，有兴趣可以看看<a href="https://github.com/hammerjs/hammer.js/tree/master/" target="_blank" rel="external">hammer.js</a>源码。</p>
+<h3 id="对象池"><a href="#对象池" class="headerlink" title="对象池"></a>对象池</h3><p>游戏中一共三类角色，主角、爱心和大便（…），接到一个爱心加一分，被大便砸到失去一条命。为了方便地管理角色已经维护代码，这些角色的状态和更新方法都存放着对应的实例对象中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//constructor</div><div class="line">var Obj = function() &#123;</div><div class="line">    this.reset();</div><div class="line">    this.speed = 5 * multiple;</div><div class="line">    this.score = 1;</div><div class="line">&#125;;</div><div class="line">Obj.prototype = &#123;</div><div class="line">    constructor: Obj,</div><div class="line">    spawn: ...,//激活该对象，初始化参数</div><div class="line">    fall: ...,//物体下落</div><div class="line">    isCollision: ...,//判断是否和主角碰撞</div><div class="line">    reset: ...,//重置对象参数</div><div class="line">    draw: ...//在canvas上绘制物体</div></pre></td></tr></table></figure></p>
+<p>爱心和大便会一直从<code>canvas</code>顶部掉下，如果每次都创建一个新对象的话会在短时间内创建了大量的对象，这样将消耗大量资源。而这些对象的方法都是相似的，只有一些参数不一样，显然可以利用对象池对对象进行回收。大致思想是定义一个数组存放所有对象，当外界来“取”对象时从数组尾部弹出一个未激活对象压入数组头部，调用该对象的<code>spawn</code>方法，并将该对象标记为激活状态。在每一次<code>render</code>函数执行时，对象池将更新所有已激活对象的坐标，调用每个已激活对象的<code>draw</code>方法。并且，当某对象和主角碰撞或到<code>canvas</code>底部时对象池将对象压入数组尾部，并调用该对象的<code>reset</code>方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">var Pool = function() &#123;</div><div class="line">    var size = 20; </div><div class="line">    var pool = [];</div><div class="line">    this.init = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            var heart = new Obj();</div><div class="line">            pool[i] = heart;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.get = function(x, y, w, h, img, name) &#123;</div><div class="line">        if (!pool[size - 1].isActivated) &#123;</div><div class="line">            pool[size - 1].spawn(x, y, w, h, img, name);</div><div class="line">            pool.unshift(pool.pop());</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.update = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            if (pool[i].isActivated) &#123;</div><div class="line">                if (pool[i].fall()) &#123;</div><div class="line">                    pool[i].reset();</div><div class="line">                    pool.push((pool.splice(i, 1))[0]);</div><div class="line">                &#125;</div><div class="line">            &#125; else &#123;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.draw = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            if (pool[i].isActivated) &#123;</div><div class="line">                pool[i].draw();</div><div class="line">            &#125; else &#123;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h3><p>为了判断爱心有没有被接住，需要对两个对象进行碰撞检测。碰撞检测大致分为两步：</p>
+<ol>
+<li>计算两个矩形重叠的矩形坐标</li>
+<li>进一步检测像素级碰撞</li>
+</ol>
+<p>第2步中首先创建一个新的canvas对象，在该对象中依次画出两副图像在重叠矩形部分的图片块，并利用getImageData方法获取其像素数据，最后判断两幅图片有没有在重叠的像素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var detectImgOverlap = function(a, b, rect) &#123;</div><div class="line">    var canvas = document.createElement(&apos;canvas&apos;);</div><div class="line">    var _ctx = canvas.getContext(&apos;2d&apos;);</div><div class="line"></div><div class="line">    _ctx.drawImage(a.img, 0, 0, a.width, a.height);</div><div class="line">    var data1 = _ctx.getImageData(rect[0] - a.x, rect[1] - a.y, rect[2] - rect[0], rect[3] - rect[1]).data;</div><div class="line">    _ctx.clearRect(0, 0, b.width, b.height);</div><div class="line">    _ctx.drawImage(b.img, 0, 0, b.width, b.height);</div><div class="line">    var data2 = _ctx.getImageData(rect[0] - b.x, rect[1] - b.y, rect[2] - rect[0], rect[3] - rect[1]).data;</div><div class="line">    canvas = null;</div><div class="line"></div><div class="line">    for (var i = 3; i &lt; data1.length; i += 4) &#123;</div><div class="line">        if (data1[i] &gt; 0 &amp;&amp; data2[i] &gt; 0) &#123;</div><div class="line">            return true; </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return false;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2017/04/19/Vue.js入门练习：todo-list/">
                 Vue.js入门练习：todo-list
             </a>
@@ -616,50 +669,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2016/11/29/Javascript中的面向对象（二）/">
-                Javascript中的面向对象（二）
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2016-11-29</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/JavaScript/">JavaScript</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p><em>ES6中已有类class</em></p>
-<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>以下所有提到的方法都是基于原型链，因为javascript的继承是基于原型的继承。<br>注意：1.instanceof操作符对原型链上所有对象都有效。2.对象字面量重写原型的行为会切断原型链。</p>
-<p>基本模式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">function SuperType()&#123;</div><div class="line">    this.property = true;</div><div class="line">&#125;</div><div class="line"></div><div class="line">SuperType.prototype.getSuperValue = function()&#123;</div><div class="line">    return this.property;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">function SubType()&#123;</div><div class="line">    this.subproperty = false;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//inherit from SuperType</div><div class="line">SubType.prototype = new SuperType();</div><div class="line"></div><div class="line">SubType.prototype.getSubValue = function ()&#123;</div><div class="line">    return this.subproperty;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var instance = new SubType();</div><div class="line">alert(instance.getSuperValue());   //true</div><div class="line">   </div><div class="line">alert(instance instanceof Object);      //true</div><div class="line">alert(instance instanceof SuperType);   //true</div><div class="line">alert(instance instanceof SubType);     //true</div><div class="line"></div><div class="line">alert(Object.prototype.isPrototypeOf(instance));    //true</div><div class="line">alert(SuperType.prototype.isPrototypeOf(instance)); //true</div><div class="line">alert(SubType.prototype.isPrototypeOf(instance));   //true</div></pre></td></tr></table></figure></p>
-<p>优点：实现对象之间的继承，所有子类实例可共享父类方法。<br>缺点：子类的原型是父类的一个实例，所有子类实例都将共享父类某实例的属性；在创建子类的实例时不能向父类的构造函数传递参数。</p>
-<h4 id="借用构造函数"><a href="#借用构造函数" class="headerlink" title="借用构造函数"></a>借用构造函数</h4><p>在子类构造函数内部调用超类构造函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function SuperType(name)&#123;</div><div class="line">this.name = name;</div><div class="line">&#125;</div><div class="line"></div><div class="line">    function SubType()&#123;  </div><div class="line">        //inherit from SuperType passing in an argument</div><div class="line">        SuperType.call(this, &quot;Nicholas&quot;);</div><div class="line">        </div><div class="line">        //instance property</div><div class="line">        this.age = 29;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    var instance = new SubType();</div><div class="line">    alert(instance.name);    //&quot;Nicholas&quot;;</div><div class="line">    alert(instance.age);     //29</div></pre></td></tr></table></figure></p>
-<p>优点：子类实例不再共享父类某实例的属性，而是拥有同名属性；创建子类的实例时可以向父类的构造函数传递参数；调用父类构造函数放在最前能保证子类的属性不会被父类构造函数重写。<br>缺点：方法不能复用。</p>
-<h4 id="组合模式"><a href="#组合模式" class="headerlink" title="组合模式"></a>组合模式</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">function SuperType(name)&#123;</div><div class="line">    this.name = name;</div><div class="line">    this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];</div><div class="line">&#125;</div><div class="line"></div><div class="line">SuperType.prototype.sayName = function()&#123;</div><div class="line">    alert(this.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">function SubType(name, age)&#123;  </div><div class="line">    SuperType.call(this, name);</div><div class="line">    </div><div class="line">    this.age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">SubType.prototype = new SuperType();</div><div class="line"></div><div class="line">SubType.prototype.sayAge = function()&#123;</div><div class="line">    alert(this.age);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var instance1 = new SubType(&quot;Nicholas&quot;, 29);</div><div class="line">instance1.colors.push(&quot;black&quot;);</div><div class="line">alert(instance1.colors);  //&quot;red,blue,green,black&quot;</div><div class="line">instance1.sayName();      //&quot;Nicholas&quot;;</div><div class="line">instance1.sayAge();       //29</div><div class="line"></div><div class="line">   </div><div class="line">var instance2 = new SubType(&quot;Greg&quot;, 27);</div><div class="line">alert(instance2.colors);  //&quot;red,blue,green&quot;</div><div class="line">instance2.sayName();      //&quot;Greg&quot;;</div><div class="line">instance2.sayAge();       //27</div></pre></td></tr></table></figure>
-<p>优点：结合基本模式和构造函数的优点。<br>缺点：调用子类构造函数时必须调用父类构造函数重写子类的属性。</p>
-<h4 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h4><p>基于已有的对象创建新对象，并不必创建新类型。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">function object(o)&#123;</div><div class="line">function F()&#123;&#125;</div><div class="line">F.prototype = o;</div><div class="line">return new F();</div><div class="line">&#125;</div><div class="line"></div><div class="line">    var person = &#123;</div><div class="line">        name: &quot;Nicholas&quot;,</div><div class="line">        friends: [&quot;Shelby&quot;, &quot;Court&quot;, &quot;Van&quot;]</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    var anotherPerson = object(person);</div><div class="line">    anotherPerson.name = &quot;Greg&quot;;</div><div class="line">    anotherPerson.friends.push(&quot;Rob&quot;);</div><div class="line">    </div><div class="line">    var yetAnotherPerson = object(person);</div><div class="line">    yetAnotherPerson.name = &quot;Linda&quot;;</div><div class="line">    yetAnotherPerson.friends.push(&quot;Barbie&quot;);</div><div class="line">    </div><div class="line">    alert(person.friends);   //&quot;Shelby,Court,Van,Rob,Barbie&quot;</div></pre></td></tr></table></figure></p>
-<p>其中ECMAscript5规范了原型式继承，用Object.create()来代替object方法。<br>优点：方便单例继承，代码量更少。<br>缺点：同基本继承。</p>
-<h4 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function createAnother(original)&#123;</div><div class="line">    var clone = object(original);   //通过原型式继承创建新对象</div><div class="line">    clone.sayHi = function ()&#123;      //增强对象</div><div class="line">        alert(&quot;Hi&quot;);</div><div class="line">    &#125;;</div><div class="line">    return clone;                 //返回对象</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>优缺点同原型式继承。</p>
-<h4 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h4><p>利用继承父类原型的空对象作为子类的原型，再给子类原型添加子类方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div></pre></td><td class="code"><pre><div class="line">function object(o)&#123;</div><div class="line">function F()&#123;&#125;</div><div class="line">F.prototype = o;</div><div class="line">return new F();</div><div class="line">&#125;</div><div class="line"></div><div class="line">    function inheritPrototype(subType, superType)&#123;</div><div class="line">        var prototype = object(superType.prototype);   //create object</div><div class="line">        prototype.constructor = subType;               //augment object</div><div class="line">        subType.prototype = prototype;                 //assign object</div><div class="line">    &#125;</div><div class="line">                            </div><div class="line">    function SuperType(name)&#123;</div><div class="line">        this.name = name;</div><div class="line">        this.colors = [&quot;red&quot;, &quot;blue&quot;, &quot;green&quot;];</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    SuperType.prototype.sayName = function()&#123;</div><div class="line">        alert(this.name);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    function SubType(name, age)&#123;  </div><div class="line">        SuperType.call(this, name);</div><div class="line">        </div><div class="line">        this.age = age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    inheritPrototype(SubType, SuperType);</div><div class="line">    </div><div class="line">    SubType.prototype.sayAge = function()&#123;</div><div class="line">        alert(this.age);</div><div class="line">    &#125;;</div><div class="line">    </div><div class="line">    var instance1 = new SubType(&quot;Nicholas&quot;, 29);</div><div class="line">    instance1.colors.push(&quot;black&quot;);</div><div class="line">    alert(instance1.colors);  //&quot;red,blue,green,black&quot;</div><div class="line">    instance1.sayName();      //&quot;Nicholas&quot;;</div><div class="line">    instance1.sayAge();       //29</div><div class="line">    </div><div class="line">   </div><div class="line">    var instance2 = new SubType(&quot;Greg&quot;, 27);</div><div class="line">    alert(instance2.colors);  //&quot;red,blue,green&quot;</div><div class="line">    instance2.sayName();      //&quot;Greg&quot;;</div><div class="line">    instance2.sayAge();       //27</div></pre></td></tr></table></figure></p>
-<p>优点：避免子类继承父类时需要创建一个父类实例。</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -713,7 +722,7 @@
             </li>
             
             <li>
-                <a class="footer-post" href="/2018/07/06/保存函数局部变量的方法/">保存函数局部变量的方法</a>
+                <a class="footer-post" href="/2018/07/08/Javascript中的变量和常量/">Javascript中的变量和常量</a>
             </li>
             
         </ul>
@@ -727,15 +736,15 @@
     <ul>
         
         <li>
-            <a class="footer-post" href="/categories/Javascript/">Javascript</a>
-        </li>
-        
-        <li>
             <a class="footer-post" href="/categories/Nodejs/">Nodejs</a>
         </li>
         
         <li>
             <a class="footer-post" href="/categories/CSS/">CSS</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/Javascript/">Javascript</a>
         </li>
         
         <li>

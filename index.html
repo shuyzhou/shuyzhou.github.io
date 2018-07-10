@@ -175,6 +175,10 @@
             
             
             
+                <span class="category">
+                    <a href="/categories/Javascript/">Javascript</a>
+                </span>
+            
         </div>
     </div>
 
@@ -307,6 +311,10 @@
             
             
             
+                <span class="category">
+                    <a href="/categories/Javascript/">Javascript</a>
+                </span>
+            
         </div>
     </div>
 
@@ -318,6 +326,49 @@
 <p>返回的数组中枚举属性的顺序与通过 for…in 循环（或 Object.keys）迭代该对象属性时一致，不可枚举属性的顺序未定义。<br>在<code>ES5</code>里，如果此方法的参数不是对象而是一个原始值，那么它会抛出 <code>TypeError</code>。在<code>ES2015</code>中，非对象的参数将被强制转换为一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Object.getOwnPropertyNames(&apos;foo&apos;);</div><div class="line">// TypeError: &quot;foo&quot; is not an object (ES5 code)</div><div class="line"></div><div class="line">Object.getOwnPropertyNames(&apos;foo&apos;);</div><div class="line">// [&apos;length&apos;, &apos;0&apos;, &apos;1&apos;, &apos;2&apos;]  (ES2015 code)</div></pre></td></tr></table></figure></p>
 <h3 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys()"></a><code>Object.keys()</code></h3><p><code>Object.keys()</code>同样也是ES5新增的获取变量自身属性的方法，它与<code>Object.getOwnPropertyNames()</code>方法不同之处在于它只遍历对象自身的可枚举属性，不会返回不可枚举属性。其基本语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object.keys(obj)</div><div class="line">//返回obj对象所有自身可枚举属性的属性名构成的数组</div></pre></td></tr></table></figure></p>
 <p>在<code>ES5</code>里，如果此方法的参数不是对象而是一个原始值，那么它会抛出 <code>TypeError</code>。在<code>ES2015</code>中，非对象的参数将被强制转换为一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Object.keys(&quot;foo&quot;);</div><div class="line">// TypeError: &quot;foo&quot; is not an object (ES5 code)</div><div class="line"></div><div class="line">Object.keys(&quot;foo&quot;);</div><div class="line">// [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;]                   (ES2015 code)</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/07/08/Javascript中的变量和常量/">
+                Javascript中的变量和常量
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-08</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/Javascript/">Javascript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="变量、常量声明方式"><a href="#变量、常量声明方式" class="headerlink" title="变量、常量声明方式"></a>变量、常量声明方式</h3><p>在<code>Javascript</code>中，声明常量的方式只有一种：<code>const</code>，而声明变量的方式有两种：<code>var</code>和<code>let</code>。<br>常量声明要求一个初始值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const a//SyntaxError: Missing initializer in const declaration</div></pre></td></tr></table></figure></p>
+<p>常量一旦被声明就不能被重新赋值，但这不意味着它的值不能改变，只是说明这个被定义的标识符不能被重新赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const a = &#123;&apos;key&apos;:&apos;value&apos;&#125;</div><div class="line">a = &#123;&apos;key&apos;:&apos;anotherValue&apos;&#125;//TypeError: Assignment to constant variable</div><div class="line">a.key = &apos;anotherValue&apos;</div><div class="line">console.log(a.key)//&apos;anotherValue&apos;</div></pre></td></tr></table></figure></p>
+<p>如果一个未声明变量被赋值时，将隐式地被创建为一个全局变量。这里<code>y</code>作为全局变量可以被<code>console.log</code>访问到，而局部变量<code>z</code>不能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function x()&#123;</div><div class="line">    y = 1</div><div class="line">    var z = 2</div><div class="line">&#125;</div><div class="line">x()</div><div class="line">console.log(y)//1</div><div class="line">console.log(z)//ReferenceError: z is not defined</div></pre></td></tr></table></figure></p>
+<p>被<code>var</code>声明的变量，在同一作用域内可以被<code>var</code>再次声明并赋值，它的值将为最新的值。而被<code>let</code>和<code>const</code>声明的变量和常量不允许与同一作用域内其他变量、常量或函数名相同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let a = 1</div><div class="line">var a = 2// SyntaxError:Identifier &apos;a&apos; has already been declared</div><div class="line">var b = 1</div><div class="line">var b = 4</div><div class="line">b//4</div><div class="line">let b = 3// SyntaxError:Identifier &apos;b&apos; has already been declared</div><div class="line">const a = 1// SyntaxError:Identifier &apos;a&apos; has already been declared</div><div class="line">const b = 1// SyntaxError:Identifier &apos;b&apos; has already been declared</div></pre></td></tr></table></figure></p>
+<h3 id="函数作用域和块级作用域"><a href="#函数作用域和块级作用域" class="headerlink" title="函数作用域和块级作用域"></a>函数作用域和块级作用域</h3><p><code>Javascript</code>中，被花括号包起来的代码称为代码块，一个代码块前面可以有一个标志来对这个代码块做出说明，或作为<code>break</code>的目标：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    //Statement</div><div class="line">&#125;</div><div class="line">label:&#123;</div><div class="line">    //Statement</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>var</code>声明的变量以及函数是函数作用域，而<code>let</code>和<code>const</code>声明的变量和常量是块级作用域:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    var a = 2</div><div class="line">    const b = 10</div><div class="line">    let c = 1</div><div class="line">    function foo()&#123;</div><div class="line">        console.log(&apos;foo&apos;)</div><div class="line">    &#125;</div><div class="line">    console.log(a)</div><div class="line">    console.log(b)</div><div class="line">    console.log(c)</div><div class="line">&#125;</div><div class="line">console.log(a)</div><div class="line">console.log(b)</div><div class="line">console.log(c)</div><div class="line">foo()</div></pre></td></tr></table></figure></p>
+<p>以<code>var</code>和<code>let</code>为例看下两者的区别：由于<code>var</code>声明的其实是全局变量，因此<code>console.log</code>函数在执行时会在全局作用域对<code>i</code>进行标识符解析，而这时<code>i</code>的值已经变为3；而在<code>for</code>循环里<code>let</code>声明的变量<code>i</code>在每次进入循环体时就产生一个块级作用域，并且把<code>i</code>当时的值绑定在该作用域里，<code>console.log</code>函数在执行时会对相应的块级作用域做标识符解析，所以会打印出不同的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; 3;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">for(let i = 0;i &lt; 3;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p><code>var</code>声明的变量以及函数会经过变量提升，即不管在何处声明变量都等同于在函数的最开始声明该变量。<code>Javascript</code>引擎会在函数代码执行前处理所有<code>var</code>声明的变量声明，并将<code>undefined</code>赋值给变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a = 2</div><div class="line">console.log(a)//2</div><div class="line">var a</div><div class="line">console.log(b)//undefined</div><div class="line">var b</div></pre></td></tr></table></figure></p>
+<p>同样，函数声明也会经过变量提升，但会被限制在声明它的语句块内。所以，最好还是将变量声明放在函数的顶部，以免出现<code>TypeError</code>异常。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">foo()//TypeError: foo is not a function</div><div class="line">&#123;</div><div class="line">    function foo()&#123;</div><div class="line">        console.log(&apos;foo&apos;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//但下面的代码不会出现`TypeError`异常</div><div class="line">foo()</div><div class="line">function foo()&#123;</div><div class="line">    console.log(&apos;foo&apos;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>未声明的变量不会有变量提升，通常是在被赋值时才被声明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(a)//ReferenceError: a is not defined</div><div class="line">a = 2//不会执行</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(a)//undefined</div><div class="line">var a = 1</div></pre></td></tr></table></figure>
+<p><code>let</code>声明的变量不会有变量提升，在变量被声明之前，如果引用变量将导致<code>ReferenceError</code>，该变量处于从块开始到初始化处理的‘暂存死区’，<code>const</code>声明的常量也是如此。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function doSomething()&#123;</div><div class="line">    console.log(bar)//undefined</div><div class="line">    console.log(foo)//ReferenceError: foo is not defined</div><div class="line">    var bar = 1</div><div class="line">    let foo = 2</div><div class="line">&#125;</div><div class="line">doSomething()</div></pre></td></tr></table></figure></p>
+<h3 id="与词法作用域相结合的暂存死区"><a href="#与词法作用域相结合的暂存死区" class="headerlink" title="与词法作用域相结合的暂存死区"></a>与词法作用域相结合的暂存死区</h3><p>由于词法作用域，表达式<code>(foo + 55)</code>内的标识符<code>foo</code>将被解析为if块的<code>foo</code>，而不是覆盖值为33的<code>foo</code>。在这一行中，if块的<code>foo</code>已经在词法环境中创建，但尚未终止其初始化，它仍处于暂存死区：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function test()&#123;</div><div class="line">    var foo = 33</div><div class="line">    if(true)&#123;</div><div class="line">        let foo = (foo + 55)//ReferenceError: foo is not defined</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">test()</div></pre></td></tr></table></figure></p>
 
         </div>
     
@@ -554,59 +605,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/04/20/基于canvas的动画小游戏/">
-                基于canvas的动画小游戏
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-04-20</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/JavaScript/">JavaScript</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>闲着做了个手机<a href="http://shuyzhou.space/love-wars/">小游戏</a>，单纯为了好玩~为了写一个小游戏，需要一些基础原理。比如，canvas动画的原理，对触屏事件的判断，角色位置或状态更新，碰撞检测等等。</p>
-<h3 id="canvas动画"><a href="#canvas动画" class="headerlink" title="canvas动画"></a><code>canvas</code>动画</h3><p>我们所看到的动画其实是一组图片以特定速度和顺序出现，<code>canvas</code>动画也是如此。<code>canvas</code>其实是一块画布，在这个画布上我们开始绘制一帧图片，又擦掉绘制下一帧图片，重复擦掉绘制擦掉绘制就成了我们看到的动画。<br>所以首先尝试着利用<code>canvas</code>绘制一个矩形：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var canvas = document.querySelector(&apos;canvas&apos;);//canvas对象</div><div class="line">var ctx = canvas.getContext(&apos;2d&apos;);//该对象的2D上下文</div><div class="line">//绘制坐标为10，10，宽高都为100的矩形</div><div class="line">ctx.fillStyle = &quot;green&quot;;</div><div class="line">ctx.fillRect(10, 10, 100, 100);</div></pre></td></tr></table></figure></p>
-<p>现代浏览器有个<code>requestAnimationFrame</code>方法，它让你在浏览器每次刷新时执行某个方法，具体戳<a href="http://www.zhangxinxu.com/wordpress/2013/09/css3-animation-requestanimationframe-tween-%E5%8A%A8%E7%94%BB%E7%AE%97%E6%B3%95/" target="_blank" rel="external">这里</a>。这正好能实现我们想要的定时重绘。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">//定义定时器</div><div class="line">var w = window;</div><div class="line">var requestAnimationFrame = w.requestAnimationFrame || w.webkitRequestAnimationFrame || w.msRequestAnimationFrame || w.mozRequestAnimationFrame || function(fn) &#123;</div><div class="line">                    setTimeout(fn, 17);</div><div class="line">                &#125;;</div><div class="line">// 定义渲染函数</div><div class="line">var render = function () &#123;</div><div class="line">    // 清除画布</div><div class="line">    context.clearRect(0, 0, canvas.width, canvas.height);</div><div class="line">    // 绘制</div><div class="line">    drawSomething();</div><div class="line">    // 继续渲染</div><div class="line">    requestAnimationFrame(render);</div><div class="line">&#125;;</div><div class="line">//开始渲染</div><div class="line">render();</div></pre></td></tr></table></figure></p>
-<h3 id="判断触屏事件"><a href="#判断触屏事件" class="headerlink" title="判断触屏事件"></a>判断触屏事件</h3><p>手机上触屏事件分很多种,所以需要根据手势进行判断用户的目的，在这里我就偷点懒，用了hammer.js手势库。手势的判断大概基于亮点：</p>
-<ol>
-<li>当前时刻位于屏幕上的手指（即触点）个数</li>
-<li>手指移动轨迹</li>
-</ol>
-<h4 id="判断当前时刻触点个数"><a href="#判断当前时刻触点个数" class="headerlink" title="判断当前时刻触点个数"></a>判断当前时刻触点个数</h4><p>触屏事件共有<code>touchstart</code>、<code>touchmove</code>、<code>touchend</code>三类事件。而这三类事件的<code>event</code>对象都包含三个属性与触点有关：</p>
-<ol>
-<li><code>touches</code>：包含当前所有触点的列表。</li>
-<li><code>targetTouches</code>：包含位于当前DOM元素上的触点的列表。</li>
-<li><code>changedTouches</code>：包含涉及当前事件的触点的列表。</li>
-</ol>
-<h4 id="判断手指移动轨迹"><a href="#判断手指移动轨迹" class="headerlink" title="判断手指移动轨迹"></a>判断手指移动轨迹</h4><p>这个一般是结合之前事件的信息进行判断的，比较复杂，有兴趣可以看看<a href="https://github.com/hammerjs/hammer.js/tree/master/" target="_blank" rel="external">hammer.js</a>源码。</p>
-<h3 id="对象池"><a href="#对象池" class="headerlink" title="对象池"></a>对象池</h3><p>游戏中一共三类角色，主角、爱心和大便（…），接到一个爱心加一分，被大便砸到失去一条命。为了方便地管理角色已经维护代码，这些角色的状态和更新方法都存放着对应的实例对象中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">//constructor</div><div class="line">var Obj = function() &#123;</div><div class="line">    this.reset();</div><div class="line">    this.speed = 5 * multiple;</div><div class="line">    this.score = 1;</div><div class="line">&#125;;</div><div class="line">Obj.prototype = &#123;</div><div class="line">    constructor: Obj,</div><div class="line">    spawn: ...,//激活该对象，初始化参数</div><div class="line">    fall: ...,//物体下落</div><div class="line">    isCollision: ...,//判断是否和主角碰撞</div><div class="line">    reset: ...,//重置对象参数</div><div class="line">    draw: ...//在canvas上绘制物体</div></pre></td></tr></table></figure></p>
-<p>爱心和大便会一直从<code>canvas</code>顶部掉下，如果每次都创建一个新对象的话会在短时间内创建了大量的对象，这样将消耗大量资源。而这些对象的方法都是相似的，只有一些参数不一样，显然可以利用对象池对对象进行回收。大致思想是定义一个数组存放所有对象，当外界来“取”对象时从数组尾部弹出一个未激活对象压入数组头部，调用该对象的<code>spawn</code>方法，并将该对象标记为激活状态。在每一次<code>render</code>函数执行时，对象池将更新所有已激活对象的坐标，调用每个已激活对象的<code>draw</code>方法。并且，当某对象和主角碰撞或到<code>canvas</code>底部时对象池将对象压入数组尾部，并调用该对象的<code>reset</code>方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">var Pool = function() &#123;</div><div class="line">    var size = 20; </div><div class="line">    var pool = [];</div><div class="line">    this.init = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            var heart = new Obj();</div><div class="line">            pool[i] = heart;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.get = function(x, y, w, h, img, name) &#123;</div><div class="line">        if (!pool[size - 1].isActivated) &#123;</div><div class="line">            pool[size - 1].spawn(x, y, w, h, img, name);</div><div class="line">            pool.unshift(pool.pop());</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.update = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            if (pool[i].isActivated) &#123;</div><div class="line">                if (pool[i].fall()) &#123;</div><div class="line">                    pool[i].reset();</div><div class="line">                    pool.push((pool.splice(i, 1))[0]);</div><div class="line">                &#125;</div><div class="line">            &#125; else &#123;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">    this.draw = function() &#123;</div><div class="line">        for (var i = 0; i &lt; size; i++) &#123;</div><div class="line">            if (pool[i].isActivated) &#123;</div><div class="line">                pool[i].draw();</div><div class="line">            &#125; else &#123;</div><div class="line">                break;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="碰撞检测"><a href="#碰撞检测" class="headerlink" title="碰撞检测"></a>碰撞检测</h3><p>为了判断爱心有没有被接住，需要对两个对象进行碰撞检测。碰撞检测大致分为两步：</p>
-<ol>
-<li>计算两个矩形重叠的矩形坐标</li>
-<li>进一步检测像素级碰撞</li>
-</ol>
-<p>第2步中首先创建一个新的canvas对象，在该对象中依次画出两副图像在重叠矩形部分的图片块，并利用getImageData方法获取其像素数据，最后判断两幅图片有没有在重叠的像素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">var detectImgOverlap = function(a, b, rect) &#123;</div><div class="line">    var canvas = document.createElement(&apos;canvas&apos;);</div><div class="line">    var _ctx = canvas.getContext(&apos;2d&apos;);</div><div class="line"></div><div class="line">    _ctx.drawImage(a.img, 0, 0, a.width, a.height);</div><div class="line">    var data1 = _ctx.getImageData(rect[0] - a.x, rect[1] - a.y, rect[2] - rect[0], rect[3] - rect[1]).data;</div><div class="line">    _ctx.clearRect(0, 0, b.width, b.height);</div><div class="line">    _ctx.drawImage(b.img, 0, 0, b.width, b.height);</div><div class="line">    var data2 = _ctx.getImageData(rect[0] - b.x, rect[1] - b.y, rect[2] - rect[0], rect[3] - rect[1]).data;</div><div class="line">    canvas = null;</div><div class="line"></div><div class="line">    for (var i = 3; i &lt; data1.length; i += 4) &#123;</div><div class="line">        if (data1[i] &gt; 0 &amp;&amp; data2[i] &gt; 0) &#123;</div><div class="line">            return true; </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return false;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -660,7 +658,7 @@
             </li>
             
             <li>
-                <a class="footer-post" href="/2018/07/06/保存函数局部变量的方法/">保存函数局部变量的方法</a>
+                <a class="footer-post" href="/2018/07/08/Javascript中的变量和常量/">Javascript中的变量和常量</a>
             </li>
             
         </ul>
@@ -674,15 +672,15 @@
     <ul>
         
         <li>
-            <a class="footer-post" href="/categories/Javascript/">Javascript</a>
-        </li>
-        
-        <li>
             <a class="footer-post" href="/categories/Nodejs/">Nodejs</a>
         </li>
         
         <li>
             <a class="footer-post" href="/categories/CSS/">CSS</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/Javascript/">Javascript</a>
         </li>
         
         <li>

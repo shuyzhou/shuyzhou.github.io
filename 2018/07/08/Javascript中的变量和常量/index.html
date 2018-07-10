@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="变量、常量声明方式在Javascript中，声明常量的方式只有一种：const，而声明变量的方式有两种：var和let。常量声明要求一个初始值：1const a//SyntaxError: Missing initializer in const declaration
+常量一旦被声明就不能被重新赋">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="shuyzhou">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Javascript中的变量和常量"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="大周部落格"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Javascript中的变量和常量 - 大周部落格</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/myworks/">
+                    Myworks
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+        <div class="icon-box">
+  	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="40 50 140.1 140.1" xml:space="preserve">
+		<g>
+			<path id="edge" class="path" d="M134.8,81c17.8,29.7,22.6,61.3,14.1,80.1c-2.5,5.6-6.3,10.1-11.2,13c0,0-26.3,18.7-62.1,0
+		c-21.5-12.8-20.2-54.5,2.9-93.1C78.5,81,106.7,108.9,134.8,81z"/>
+			<path id="tail" class="path" d="M146.6,165.4c0,0,21.6-13,20.7-40.6"/>
+			<ellipse class="eyes" cx="88.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<ellipse class="eyes" cx="126.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<line class="path hands" x1="100" y1="143.1" x2="106.8" y2="147.8"/>
+			<line class="path hands" x1="106.8" y1="147.8" x2="100" y2="151.5"/>
+			<line class="path hands" x1="116.8" y1="143.1" x2="110" y2="147.8"/>
+			<line class="path hands" x1="110" y1="147.8" x2="116.8" y2="151.5"/>
+		</g>
+		<g id="normal">
+			<polyline id="mouth" points="116,124.8 108,124.8 100,124.8 	"/>
+		</g>
+		<g id="smile">
+			<path class="path" d="M100,125.7c0,0,2.5,4.7,7.7,0"/>
+			<path class="path" d="M115.4,125.7c0,0-2.5,4.7-7.7,0"/>
+			<ellipse class="blush" cx="81.8" cy="129.6" rx="1.8" ry="2.1"/>
+			<ellipse class="blush" cx="136.3" cy="129.6" rx="1.8" ry="2.1"/>
+		</g>
+	</svg>
+</div>
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/07/08/Javascript中的变量和常量/">
+                Javascript中的变量和常量
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-08</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/Javascript/">Javascript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <h3 id="变量、常量声明方式"><a href="#变量、常量声明方式" class="headerlink" title="变量、常量声明方式"></a>变量、常量声明方式</h3><p>在<code>Javascript</code>中，声明常量的方式只有一种：<code>const</code>，而声明变量的方式有两种：<code>var</code>和<code>let</code>。<br>常量声明要求一个初始值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const a//SyntaxError: Missing initializer in const declaration</div></pre></td></tr></table></figure></p>
+<p>常量一旦被声明就不能被重新赋值，但这不意味着它的值不能改变，只是说明这个被定义的标识符不能被重新赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const a = &#123;&apos;key&apos;:&apos;value&apos;&#125;</div><div class="line">a = &#123;&apos;key&apos;:&apos;anotherValue&apos;&#125;//TypeError: Assignment to constant variable</div><div class="line">a.key = &apos;anotherValue&apos;</div><div class="line">console.log(a.key)//&apos;anotherValue&apos;</div></pre></td></tr></table></figure></p>
+<p>如果一个未声明变量被赋值时，将隐式地被创建为一个全局变量。这里<code>y</code>作为全局变量可以被<code>console.log</code>访问到，而局部变量<code>z</code>不能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function x()&#123;</div><div class="line">    y = 1</div><div class="line">    var z = 2</div><div class="line">&#125;</div><div class="line">x()</div><div class="line">console.log(y)//1</div><div class="line">console.log(z)//ReferenceError: z is not defined</div></pre></td></tr></table></figure></p>
+<p>被<code>var</code>声明的变量，在同一作用域内可以被<code>var</code>再次声明并赋值，它的值将为最新的值。而被<code>let</code>和<code>const</code>声明的变量和常量不允许与同一作用域内其他变量、常量或函数名相同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let a = 1</div><div class="line">var a = 2// SyntaxError:Identifier &apos;a&apos; has already been declared</div><div class="line">var b = 1</div><div class="line">var b = 4</div><div class="line">b//4</div><div class="line">let b = 3// SyntaxError:Identifier &apos;b&apos; has already been declared</div><div class="line">const a = 1// SyntaxError:Identifier &apos;a&apos; has already been declared</div><div class="line">const b = 1// SyntaxError:Identifier &apos;b&apos; has already been declared</div></pre></td></tr></table></figure></p>
+<h3 id="函数作用域和块级作用域"><a href="#函数作用域和块级作用域" class="headerlink" title="函数作用域和块级作用域"></a>函数作用域和块级作用域</h3><p><code>Javascript</code>中，被花括号包起来的代码称为代码块，一个代码块前面可以有一个标志来对这个代码块做出说明，或作为<code>break</code>的目标：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    //Statement</div><div class="line">&#125;</div><div class="line">label:&#123;</div><div class="line">    //Statement</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>var</code>声明的变量以及函数是函数作用域，而<code>let</code>和<code>const</code>声明的变量和常量是块级作用域:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    var a = 2</div><div class="line">    const b = 10</div><div class="line">    let c = 1</div><div class="line">    function foo()&#123;</div><div class="line">        console.log(&apos;foo&apos;)</div><div class="line">    &#125;</div><div class="line">    console.log(a)</div><div class="line">    console.log(b)</div><div class="line">    console.log(c)</div><div class="line">&#125;</div><div class="line">console.log(a)</div><div class="line">console.log(b)</div><div class="line">console.log(c)</div><div class="line">foo()</div></pre></td></tr></table></figure></p>
+<p>以<code>var</code>和<code>let</code>为例看下两者的区别：由于<code>var</code>声明的其实是全局变量，因此<code>console.log</code>函数在执行时会在全局作用域对<code>i</code>进行标识符解析，而这时<code>i</code>的值已经变为3；而在<code>for</code>循环里<code>let</code>声明的变量<code>i</code>在每次进入循环体时就产生一个块级作用域，并且把<code>i</code>当时的值绑定在该作用域里，<code>console.log</code>函数在执行时会对相应的块级作用域做标识符解析，所以会打印出不同的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; 3;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">for(let i = 0;i &lt; 3;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p><code>var</code>声明的变量以及函数会经过变量提升，即不管在何处声明变量都等同于在函数的最开始声明该变量。<code>Javascript</code>引擎会在函数代码执行前处理所有<code>var</code>声明的变量声明，并将<code>undefined</code>赋值给变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a = 2</div><div class="line">console.log(a)//2</div><div class="line">var a</div><div class="line">console.log(b)//undefined</div><div class="line">var b</div></pre></td></tr></table></figure></p>
+<p>同样，函数声明也会经过变量提升，但会被限制在声明它的语句块内。所以，最好还是将变量声明放在函数的顶部，以免出现<code>TypeError</code>异常。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">foo()//TypeError: foo is not a function</div><div class="line">&#123;</div><div class="line">    function foo()&#123;</div><div class="line">        console.log(&apos;foo&apos;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//但下面的代码不会出现`TypeError`异常</div><div class="line">foo()</div><div class="line">function foo()&#123;</div><div class="line">    console.log(&apos;foo&apos;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>未声明的变量不会有变量提升，通常是在被赋值时才被声明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(a)//ReferenceError: a is not defined</div><div class="line">a = 2//不会执行</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(a)//undefined</div><div class="line">var a = 1</div></pre></td></tr></table></figure>
+<p><code>let</code>声明的变量不会有变量提升，在变量被声明之前，如果引用变量将导致<code>ReferenceError</code>，该变量处于从块开始到初始化处理的‘暂存死区’，<code>const</code>声明的常量也是如此。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function doSomething()&#123;</div><div class="line">    console.log(bar)//undefined</div><div class="line">    console.log(foo)//ReferenceError: foo is not defined</div><div class="line">    var bar = 1</div><div class="line">    let foo = 2</div><div class="line">&#125;</div><div class="line">doSomething()</div></pre></td></tr></table></figure></p>
+<h3 id="与词法作用域相结合的暂存死区"><a href="#与词法作用域相结合的暂存死区" class="headerlink" title="与词法作用域相结合的暂存死区"></a>与词法作用域相结合的暂存死区</h3><p>由于词法作用域，表达式<code>(foo + 55)</code>内的标识符<code>foo</code>将被解析为if块的<code>foo</code>，而不是覆盖值为33的<code>foo</code>。在这一行中，if块的<code>foo</code>已经在词法环境中创建，但尚未终止其初始化，它仍处于暂存死区：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function test()&#123;</div><div class="line">    var foo = 33</div><div class="line">    if(true)&#123;</div><div class="line">        let foo = (foo + 55)//ReferenceError: foo is not defined</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">test()</div></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/Javascript/">#Javascript</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This is Sophia Zhou's personal blog. Enjoy yourself!
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/08/ES6中的Proxy/">ES6中的Proxy</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/08/ES6的迭代协议/">ES6的迭代协议</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/08/Javascript中获取对象属性的方法/">Javascript中获取对象属性的方法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/08/Javascript中的变量和常量/">Javascript中的变量和常量</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-categories">
+    <h2>Categories</h2>
+    <ul>
+        
+        <li>
+            <a class="footer-post" href="/categories/Nodejs/">Nodejs</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/CSS/">CSS</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/Javascript/">Javascript</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/HTML/">HTML</a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/shuyzhou">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:big_zhou@126.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Sophia Zhou. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
