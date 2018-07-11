@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="ES6添加了不少新语法，使得编程变得更加方便直观，解构赋值和展开语句便是其中之二，下面我们先来看一看解构.
+解构赋值解构赋值语法是一个Javascript表达式，它可以将值从数组或属性从对象中提取到不同的变量中。
+数组解构语法数组解构的基本语法如下，数组的元素值按照顺序赋给左边数组字面量里的变量：1">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="shuyzhou">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="ES6的解构赋值"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="大周部落格"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>ES6的解构赋值 - 大周部落格</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/myworks/">
+                    Myworks
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+        <div class="icon-box">
+  	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="40 50 140.1 140.1" xml:space="preserve">
+		<g>
+			<path id="edge" class="path" d="M134.8,81c17.8,29.7,22.6,61.3,14.1,80.1c-2.5,5.6-6.3,10.1-11.2,13c0,0-26.3,18.7-62.1,0
+		c-21.5-12.8-20.2-54.5,2.9-93.1C78.5,81,106.7,108.9,134.8,81z"/>
+			<path id="tail" class="path" d="M146.6,165.4c0,0,21.6-13,20.7-40.6"/>
+			<ellipse class="eyes" cx="88.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<ellipse class="eyes" cx="126.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<line class="path hands" x1="100" y1="143.1" x2="106.8" y2="147.8"/>
+			<line class="path hands" x1="106.8" y1="147.8" x2="100" y2="151.5"/>
+			<line class="path hands" x1="116.8" y1="143.1" x2="110" y2="147.8"/>
+			<line class="path hands" x1="110" y1="147.8" x2="116.8" y2="151.5"/>
+		</g>
+		<g id="normal">
+			<polyline id="mouth" points="116,124.8 108,124.8 100,124.8 	"/>
+		</g>
+		<g id="smile">
+			<path class="path" d="M100,125.7c0,0,2.5,4.7,7.7,0"/>
+			<path class="path" d="M115.4,125.7c0,0-2.5,4.7-7.7,0"/>
+			<ellipse class="blush" cx="81.8" cy="129.6" rx="1.8" ry="2.1"/>
+			<ellipse class="blush" cx="136.3" cy="129.6" rx="1.8" ry="2.1"/>
+		</g>
+	</svg>
+</div>
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/07/09/ES6的解构赋值/">
+                ES6的解构赋值
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-09</span>
+            
+            
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>ES6添加了不少新语法，使得编程变得更加方便直观，解构赋值和展开语句便是其中之二，下面我们先来看一看解构.</p>
+<h3 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h3><p>解构赋值语法是一个<code>Javascript</code>表达式，它可以将值从数组或属性从对象中提取到不同的变量中。</p>
+<h4 id="数组解构语法"><a href="#数组解构语法" class="headerlink" title="数组解构语法"></a>数组解构语法</h4><p>数组解构的基本语法如下，数组的元素值按照顺序赋给左边数组字面量里的变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var foo = [1,2,3]</div><div class="line">var [one,two] = foo</div><div class="line">var [a,b,c,d] = foo</div><div class="line">console.log(one)//1</div><div class="line">console.log(two)//2</div><div class="line">console.log(a)//1</div><div class="line">console.log(b)//2</div><div class="line">console.log(c)//3</div><div class="line">console.log(d)//undefined</div></pre></td></tr></table></figure></p>
+<p>变量声明可以和解构赋值分开：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a, b</div><div class="line">[a,b] = [1,2,3]</div><div class="line">console.log(a)</div><div class="line">console.log(b)</div></pre></td></tr></table></figure></p>
+<p>变量可以有默认值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a, b</div><div class="line">[a = 5,b = 7] = [1]</div><div class="line">console.log(a)//1</div><div class="line">console.log(b)//7</div></pre></td></tr></table></figure></p>
+<p>某些值可以被忽略：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var [a, ,b] = [1,2,3]</div><div class="line">console.log(a)//1</div><div class="line">console.log(b)//3</div></pre></td></tr></table></figure></p>
+<p>可以使用<code>...rest</code>语句将剩余部分赋值给一个变量，因为剩余元素必须是数组的最后一个元素，所以如果剩余元素右侧有一个逗号会抛出<code>SyntaxError</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var [a,...b] = [1,2,3]</div><div class="line">console.log(a)//1</div><div class="line">console.log(b)//[2,3]</div><div class="line">var [a,...b,] = [1,2,3]//SyntaxError: Rest element must be last element</div></pre></td></tr></table></figure></p>
+<p>可以利用数组解构语法进行变量交换，而无需新的变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a = 2,b = 3;</div><div class="line">[a,b] = [b,a]</div><div class="line">console.log(a)//3</div><div class="line">console.log(b)//2</div></pre></td></tr></table></figure></p>
+<h4 id="对象解构语法"><a href="#对象解构语法" class="headerlink" title="对象解构语法"></a>对象解构语法</h4><p>对象解构的基本语法如下，对象的属性值赋给与属性名同名的变量。同数组一样，对象解构同样可以声明和赋值分开：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var &#123;p,q&#125; = &#123;p: 42,q: true&#125;</div><div class="line">console.log(p)//42</div><div class="line">console.log(q)//true</div><div class="line">var a, b</div><div class="line">(&#123;a, b&#125; = &#123;a: 1,b: 2&#125;)</div><div class="line">console.log(a)//1</div><div class="line">console.log(b)//2</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p> 当声明和对象解构赋值语句分开时，需要使用小括号()将语句包裹起来。<code>{a, b} = {a: 1,b: 2}</code>不是有效的独立语法，因为左边的<code>{a, b}</code>会被解析成一个块而不是对象字面量。而你的<code>(..)</code>表达式前面需要一个分号，否则它也许会被当成上一行的函数执行。<br>可以赋值给和对象属性名不同的新的变量，变量同样可以有默认值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var &#123;p: foo = 5,q: bar&#125; = &#123;q: true&#125;</div><div class="line">console.log(foo)//5</div><div class="line">console.log(bar)//true</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>函数参数同样可以用解构赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function drawChart(&#123;size = &apos;big&apos;, cords = &#123;x: 0,y: 0&#125;,r : radius&#125; = &#123;&#125;)&#123;</div><div class="line">    console.log(size, cords, radius)//big &#123;x: 18, y: 30&#125; 30</div><div class="line">&#125;</div><div class="line">drawChart(&#123;</div><div class="line">    cords: &#123;x: 18, y: 30&#125;,</div><div class="line">    r: 30</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h3><p> 如果你忽略了解构右边的函数参数默认值{}时，当无参调用函数<code>drawChart</code>时将抛出<code>TypeError</code>。<br>解构可以嵌套：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var chart = &#123;</div><div class="line">    cords: &#123;x: 18, y: 30&#125;,</div><div class="line">    radius: 20</div><div class="line">&#125;</div><div class="line">var &#123;size = &apos;big&apos;, cords : &#123;x, y&#125;, radius&#125; = chart</div><div class="line">console.log(size)//big</div><div class="line">console.log(x)//18</div><div class="line">console.log(y)//30</div><div class="line">console.log(radius)//20</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><code>for..of</code>迭代中同样可以解构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var people = [</div><div class="line">    &#123;</div><div class="line">        name: &apos;Mike&apos;,</div><div class="line">        age: 18</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        name: &apos;John&apos;</div><div class="line">    &#125;</div><div class="line">]</div><div class="line">for (var &#123;name: n, age = 20&#125; of people)&#123;</div><div class="line">    console.log(&apos;Name: &apos; + n + &apos;,Age: &apos; + age)</div><div class="line">&#125;</div><div class="line">//Name: Mike,Age: 18</div><div class="line">//Name: John,Age: 20</div></pre></td></tr></table></figure></p>
+<p>计算属性名可以被解构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let key = &apos;z&apos;</div><div class="line">let &#123;[key]: foo&#125; = &#123;z: &apos;bar&apos;&#125;</div><div class="line">console.log(foo)//bar</div></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This is Sophia Zhou's personal blog. Enjoy yourself!
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/09/ES6的解构赋值/">ES6的解构赋值</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/08/ES6中的Proxy/">ES6中的Proxy</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/08/ES6的迭代协议/">ES6的迭代协议</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/08/Javascript中获取对象属性的方法/">Javascript中获取对象属性的方法</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-categories">
+    <h2>Categories</h2>
+    <ul>
+        
+        <li>
+            <a class="footer-post" href="/categories/Nodejs/">Nodejs</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/CSS/">CSS</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/Javascript/">Javascript</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/HTML/">HTML</a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/shuyzhou">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:big_zhou@126.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Sophia Zhou. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

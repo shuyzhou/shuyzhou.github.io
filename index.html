@@ -165,6 +165,50 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2018/07/09/ES6的解构赋值/">
+                ES6的解构赋值
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-09</span>
+            
+            
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>ES6添加了不少新语法，使得编程变得更加方便直观，解构赋值和展开语句便是其中之二，下面我们先来看一看解构.</p>
+<h3 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h3><p>解构赋值语法是一个<code>Javascript</code>表达式，它可以将值从数组或属性从对象中提取到不同的变量中。</p>
+<h4 id="数组解构语法"><a href="#数组解构语法" class="headerlink" title="数组解构语法"></a>数组解构语法</h4><p>数组解构的基本语法如下，数组的元素值按照顺序赋给左边数组字面量里的变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var foo = [1,2,3]</div><div class="line">var [one,two] = foo</div><div class="line">var [a,b,c,d] = foo</div><div class="line">console.log(one)//1</div><div class="line">console.log(two)//2</div><div class="line">console.log(a)//1</div><div class="line">console.log(b)//2</div><div class="line">console.log(c)//3</div><div class="line">console.log(d)//undefined</div></pre></td></tr></table></figure></p>
+<p>变量声明可以和解构赋值分开：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a, b</div><div class="line">[a,b] = [1,2,3]</div><div class="line">console.log(a)</div><div class="line">console.log(b)</div></pre></td></tr></table></figure></p>
+<p>变量可以有默认值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a, b</div><div class="line">[a = 5,b = 7] = [1]</div><div class="line">console.log(a)//1</div><div class="line">console.log(b)//7</div></pre></td></tr></table></figure></p>
+<p>某些值可以被忽略：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var [a, ,b] = [1,2,3]</div><div class="line">console.log(a)//1</div><div class="line">console.log(b)//3</div></pre></td></tr></table></figure></p>
+<p>可以使用<code>...rest</code>语句将剩余部分赋值给一个变量，因为剩余元素必须是数组的最后一个元素，所以如果剩余元素右侧有一个逗号会抛出<code>SyntaxError</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var [a,...b] = [1,2,3]</div><div class="line">console.log(a)//1</div><div class="line">console.log(b)//[2,3]</div><div class="line">var [a,...b,] = [1,2,3]//SyntaxError: Rest element must be last element</div></pre></td></tr></table></figure></p>
+<p>可以利用数组解构语法进行变量交换，而无需新的变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var a = 2,b = 3;</div><div class="line">[a,b] = [b,a]</div><div class="line">console.log(a)//3</div><div class="line">console.log(b)//2</div></pre></td></tr></table></figure></p>
+<h4 id="对象解构语法"><a href="#对象解构语法" class="headerlink" title="对象解构语法"></a>对象解构语法</h4><p>对象解构的基本语法如下，对象的属性值赋给与属性名同名的变量。同数组一样，对象解构同样可以声明和赋值分开：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var &#123;p,q&#125; = &#123;p: 42,q: true&#125;</div><div class="line">console.log(p)//42</div><div class="line">console.log(q)//true</div><div class="line">var a, b</div><div class="line">(&#123;a, b&#125; = &#123;a: 1,b: 2&#125;)</div><div class="line">console.log(a)//1</div><div class="line">console.log(b)//2</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p> 当声明和对象解构赋值语句分开时，需要使用小括号()将语句包裹起来。<code>{a, b} = {a: 1,b: 2}</code>不是有效的独立语法，因为左边的<code>{a, b}</code>会被解析成一个块而不是对象字面量。而你的<code>(..)</code>表达式前面需要一个分号，否则它也许会被当成上一行的函数执行。<br>可以赋值给和对象属性名不同的新的变量，变量同样可以有默认值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var &#123;p: foo = 5,q: bar&#125; = &#123;q: true&#125;</div><div class="line">console.log(foo)//5</div><div class="line">console.log(bar)//true</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p>函数参数同样可以用解构赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function drawChart(&#123;size = &apos;big&apos;, cords = &#123;x: 0,y: 0&#125;,r : radius&#125; = &#123;&#125;)&#123;</div><div class="line">    console.log(size, cords, radius)//big &#123;x: 18, y: 30&#125; 30</div><div class="line">&#125;</div><div class="line">drawChart(&#123;</div><div class="line">    cords: &#123;x: 18, y: 30&#125;,</div><div class="line">    r: 30</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h3 id="注意-1"><a href="#注意-1" class="headerlink" title="注意"></a>注意</h3><p> 如果你忽略了解构右边的函数参数默认值{}时，当无参调用函数<code>drawChart</code>时将抛出<code>TypeError</code>。<br>解构可以嵌套：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var chart = &#123;</div><div class="line">    cords: &#123;x: 18, y: 30&#125;,</div><div class="line">    radius: 20</div><div class="line">&#125;</div><div class="line">var &#123;size = &apos;big&apos;, cords : &#123;x, y&#125;, radius&#125; = chart</div><div class="line">console.log(size)//big</div><div class="line">console.log(x)//18</div><div class="line">console.log(y)//30</div><div class="line">console.log(radius)//20</div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><code>for..of</code>迭代中同样可以解构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">var people = [</div><div class="line">    &#123;</div><div class="line">        name: &apos;Mike&apos;,</div><div class="line">        age: 18</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">        name: &apos;John&apos;</div><div class="line">    &#125;</div><div class="line">]</div><div class="line">for (var &#123;name: n, age = 20&#125; of people)&#123;</div><div class="line">    console.log(&apos;Name: &apos; + n + &apos;,Age: &apos; + age)</div><div class="line">&#125;</div><div class="line">//Name: Mike,Age: 18</div><div class="line">//Name: John,Age: 20</div></pre></td></tr></table></figure></p>
+<p>计算属性名可以被解构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let key = &apos;z&apos;</div><div class="line">let &#123;[key]: foo&#125; = &#123;z: &apos;bar&apos;&#125;</div><div class="line">console.log(foo)//bar</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2018/07/08/ES6中的Proxy/">
                 ES6中的Proxy
             </a>
@@ -574,37 +618,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/04/25/有趣的鼠标悬浮模糊效果/">
-                有趣的鼠标悬浮模糊效果
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-04-25</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/CSS/">CSS</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>之前参加IFE做的一个纯CSS动态效果，<a href="http://shuyzhou.space/IFE2017/hover/">demo</a><br>图片模糊效果是用<code>filter</code>属性实现的，顾名思义，<code>filter</code>是给图像数据加滤波器，利用<code>filter</code>可以对图片进行模糊、锐化、提亮等处理。<br>文字流光效果首先用到了<code>background-clip: text;</code>这个属性可以将背景图案显示区域限制在文字上，然后是<code>background-image: linear-gradient(to right, red, yellow, green, blue, violet,  red, yellow, green, blue, violet,red);</code>CSS函数<code>linear-gradient()</code>可以产生一副颜色线性渐变的图像。这里为了让动画看上去衔接自然，借用轮播图的思想，将背景图案做成了两幅渐变拼接的图片，通过控制<code>background-position</code>属性来做出流光效果。<br>边框从中间到两边扩开利用了<code>transform</code>的<code>scale</code>函数，写两个空<code>div</code>，一个<code>div</code>描上下两条边，一个<code>div</code>描左右两条边。当容器变成<code>hover</code>状态时，利用<code>scaleX</code>和<code>scaleY</code>函数将两个<code>div</code>展开，并将展开做出动画效果。另外，也可以用<code>transition</code>属性，当使用该属性时，<code>hover</code>状态消失时边框也会有一个收起来的动画效果。</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -646,6 +659,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/09/ES6的解构赋值/">ES6的解构赋值</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/08/ES6中的Proxy/">ES6中的Proxy</a>
             </li>
             
@@ -655,10 +672,6 @@
             
             <li>
                 <a class="footer-post" href="/2018/07/08/Javascript中获取对象属性的方法/">Javascript中获取对象属性的方法</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/07/08/Javascript中的变量和常量/">Javascript中的变量和常量</a>
             </li>
             
         </ul>
