@@ -165,6 +165,78 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2018/07/11/ES6的展开语法/">
+                ES6的展开语法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-11</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/Javascript/">Javascript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>理解了解构赋值，接下来再看看展开语法。</p>
+<h3 id="展开语法"><a href="#展开语法" class="headerlink" title="展开语法"></a>展开语法</h3><p>展开语法可以在函数调用或构造数组时，将数组表达式或者string在语法层面展开；还可以在构造字面量对象时，将对象表达式按key-value的方式展开。<br>基本语法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var array1 = [1, 2]</div><div class="line">var array2 = [...array1, &apos;4&apos;,...&apos;hello&apos;]</div><div class="line">function myfun(a, b)&#123;</div><div class="line">    console.log(a, b)</div><div class="line">&#125;</div><div class="line">console.log(array2)//[1, 2, &quot;4&quot;, &quot;h&quot;, &quot;e&quot;, &quot;l&quot;, &quot;l&quot;, &quot;o&quot;]</div><div class="line">myfun(...array1)//1, 2</div><div class="line"></div><div class="line">var a = &#123;</div><div class="line">    key: &apos;value&apos;</div><div class="line">&#125;</div><div class="line">let b = &#123;</div><div class="line">    ...a,</div><div class="line">    otherKey:&apos;otherValue&apos;</div><div class="line">&#125;</div><div class="line">console.log(b)//&#123;key: &quot;value&quot;, otherKey: &quot;otherValue&quot;&#125;</div></pre></td></tr></table></figure></p>
+<p>在ES6之前，当调用函数所需的参数为数组时，需要利用<code>Function.prototype.apply</code>方法将数组传入，并且构造函数无法使用<code>apply</code>方法。现在有了展开语法，我们可以直接在调用函数时就将数组展开，而无需利用<code>apply</code>方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function myfun(x, y, z)&#123;&#125;</div><div class="line">var args = [0, 1, 2]</div><div class="line">var dateFields = [1970, 0 ,1]</div><div class="line">//ES5</div><div class="line">myfun.apply(null,args)</div><div class="line">//ES6</div><div class="line">myfun(...args)</div><div class="line">var d = new Date(...dateFields)</div></pre></td></tr></table></figure></p>
+<p>展开语法可以用来复制数组，但它和<code>Object.assign()</code>一样为浅复制，无法深复制多维的数组：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">var arr = [1, 2, 3]</div><div class="line">var arr2 = [...arr]//like arr.slice()</div><div class="line">arr2.push(4)</div><div class="line">console.log(arr2)//[1, 2, 3, 4]</div><div class="line">console.log(arr)//[1, 2, 3]</div><div class="line"></div><div class="line">var a = [[1], [2], [3]]</div><div class="line">var b = [...a]</div><div class="line">b.shift().shift()</div><div class="line">console.log(a)//[[], [2], [3]]</div><div class="line">console.log(b)//[[2], [3]]</div></pre></td></tr></table></figure></p>
+<p>展开语法可以代替<code>Object.assign()</code>来进行对象的复制和合并，它和<code>Object.assign()</code>的区别是展开不会改变原数组，而<code>Object.assign()</code>会改变目标数组（即<code>Object.assign()</code>的第一个参数）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var obj1 = &#123; foo: &apos;bar&apos;, x: 42&#125;</div><div class="line">var obj2 = &#123; foo: &apos;baz&apos;, y: 13&#125;</div><div class="line">var cloneObj = &#123;...obj1&#125;</div><div class="line">var mergedObj = &#123;...obj1, ...obj2&#125;</div><div class="line">console.log(cloneObj)//&#123;foo: &quot;bar&quot;, x: 42&#125;</div><div class="line">console.log(mergedObj)//&#123;foo: &quot;baz&quot;, x: 42, y: 13&#125;</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/07/10/ES6的类/">
+                ES6的类
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-10</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/Javascript/">Javascript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>在ES6之前，<code>Javascript</code>中是没有类的，对象之间通过原型继承，而ES6的类相当于构造函数的语法糖，也是基于原型继承的。</p>
+<h3 id="定义类的方式"><a href="#定义类的方式" class="headerlink" title="定义类的方式"></a>定义类的方式</h3><p>类声明是一种定义类的语法，类声明必须是命名的，而且不允许重复定义一个已存在的类。而类表达式不同，可以是命名的也可以是匿名的。如果是命名的类表达式，这个名字只能在类体内部才能访问到，命名可以重复。<br>类的基本语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">//类声明</div><div class="line">class className [extends] [parentClassName]&#123;</div><div class="line">    constructor()&#123;&#125;</div><div class="line">    foo()&#123;</div><div class="line">        return &apos;Hello&apos;</div><div class="line">    &#125;</div><div class="line">    bar()&#123;</div><div class="line">        return &apos;world!&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//类表达式</div><div class="line">const MyClass = class [className] [extends] [parentClassName] &#123;</div><div class="line">    //class body</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>类声明不会经过变量提升，这一点和函数声明不一样。类体内部在严格模式下执行，里面的函数之间不能用逗号分隔，这是和对象字面量不一样的地方。</p>
+<h3 id="constructor方法"><a href="#constructor方法" class="headerlink" title="constructor方法"></a><code>constructor</code>方法</h3><p>类的<code>constructor</code>方法是类的构造函数，当对类执行<code>new</code>操作时<code>constructor</code>方法会被自动调用，<code>constructor</code>方法可以用来初始化实例属性。<br>当<code>constructor</code>方法被省略，默认的<code>constructor</code>方法将会在生成实例的时候被调用。对于基础类，默认的<code>constructor</code>方法为空函数；对于继承类，默认的<code>constructor</code>方法为仅调用父类默认的<code>constructor</code>方法的函数。当类体里面有两个以上的<code>constructor</code>方法时，会抛出<code>SyntaxError</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class a &#123;</div><div class="line">    constructor()&#123;&#125;</div><div class="line">    constructor()&#123;</div><div class="line">        this.name = &apos;Hello&apos;</div><div class="line">    &#125;,</div><div class="line">    bar()&#123;</div><div class="line">        return &apos;world!&apos;</div><div class="line">    &#125;</div><div class="line">&#125;//SyntaxError: A class may only have one constructor</div></pre></td></tr></table></figure></p>
+<p><code>constructor</code>方法中可以调用<code>super</code>方法，<code>super</code>方法是父类的<code>constructor</code>方法，<code>super</code>方法只能在<code>constructor</code>方法中调用，并且必须先于<code>this</code>关键字被使用前：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Polygon &#123;</div><div class="line">    constructor(height, width)&#123;</div><div class="line">        this.name = &apos;Polygon&apos;</div><div class="line">        this.height = height</div><div class="line">        this.width = width</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">class Square extends Polygon &#123;</div><div class="line">    constructor(length)&#123;</div><div class="line">        super(length,length)</div><div class="line">        this.name = &apos;Square&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h3><p>子类通过<code>extends</code>语句继承父类，子类的实例对象同样也是父类的实例，父类中定义的实例方法同样可以被子类访问到：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">class Polygon &#123;</div><div class="line">    constructor(height, width)&#123;</div><div class="line">        this.name = &apos;Polygon&apos;</div><div class="line">        this.height = height</div><div class="line">        this.width = width</div><div class="line">    &#125;</div><div class="line">    getWidth()&#123;</div><div class="line">        return this.width</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">class Square extends Polygon &#123;</div><div class="line">    constructor(length)&#123;</div><div class="line">        super(length,length)</div><div class="line">        this.name = &apos;Square&apos;</div><div class="line">    &#125;</div><div class="line">    getName()&#123;</div><div class="line">        return this.name</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var a = new Square(4)</div><div class="line">a.getName()//Square</div><div class="line">a.getWidth()4</div></pre></td></tr></table></figure></p>
+<h3 id="类的静态方法"><a href="#类的静态方法" class="headerlink" title="类的静态方法"></a>类的静态方法</h3><p>通过<code>static</code>前缀可以为类添加静态方法，静态方法只能通过类调用，不能通过实例调用；在实例方法中，需要通过类名或作为构造函数的属性来调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class StaticMethodCall &#123;</div><div class="line">    constructor()&#123;</div><div class="line">        console.log(StaticMethodCall.staticMethod())</div><div class="line">        console.log(this.constructor.staticMethod())</div><div class="line">    &#125;</div><div class="line">    static staticMethod()&#123;</div><div class="line">        return &apos;static method has been called&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var s = new StaticMethodCall()</div><div class="line">//static method has been called</div><div class="line">//static method has been called</div><div class="line">s.staticMethod()//TypeError: s.staticMethod is not a function</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2018/07/09/ES6的解构赋值/">
                 ES6的解构赋值
             </a>
@@ -550,82 +622,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/06/17/Vue源码阅读（三）：模板解析/">
-                Vue源码阅读（三）：模板解析
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-06-17</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/JavaScript/">JavaScript</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>上一篇我们了解了<code>Vue</code>是怎么对数据的变化进行监听并通知相关的<code>directive</code>，咱们暂时跳过数据绑定的部分，先来看看<code>Vue</code>对HTML模板进行解析并创建相关的<code>directive</code>的方法。</p>
-<h3 id="对模板元素的预处理"><a href="#对模板元素的预处理" class="headerlink" title="对模板元素的预处理"></a>对模板元素的预处理</h3><p>在实际编程中，有多种方法可以设置一个<code>Vue</code>实例的模板，如设置<code>el</code>和<code>template</code>字段，<code>el</code>可以为<code>CSS</code>选择符、实际<code>HTML</code>元素或返回<code>HTML</code>元素的函数，所以需要<code>transclude</code>函数进行预处理，为接下来解析做准备。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">export function transclude (el, options) &#123;</div><div class="line">  if (options) &#123;</div><div class="line">    options._containerAttrs = extractAttrs(el)</div><div class="line">  &#125;</div><div class="line">  if (isTemplate(el)) &#123;</div><div class="line">    el = parseTemplate(el)</div><div class="line">  &#125;</div><div class="line">  if (options) &#123;</div><div class="line">    if (options._asComponent &amp;&amp; !options.template) &#123;</div><div class="line">      options.template = &apos;&lt;slot&gt;&lt;/slot&gt;&apos;</div><div class="line">    &#125;</div><div class="line">    if (options.template) &#123;</div><div class="line">      options._content = extractContent(el)</div><div class="line">      el = transcludeTemplate(el, options)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  if (isFragment(el)) &#123;</div><div class="line">    prepend(createAnchor(&apos;v-start&apos;, true), el)</div><div class="line">    el.appendChild(createAnchor(&apos;v-end&apos;, true))</div><div class="line">  &#125;</div><div class="line">  return el</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><code>transclude</code>函数提取了根元素的所有属性的名字和值，作为解析函数的参数。对template标签元素和存在<code>template</code>属性的元素做特殊处理，统一为<code>documentFragment</code>对象。最后，如果模板为<code>documentFragment</code>对象，利用注释作为锚点记录下模板在document中的开始位置和结束位置。</p>
-<h3 id="解析模板并绑定特定数据作用域"><a href="#解析模板并绑定特定数据作用域" class="headerlink" title="解析模板并绑定特定数据作用域"></a>解析模板并绑定特定数据作用域</h3><p>接下来分别解析实例的根元素和内容，因为对某些实例，其HTML根元素和内容可能不是同一个作用域。其中，核心方法为<code>compileDirectives</code>和<code>compileTextNode</code>。对元素结点的每一个<code>attr</code>的<code>key</code>和<code>value</code>，对每一个含有文本插值的<code>value</code>,<code>compileDirectives</code>将其解析成<code>tokens</code>,如果没有则判断是否是<code>Vue</code>特定的<code>attr</code>，并将这些都添加到<code>directives</code>数组中。最后，利用<code>makeNodeLinkFn</code>方法得到<code>nodeLinkFn</code>，这个函数可以将directives绑定到对应<code>Vue</code>实例上。而<code>compileTextNode</code>方法将文本结点的内容解析成<code>tokens</code>，并生成连接函数<code>textNodeLinkFn</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line">function compileDirectives (attrs, options) &#123;</div><div class="line">  var i = attrs.length</div><div class="line">  var dirs = []</div><div class="line">  var attr, name, value, rawName, rawValue, dirName, arg, modifiers, dirDef, tokens, matched</div><div class="line">  while (i--) &#123;</div><div class="line">    attr = attrs[i]</div><div class="line">    name = rawName = attr.name</div><div class="line">    value = rawValue = attr.value</div><div class="line">    tokens = parseText(value)</div><div class="line">    // reset arg</div><div class="line">    arg = null</div><div class="line">    // check modifiers</div><div class="line">    modifiers = parseModifiers(name)</div><div class="line">    name = name.replace(modifierRE, &apos;&apos;)</div><div class="line"></div><div class="line">    // attribute interpolations</div><div class="line">    if (tokens) &#123;</div><div class="line">      value = tokensToExp(tokens)</div><div class="line">      arg = name</div><div class="line">      pushDir(&apos;bind&apos;, publicDirectives.bind, tokens)</div><div class="line">      // warn against mixing mustaches with v-bind</div><div class="line">    &#125; else</div><div class="line"></div><div class="line">    // special attribute: transition</div><div class="line">    if (transitionRE.test(name)) &#123;</div><div class="line">      modifiers.literal = !bindRE.test(name)</div><div class="line">      pushDir(&apos;transition&apos;, internalDirectives.transition)</div><div class="line">    &#125; else</div><div class="line"></div><div class="line">    // event handlers</div><div class="line">    if (onRE.test(name)) &#123;</div><div class="line">      arg = name.replace(onRE, &apos;&apos;)</div><div class="line">      pushDir(&apos;on&apos;, publicDirectives.on)</div><div class="line">    &#125; else</div><div class="line"></div><div class="line">    // attribute bindings</div><div class="line">    if (bindRE.test(name)) &#123;</div><div class="line">      dirName = name.replace(bindRE, &apos;&apos;)</div><div class="line">      if (dirName === &apos;style&apos; || dirName === &apos;class&apos;) &#123;</div><div class="line">        pushDir(dirName, internalDirectives[dirName])</div><div class="line">      &#125; else &#123;</div><div class="line">        arg = dirName</div><div class="line">        pushDir(&apos;bind&apos;, publicDirectives.bind)</div><div class="line">      &#125;</div><div class="line">    &#125; else</div><div class="line"></div><div class="line">    // normal directives</div><div class="line">    if ((matched = name.match(dirAttrRE))) &#123;</div><div class="line">      dirName = matched[1]</div><div class="line">      arg = matched[2]</div><div class="line"></div><div class="line">      // skip v-else (when used with v-show)</div><div class="line">      if (dirName === &apos;else&apos;) &#123;</div><div class="line">        continue</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      dirDef = resolveAsset(options, &apos;directives&apos;, dirName, true)</div><div class="line">      if (dirDef) &#123;</div><div class="line">        pushDir(dirName, dirDef)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  function pushDir (dirName, def, interpTokens) &#123;</div><div class="line">    var hasOneTimeToken = interpTokens &amp;&amp; hasOneTime(interpTokens)</div><div class="line">    var parsed = !hasOneTimeToken &amp;&amp; parseDirective(value)</div><div class="line">    dirs.push(&#123;</div><div class="line">      name: dirName,</div><div class="line">      attr: rawName,</div><div class="line">      raw: rawValue,</div><div class="line">      def: def,</div><div class="line">      arg: arg,</div><div class="line">      modifiers: modifiers,</div><div class="line">      expression: parsed &amp;&amp; parsed.expression,</div><div class="line">      filters: parsed &amp;&amp; parsed.filters,</div><div class="line">      interp: interpTokens,</div><div class="line">      hasOneTime: hasOneTimeToken</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  if (dirs.length) &#123;</div><div class="line">    return makeNodeLinkFn(dirs)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/06/17/Vue源码阅读（一）：初始化实例/">
-                Vue源码阅读（一）：初始化实例
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-06-17</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/JavaScript/">JavaScript</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>作为一个前端工程师，在不断研究技术的道路上，必不可少的需要深入研究一些已经成熟的开发框架。之前在网上看到有位高人曾总结过研究框架的步骤，原话我已记不太清，现加上我自己的理解总结出下面几步：</p>
-<ol>
-<li>查看框架介绍和与其它框架的对比，大致了解框架的特点</li>
-<li>按照教程做出一个入门<code>Demo</code></li>
-<li>过一遍<code>API</code>，了解框架的功能</li>
-<li>阅读源码</li>
-</ol>
-<p>通过以上四个步骤，基本上就能把握这个框架，从而运用自如了。<br>我因为工作的关系接触到<code>Vue.js</code>，所以趁着平时休闲时间看看源码，并把心得记录下来。最新版本的源码对目前的我来说还是有点难度，所以我选择了看<a href="https://github.com/vuejs/vue/tree/e7932f80eeacf6f7d392bf520e98c4790db9d5c1/src" target="_blank" rel="external">1.0.26</a>版本的源码。由于篇幅关系，这个系列的文章主要介绍<code>Vue</code>核心功能的实现思路，而不会放上太多源码。</p>
-<h3 id="找到入口函数"><a href="#找到入口函数" class="headerlink" title="找到入口函数"></a>找到入口函数</h3><p>我看源码的习惯是找到一个入口函数，通过这个入口函数了解框架做了哪些初始化操作，然后把主要操作单独拎出来。从<code>Vue</code>入口来看，<code>Vue</code>构造函数是在<code>instance/vue.js</code>这个文件里，我们打开看看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function Vue (options) &#123;</div><div class="line">  this._init(options)</div><div class="line">&#125;</div><div class="line">// install internals</div><div class="line">initMixin(Vue)</div><div class="line">stateMixin(Vue)</div><div class="line">eventsMixin(Vue)</div><div class="line">lifecycleMixin(Vue)</div><div class="line">miscMixin(Vue)</div><div class="line">// install instance APIs</div><div class="line">dataAPI(Vue)</div><div class="line">domAPI(Vue)</div><div class="line">eventsAPI(Vue)</div><div class="line">lifecycleAPI(Vue)</div></pre></td></tr></table></figure></p>
-<p>可以看到，<code>Vue</code>构造函数利用内部的<code>_init</code>函数对<code>Vue</code>实例进行初始化,注入实例属性并通过Mixin方式为Vue安装实例方法。<code>Vue</code>的实例方法分为<code>init</code>、<code>state</code>、<code>events</code>、<code>lifecycle</code>和<code>misc</code>几个模块。</p>
-<h3 id="初始化实例"><a href="#初始化实例" class="headerlink" title="初始化实例"></a>初始化实例</h3><p>我们来看看<code>_init</code>函数主要做了哪些事：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//...实例属性的初始化操作</div><div class="line">// push self into parent / transclusion host</div><div class="line">if (this.$parent) &#123;</div><div class="line">    this.$parent.$children.push(this)</div><div class="line">&#125;</div><div class="line">options = this.$options = mergeOptions(</div><div class="line">    this.constructor.options,</div><div class="line">    options,</div><div class="line">    this</div><div class="line">)</div><div class="line"></div><div class="line">// call init hook</div><div class="line">this._callHook(&apos;init&apos;)</div><div class="line">// initialize data observation and scope inheritance.</div><div class="line">this._initState()</div><div class="line">// setup event system and option events.</div><div class="line">this._initEvents()</div><div class="line">// call created hook</div><div class="line">this._callHook(&apos;created&apos;)</div><div class="line">// if `el` option is passed, start compilation.</div><div class="line">if (options.el) &#123;</div><div class="line">    this.$mount(options.el)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><code>_init</code>函数建立父子实例之间的联系，合并了自定义<code>option</code>和默认<code>option</code>，调用相应的生命周期的回调函数，初始化<code>data observation</code>机制和<code>Vue</code>事件机制，如果确定了<code>Vue</code>实例的作用域的话还要挂载<code>Vue</code>实例。可以看出，生命周期是独立的一部分，主要操作集中于<code>_initState</code>、<code>_initEvents</code>和<code>$mount</code>三个函数。在下一篇博客里，我将分析<code>_initState</code>中的<code>_initData</code>函数，以便理解<code>Vue</code>是怎样监听数据变化的。</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -667,19 +663,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/11/ES6的展开语法/">ES6的展开语法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/10/ES6的类/">ES6的类</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/09/ES6的解构赋值/">ES6的解构赋值</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2018/07/08/ES6中的Proxy/">ES6中的Proxy</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/07/08/ES6的迭代协议/">ES6的迭代协议</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/07/08/Javascript中获取对象属性的方法/">Javascript中获取对象属性的方法</a>
             </li>
             
         </ul>

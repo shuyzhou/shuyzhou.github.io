@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="在ES6之前，Javascript中是没有类的，对象之间通过原型继承，而ES6的类相当于构造函数的语法糖，也是基于原型继承的。
+定义类的方式类声明是一种定义类的语法，类声明必须是命名的，而且不允许重复定义一个已存在的类。而类表达式不同，可以是命名的也可以是匿名的。如果是命名的类表达式，这个名字只能在">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="shuyzhou">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="ES6的类"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="大周部落格"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>ES6的类 - 大周部落格</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/myworks/">
+                    Myworks
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+        <div class="icon-box">
+  	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="40 50 140.1 140.1" xml:space="preserve">
+		<g>
+			<path id="edge" class="path" d="M134.8,81c17.8,29.7,22.6,61.3,14.1,80.1c-2.5,5.6-6.3,10.1-11.2,13c0,0-26.3,18.7-62.1,0
+		c-21.5-12.8-20.2-54.5,2.9-93.1C78.5,81,106.7,108.9,134.8,81z"/>
+			<path id="tail" class="path" d="M146.6,165.4c0,0,21.6-13,20.7-40.6"/>
+			<ellipse class="eyes" cx="88.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<ellipse class="eyes" cx="126.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<line class="path hands" x1="100" y1="143.1" x2="106.8" y2="147.8"/>
+			<line class="path hands" x1="106.8" y1="147.8" x2="100" y2="151.5"/>
+			<line class="path hands" x1="116.8" y1="143.1" x2="110" y2="147.8"/>
+			<line class="path hands" x1="110" y1="147.8" x2="116.8" y2="151.5"/>
+		</g>
+		<g id="normal">
+			<polyline id="mouth" points="116,124.8 108,124.8 100,124.8 	"/>
+		</g>
+		<g id="smile">
+			<path class="path" d="M100,125.7c0,0,2.5,4.7,7.7,0"/>
+			<path class="path" d="M115.4,125.7c0,0-2.5,4.7-7.7,0"/>
+			<ellipse class="blush" cx="81.8" cy="129.6" rx="1.8" ry="2.1"/>
+			<ellipse class="blush" cx="136.3" cy="129.6" rx="1.8" ry="2.1"/>
+		</g>
+	</svg>
+</div>
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/07/10/ES6的类/">
+                ES6的类
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-10</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/Javascript/">Javascript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>在ES6之前，<code>Javascript</code>中是没有类的，对象之间通过原型继承，而ES6的类相当于构造函数的语法糖，也是基于原型继承的。</p>
+<h3 id="定义类的方式"><a href="#定义类的方式" class="headerlink" title="定义类的方式"></a>定义类的方式</h3><p>类声明是一种定义类的语法，类声明必须是命名的，而且不允许重复定义一个已存在的类。而类表达式不同，可以是命名的也可以是匿名的。如果是命名的类表达式，这个名字只能在类体内部才能访问到，命名可以重复。<br>类的基本语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">//类声明</div><div class="line">class className [extends] [parentClassName]&#123;</div><div class="line">    constructor()&#123;&#125;</div><div class="line">    foo()&#123;</div><div class="line">        return &apos;Hello&apos;</div><div class="line">    &#125;</div><div class="line">    bar()&#123;</div><div class="line">        return &apos;world!&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//类表达式</div><div class="line">const MyClass = class [className] [extends] [parentClassName] &#123;</div><div class="line">    //class body</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>类声明不会经过变量提升，这一点和函数声明不一样。类体内部在严格模式下执行，里面的函数之间不能用逗号分隔，这是和对象字面量不一样的地方。</p>
+<h3 id="constructor方法"><a href="#constructor方法" class="headerlink" title="constructor方法"></a><code>constructor</code>方法</h3><p>类的<code>constructor</code>方法是类的构造函数，当对类执行<code>new</code>操作时<code>constructor</code>方法会被自动调用，<code>constructor</code>方法可以用来初始化实例属性。<br>当<code>constructor</code>方法被省略，默认的<code>constructor</code>方法将会在生成实例的时候被调用。对于基础类，默认的<code>constructor</code>方法为空函数；对于继承类，默认的<code>constructor</code>方法为仅调用父类默认的<code>constructor</code>方法的函数。当类体里面有两个以上的<code>constructor</code>方法时，会抛出<code>SyntaxError</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class a &#123;</div><div class="line">    constructor()&#123;&#125;</div><div class="line">    constructor()&#123;</div><div class="line">        this.name = &apos;Hello&apos;</div><div class="line">    &#125;,</div><div class="line">    bar()&#123;</div><div class="line">        return &apos;world!&apos;</div><div class="line">    &#125;</div><div class="line">&#125;//SyntaxError: A class may only have one constructor</div></pre></td></tr></table></figure></p>
+<p><code>constructor</code>方法中可以调用<code>super</code>方法，<code>super</code>方法是父类的<code>constructor</code>方法，<code>super</code>方法只能在<code>constructor</code>方法中调用，并且必须先于<code>this</code>关键字被使用前：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Polygon &#123;</div><div class="line">    constructor(height, width)&#123;</div><div class="line">        this.name = &apos;Polygon&apos;</div><div class="line">        this.height = height</div><div class="line">        this.width = width</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">class Square extends Polygon &#123;</div><div class="line">    constructor(length)&#123;</div><div class="line">        super(length,length)</div><div class="line">        this.name = &apos;Square&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h3><p>子类通过<code>extends</code>语句继承父类，子类的实例对象同样也是父类的实例，父类中定义的实例方法同样可以被子类访问到：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">class Polygon &#123;</div><div class="line">    constructor(height, width)&#123;</div><div class="line">        this.name = &apos;Polygon&apos;</div><div class="line">        this.height = height</div><div class="line">        this.width = width</div><div class="line">    &#125;</div><div class="line">    getWidth()&#123;</div><div class="line">        return this.width</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">class Square extends Polygon &#123;</div><div class="line">    constructor(length)&#123;</div><div class="line">        super(length,length)</div><div class="line">        this.name = &apos;Square&apos;</div><div class="line">    &#125;</div><div class="line">    getName()&#123;</div><div class="line">        return this.name</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var a = new Square(4)</div><div class="line">a.getName()//Square</div><div class="line">a.getWidth()4</div></pre></td></tr></table></figure></p>
+<h3 id="类的静态方法"><a href="#类的静态方法" class="headerlink" title="类的静态方法"></a>类的静态方法</h3><p>通过<code>static</code>前缀可以为类添加静态方法，静态方法只能通过类调用，不能通过实例调用；在实例方法中，需要通过类名或作为构造函数的属性来调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class StaticMethodCall &#123;</div><div class="line">    constructor()&#123;</div><div class="line">        console.log(StaticMethodCall.staticMethod())</div><div class="line">        console.log(this.constructor.staticMethod())</div><div class="line">    &#125;</div><div class="line">    static staticMethod()&#123;</div><div class="line">        return &apos;static method has been called&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">var s = new StaticMethodCall()</div><div class="line">//static method has been called</div><div class="line">//static method has been called</div><div class="line">s.staticMethod()//TypeError: s.staticMethod is not a function</div></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/Javascript/">#Javascript</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This is Sophia Zhou's personal blog. Enjoy yourself!
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/11/ES6的展开语法/">ES6的展开语法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/10/ES6的类/">ES6的类</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/09/ES6的解构赋值/">ES6的解构赋值</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/08/ES6中的Proxy/">ES6中的Proxy</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-categories">
+    <h2>Categories</h2>
+    <ul>
+        
+        <li>
+            <a class="footer-post" href="/categories/Nodejs/">Nodejs</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/CSS/">CSS</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/HTML/">HTML</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/Javascript/">Javascript</a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/shuyzhou">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:big_zhou@126.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Sophia Zhou. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

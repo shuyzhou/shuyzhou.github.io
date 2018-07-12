@@ -165,6 +165,82 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2017/06/17/Vue源码阅读（三）：模板解析/">
+                Vue源码阅读（三）：模板解析
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-06-17</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>上一篇我们了解了<code>Vue</code>是怎么对数据的变化进行监听并通知相关的<code>directive</code>，咱们暂时跳过数据绑定的部分，先来看看<code>Vue</code>对HTML模板进行解析并创建相关的<code>directive</code>的方法。</p>
+<h3 id="对模板元素的预处理"><a href="#对模板元素的预处理" class="headerlink" title="对模板元素的预处理"></a>对模板元素的预处理</h3><p>在实际编程中，有多种方法可以设置一个<code>Vue</code>实例的模板，如设置<code>el</code>和<code>template</code>字段，<code>el</code>可以为<code>CSS</code>选择符、实际<code>HTML</code>元素或返回<code>HTML</code>元素的函数，所以需要<code>transclude</code>函数进行预处理，为接下来解析做准备。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">export function transclude (el, options) &#123;</div><div class="line">  if (options) &#123;</div><div class="line">    options._containerAttrs = extractAttrs(el)</div><div class="line">  &#125;</div><div class="line">  if (isTemplate(el)) &#123;</div><div class="line">    el = parseTemplate(el)</div><div class="line">  &#125;</div><div class="line">  if (options) &#123;</div><div class="line">    if (options._asComponent &amp;&amp; !options.template) &#123;</div><div class="line">      options.template = &apos;&lt;slot&gt;&lt;/slot&gt;&apos;</div><div class="line">    &#125;</div><div class="line">    if (options.template) &#123;</div><div class="line">      options._content = extractContent(el)</div><div class="line">      el = transcludeTemplate(el, options)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  if (isFragment(el)) &#123;</div><div class="line">    prepend(createAnchor(&apos;v-start&apos;, true), el)</div><div class="line">    el.appendChild(createAnchor(&apos;v-end&apos;, true))</div><div class="line">  &#125;</div><div class="line">  return el</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>transclude</code>函数提取了根元素的所有属性的名字和值，作为解析函数的参数。对template标签元素和存在<code>template</code>属性的元素做特殊处理，统一为<code>documentFragment</code>对象。最后，如果模板为<code>documentFragment</code>对象，利用注释作为锚点记录下模板在document中的开始位置和结束位置。</p>
+<h3 id="解析模板并绑定特定数据作用域"><a href="#解析模板并绑定特定数据作用域" class="headerlink" title="解析模板并绑定特定数据作用域"></a>解析模板并绑定特定数据作用域</h3><p>接下来分别解析实例的根元素和内容，因为对某些实例，其HTML根元素和内容可能不是同一个作用域。其中，核心方法为<code>compileDirectives</code>和<code>compileTextNode</code>。对元素结点的每一个<code>attr</code>的<code>key</code>和<code>value</code>，对每一个含有文本插值的<code>value</code>,<code>compileDirectives</code>将其解析成<code>tokens</code>,如果没有则判断是否是<code>Vue</code>特定的<code>attr</code>，并将这些都添加到<code>directives</code>数组中。最后，利用<code>makeNodeLinkFn</code>方法得到<code>nodeLinkFn</code>，这个函数可以将directives绑定到对应<code>Vue</code>实例上。而<code>compileTextNode</code>方法将文本结点的内容解析成<code>tokens</code>，并生成连接函数<code>textNodeLinkFn</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line">function compileDirectives (attrs, options) &#123;</div><div class="line">  var i = attrs.length</div><div class="line">  var dirs = []</div><div class="line">  var attr, name, value, rawName, rawValue, dirName, arg, modifiers, dirDef, tokens, matched</div><div class="line">  while (i--) &#123;</div><div class="line">    attr = attrs[i]</div><div class="line">    name = rawName = attr.name</div><div class="line">    value = rawValue = attr.value</div><div class="line">    tokens = parseText(value)</div><div class="line">    // reset arg</div><div class="line">    arg = null</div><div class="line">    // check modifiers</div><div class="line">    modifiers = parseModifiers(name)</div><div class="line">    name = name.replace(modifierRE, &apos;&apos;)</div><div class="line"></div><div class="line">    // attribute interpolations</div><div class="line">    if (tokens) &#123;</div><div class="line">      value = tokensToExp(tokens)</div><div class="line">      arg = name</div><div class="line">      pushDir(&apos;bind&apos;, publicDirectives.bind, tokens)</div><div class="line">      // warn against mixing mustaches with v-bind</div><div class="line">    &#125; else</div><div class="line"></div><div class="line">    // special attribute: transition</div><div class="line">    if (transitionRE.test(name)) &#123;</div><div class="line">      modifiers.literal = !bindRE.test(name)</div><div class="line">      pushDir(&apos;transition&apos;, internalDirectives.transition)</div><div class="line">    &#125; else</div><div class="line"></div><div class="line">    // event handlers</div><div class="line">    if (onRE.test(name)) &#123;</div><div class="line">      arg = name.replace(onRE, &apos;&apos;)</div><div class="line">      pushDir(&apos;on&apos;, publicDirectives.on)</div><div class="line">    &#125; else</div><div class="line"></div><div class="line">    // attribute bindings</div><div class="line">    if (bindRE.test(name)) &#123;</div><div class="line">      dirName = name.replace(bindRE, &apos;&apos;)</div><div class="line">      if (dirName === &apos;style&apos; || dirName === &apos;class&apos;) &#123;</div><div class="line">        pushDir(dirName, internalDirectives[dirName])</div><div class="line">      &#125; else &#123;</div><div class="line">        arg = dirName</div><div class="line">        pushDir(&apos;bind&apos;, publicDirectives.bind)</div><div class="line">      &#125;</div><div class="line">    &#125; else</div><div class="line"></div><div class="line">    // normal directives</div><div class="line">    if ((matched = name.match(dirAttrRE))) &#123;</div><div class="line">      dirName = matched[1]</div><div class="line">      arg = matched[2]</div><div class="line"></div><div class="line">      // skip v-else (when used with v-show)</div><div class="line">      if (dirName === &apos;else&apos;) &#123;</div><div class="line">        continue</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      dirDef = resolveAsset(options, &apos;directives&apos;, dirName, true)</div><div class="line">      if (dirDef) &#123;</div><div class="line">        pushDir(dirName, dirDef)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  function pushDir (dirName, def, interpTokens) &#123;</div><div class="line">    var hasOneTimeToken = interpTokens &amp;&amp; hasOneTime(interpTokens)</div><div class="line">    var parsed = !hasOneTimeToken &amp;&amp; parseDirective(value)</div><div class="line">    dirs.push(&#123;</div><div class="line">      name: dirName,</div><div class="line">      attr: rawName,</div><div class="line">      raw: rawValue,</div><div class="line">      def: def,</div><div class="line">      arg: arg,</div><div class="line">      modifiers: modifiers,</div><div class="line">      expression: parsed &amp;&amp; parsed.expression,</div><div class="line">      filters: parsed &amp;&amp; parsed.filters,</div><div class="line">      interp: interpTokens,</div><div class="line">      hasOneTime: hasOneTimeToken</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  if (dirs.length) &#123;</div><div class="line">    return makeNodeLinkFn(dirs)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/06/17/Vue源码阅读（一）：初始化实例/">
+                Vue源码阅读（一）：初始化实例
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-06-17</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>作为一个前端工程师，在不断研究技术的道路上，必不可少的需要深入研究一些已经成熟的开发框架。之前在网上看到有位高人曾总结过研究框架的步骤，原话我已记不太清，现加上我自己的理解总结出下面几步：</p>
+<ol>
+<li>查看框架介绍和与其它框架的对比，大致了解框架的特点</li>
+<li>按照教程做出一个入门<code>Demo</code></li>
+<li>过一遍<code>API</code>，了解框架的功能</li>
+<li>阅读源码</li>
+</ol>
+<p>通过以上四个步骤，基本上就能把握这个框架，从而运用自如了。<br>我因为工作的关系接触到<code>Vue.js</code>，所以趁着平时休闲时间看看源码，并把心得记录下来。最新版本的源码对目前的我来说还是有点难度，所以我选择了看<a href="https://github.com/vuejs/vue/tree/e7932f80eeacf6f7d392bf520e98c4790db9d5c1/src" target="_blank" rel="external">1.0.26</a>版本的源码。由于篇幅关系，这个系列的文章主要介绍<code>Vue</code>核心功能的实现思路，而不会放上太多源码。</p>
+<h3 id="找到入口函数"><a href="#找到入口函数" class="headerlink" title="找到入口函数"></a>找到入口函数</h3><p>我看源码的习惯是找到一个入口函数，通过这个入口函数了解框架做了哪些初始化操作，然后把主要操作单独拎出来。从<code>Vue</code>入口来看，<code>Vue</code>构造函数是在<code>instance/vue.js</code>这个文件里，我们打开看看。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function Vue (options) &#123;</div><div class="line">  this._init(options)</div><div class="line">&#125;</div><div class="line">// install internals</div><div class="line">initMixin(Vue)</div><div class="line">stateMixin(Vue)</div><div class="line">eventsMixin(Vue)</div><div class="line">lifecycleMixin(Vue)</div><div class="line">miscMixin(Vue)</div><div class="line">// install instance APIs</div><div class="line">dataAPI(Vue)</div><div class="line">domAPI(Vue)</div><div class="line">eventsAPI(Vue)</div><div class="line">lifecycleAPI(Vue)</div></pre></td></tr></table></figure></p>
+<p>可以看到，<code>Vue</code>构造函数利用内部的<code>_init</code>函数对<code>Vue</code>实例进行初始化,注入实例属性并通过Mixin方式为Vue安装实例方法。<code>Vue</code>的实例方法分为<code>init</code>、<code>state</code>、<code>events</code>、<code>lifecycle</code>和<code>misc</code>几个模块。</p>
+<h3 id="初始化实例"><a href="#初始化实例" class="headerlink" title="初始化实例"></a>初始化实例</h3><p>我们来看看<code>_init</code>函数主要做了哪些事：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">//...实例属性的初始化操作</div><div class="line">// push self into parent / transclusion host</div><div class="line">if (this.$parent) &#123;</div><div class="line">    this.$parent.$children.push(this)</div><div class="line">&#125;</div><div class="line">options = this.$options = mergeOptions(</div><div class="line">    this.constructor.options,</div><div class="line">    options,</div><div class="line">    this</div><div class="line">)</div><div class="line"></div><div class="line">// call init hook</div><div class="line">this._callHook(&apos;init&apos;)</div><div class="line">// initialize data observation and scope inheritance.</div><div class="line">this._initState()</div><div class="line">// setup event system and option events.</div><div class="line">this._initEvents()</div><div class="line">// call created hook</div><div class="line">this._callHook(&apos;created&apos;)</div><div class="line">// if `el` option is passed, start compilation.</div><div class="line">if (options.el) &#123;</div><div class="line">    this.$mount(options.el)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>_init</code>函数建立父子实例之间的联系，合并了自定义<code>option</code>和默认<code>option</code>，调用相应的生命周期的回调函数，初始化<code>data observation</code>机制和<code>Vue</code>事件机制，如果确定了<code>Vue</code>实例的作用域的话还要挂载<code>Vue</code>实例。可以看出，生命周期是独立的一部分，主要操作集中于<code>_initState</code>、<code>_initEvents</code>和<code>$mount</code>三个函数。在下一篇博客里，我将分析<code>_initState</code>中的<code>_initData</code>函数，以便理解<code>Vue</code>是怎样监听数据变化的。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2017/04/25/有趣的鼠标悬浮模糊效果/">
                 有趣的鼠标悬浮模糊效果
             </a>
@@ -534,124 +610,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2016/12/22/Javascript常用表达式返回值/">
-                Javascript常用表达式返回值
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2016-12-22</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/JavaScript/">JavaScript</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>在写代码和阅读他人代码时，不可避免会遇到大量表达式。而了解这些表达式的返回值，有助于我们理解代码里的逻辑，写出逻辑清晰合理的代码。</p>
-<p>Javascript的操作符分为以下几类：</p>
-<ol>
-<li>一元操作符（++，–，=+，=-）</li>
-<li>位操作符（~，&amp;，|，&lt;&lt;，&gt;&gt;）</li>
-<li>布尔操作符（!，&amp;&amp;，||）</li>
-<li>乘性操作符（*，/，%）</li>
-<li>加性操作符（+，-）</li>
-<li>关系操作符（&lt;，&lt;=，&gt;，&gt;=）</li>
-<li>相等操作符（==，！=，===，！==）</li>
-<li>赋值操作符（=）</li>
-</ol>
-<p>其中一元操作符、位操作符、乘性操作符和加性操作符主要用于对数值操作，带有这些操作符的表达式一般返回值为数值，关系操作符和相等操作符用于判断左右两边的关系，返回值为布尔值。所以，本篇博文主要讨论布尔操作符和赋值操作符的返回值。（本文代码均在chrome浏览器下测试）</p>
-<h2 id="布尔操作符（-，-amp-amp-，-）"><a href="#布尔操作符（-，-amp-amp-，-）" class="headerlink" title="布尔操作符（!，&amp;&amp;，||）"></a>布尔操作符（!，&amp;&amp;，||）</h2><hr>
-<h3 id="逻辑非（！）"><a href="#逻辑非（！）" class="headerlink" title="逻辑非（！）"></a>逻辑非（！）</h3><p>在JavaScript中，逻辑非首先将操作数转换为布尔值，然后对其求反。逻辑非操作符遵循如下规则：</p>
-<ul>
-<li>如果操作数是对象，返回false</li>
-<li>如果操作数是空字符串，返回true</li>
-<li>如果操作数是非空字符串，返回false</li>
-<li>如果操作数是数值0，返回true</li>
-<li>如果操作数是任意非0数值，返回false</li>
-<li>如果操作数是null，返回true</li>
-<li>如果操作数是NaN，返回true</li>
-<li>如果操作数是undefined，返回true<br>示例如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">console.log(!false);  // true</div><div class="line">console.log(!&quot;blue&quot;); // false</div><div class="line">console.log(!0);      // true</div><div class="line">console.log(!NaN);    // true</div><div class="line">console.log(!&quot;&quot;);     // true</div><div class="line">console.log(!234);    // false</div><div class="line">console.log(!null);   // true</div><div class="line">console.log(!undefined);  // true</div><div class="line">console.log(![]);     // false</div><div class="line">console.log(!&#123;&#125;);     // false</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="逻辑与（-amp-amp-）"><a href="#逻辑与（-amp-amp-）" class="headerlink" title="逻辑与（&amp;&amp;）"></a>逻辑与（&amp;&amp;）</h3><p>逻辑与操作属于短路操作，如果第一个操作数能够决定结果，就不会对第二个操作数求值。逻辑与操作符的返回值与操作数有关，有如下规则：</p>
-<ul>
-<li>如果第一个操作数求值为真，则返回第二个操作数</li>
-<li>如果第一个操作数求值为假，则返回第一个操作数<br>示例如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var obj1 = &#123;&#125;;</div><div class="line">var obj2 = &#123;</div><div class="line">  name : &quot;shuyzhou&quot;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">console.log(true&amp;&amp;&quot;str&quot;);   //&quot;str&quot;</div><div class="line">console.log(obj2&amp;&amp;null);    //null</div><div class="line">console.log(undefined&amp;&amp;true);   //undefined</div><div class="line">console.log(0&amp;&amp;&quot;str&quot;);   //0</div><div class="line">console.log(null&amp;&amp;true);   //null</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="逻辑或（-）"><a href="#逻辑或（-）" class="headerlink" title="逻辑或（||）"></a>逻辑或（||）</h3><p>逻辑或同样属于短路操作，返回值也与操作数有关，有如下规则：</p>
-<ul>
-<li>如果第一个操作数求值为真，则返回第一个操作数</li>
-<li>如果第一个操作数求值为假，则返回第二个操作数<br>它的规则和逻辑与相反，示例如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var obj1 = &#123;&#125;;</div><div class="line">var obj2 = &#123;</div><div class="line">  name : &quot;shuyzhou&quot;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">console.log(true||&quot;str&quot;);   //true</div><div class="line">console.log(obj2||null);    //obj2</div><div class="line">console.log(NaN||true);   //true</div><div class="line">console.log(0||obj1);   //obj1</div><div class="line">console.log(null||undefined);   //undefined</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="赋值操作符（-）"><a href="#赋值操作符（-）" class="headerlink" title="赋值操作符（=）"></a>赋值操作符（=）</h2><hr>
-<p>赋值操作符将右边的值赋给左边的变量，再返回左边变量的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var obj1 = &#123;&#125;;</div><div class="line">var p1;</div><div class="line">var p2;</div><div class="line"></div><div class="line">console.log(p1 = obj1);		//obj1</div><div class="line">console.log(p2 = 1);		//1</div></pre></td></tr></table></figure></p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2016/12/20/Nodejs+Express快速搭建服务器/">
-                Nodejs+Express快速搭建服务器
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2016-12-20</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/Nodejs/">Nodejs</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>公司项目是前后端分离的，现在需要实现权限控制，于是抛弃了原来的tomcat，选择Nodejs+Express快速搭建了一个服务器。以下所说内容基于Windows10操作系统</p>
-<h2 id="Nodejs安装"><a href="#Nodejs安装" class="headerlink" title="Nodejs安装"></a>Nodejs安装</h2><p>1.Nodejs官网下载安装包，注意后缀名为.msi<br>2.双击安装包开始安装<br>3.打开cmd，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node -v</div></pre></td></tr></table></figure></p>
-<p>出现版本说明安装成功<br>4.在Nodejs安装目录里新建两个文件夹node_global和node_cache，在命令行键入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm config set prefix &quot;D:\Program Files\nodejs\node_global&quot;（这里为你的安装目录）</div><div class="line">npm config set cache &quot;D:\Program Files\nodejs\node_cache&quot;(这里为你的安装目录)</div></pre></td></tr></table></figure></p>
-<p>设置全局路径<br>5.设置系统遍历NODE_PATH D:\Program Files\nodejs\node_global\node_modules。这样，当你安装了一些模块后，系统能够找到你安装的模块。</p>
-<h2 id="Express安装"><a href="#Express安装" class="headerlink" title="Express安装"></a>Express安装</h2><p>在cmd中输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g express@3.2.2</div></pre></td></tr></table></figure></p>
-<p>自动安装express3.2.2，注意，express4.0和express3.2.2安装和使用方法不一样，所以不要安装错了版本。<br>打开cmd，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">express -V</div></pre></td></tr></table></figure></p>
-<p>出现版本说明安装成功</p>
-<h2 id="创建express项目"><a href="#创建express项目" class="headerlink" title="创建express项目"></a>创建express项目</h2><p>cmd进入工作目录下，输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">express -e demo</div></pre></td></tr></table></figure></p>
-<p>创建express工程，并按照提示在cmd输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd demo &amp;&amp; npm install</div></pre></td></tr></table></figure></p>
-<p>这里说明下，在每个使用npm管理模块的项目根目录下会有一个文件package.json，这个文件里会有整个项目的信息，如项目名等。里面有一个属性为dependencies，这个属性表示整个项目依赖的模块。而指令npm install会自动找到当前目录下的package.json并下载dependencies里的所有模块。<br>在cmd输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">node app.js</div></pre></td></tr></table></figure></p>
-<p>启动项目。我另外安装了一个工具supervisor，它可以监听项目文件的变化并自动重启服务，在开发时能节省不少时间。</p>
-<p>项目结构：<br>node_modules, 所有项目依赖模块<br>package.json，项目信息和依赖信息<br>app.js，程序入口<br>public，静态文件<br>routes，路由文件<br>Views，页面文件</p>
-<p>public目录下存放着项目所有的静态资源，如css,js，img和一部分html文件。routes目录下存放了路由文件，这个目录里的程序相当于MVC模式中的C。Views目录下存放需要用模板渲染和存在访问限制的html文件。</p>
-<p>app.js：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* 模块依赖</div><div class="line">*/</div><div class="line">var express = require(&apos;express&apos;)</div><div class="line">, routes = require(&apos;./routes&apos;)//这里自动寻找到routes目录下的index.js文件</div><div class="line">, user = require(&apos;./routes/user&apos;)</div><div class="line">, http = require(&apos;http&apos;)</div><div class="line">, path = require(&apos;path&apos;);</div><div class="line"></div><div class="line">var app = express();//生成express实例</div><div class="line"></div><div class="line">//环境变量</div><div class="line">app.set(&apos;port&apos;, process.env.PORT || 3000);//这里配置项目监听端口</div><div class="line">app.set(&apos;views&apos;, __dirname + &apos;/views&apos;);//这里配置页面文件根目录</div><div class="line">app.set(&apos;view engine&apos;, &apos;ejs&apos;);//配置模板引擎</div><div class="line">app.use(express.favicon());</div><div class="line">app.use(express.logger(&apos;dev&apos;));</div><div class="line">app.use(express.bodyParser());</div><div class="line">app.use(express.methodOverride());</div><div class="line">app.use(app.router);</div><div class="line">app.use(express.static(path.join(__dirname, &apos;public&apos;)));//静态文件根目录。当接受到一个请求时先去该目录里找，如果目录中有就直接返回被请求资源，目录里没有请求的资源才会执行下面的路径解析。</div><div class="line"></div><div class="line">// 开发模式</div><div class="line">if (&apos;development&apos; == app.get(&apos;env&apos;)) &#123;</div><div class="line">app.use(express.errorHandler());</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 路径解析</div><div class="line">app.get(&apos;/&apos;, routes.index);//为不同路径指定对应的控制器，权限控制在这里实现</div><div class="line">app.get(&apos;/users&apos;, user.list);</div><div class="line"></div><div class="line">// 启动及端口</div><div class="line">http.createServer(app).listen(app.get(&apos;port&apos;), function()&#123;</div><div class="line">console.log(&apos;Express server listening on port &apos; + app.get(&apos;port&apos;));</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>我在最后一个路由里加了如下代码<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">app.use(function (req, res, next) &#123;</div><div class="line">    var url = req.originalUrl;</div><div class="line">    if (url != &quot;/&quot;) &#123;</div><div class="line">        return res.redirect(&quot;/error.html&quot;);</div><div class="line">    &#125;</div><div class="line">    next();</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>由于路径解析是按照顺序执行的，当一个不存在的url被输入到浏览器时，由于不能匹配前面所有的路径，自动执行最后一个控制器，统一跳转到error页面，而避免出现浏览器默认的404页面。控制器参数中的next代表下一个控制器，如果一个控制器中没有return语句，则必须加上next();执行下一步路径解析，否则该请求将被挂起。</p>
-<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><p>由于一个项目监听一个端口，所以采用了Nginx作为反向代理。但这不是唯一的处理方法，可根据实际需求来做相应处理。</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -693,19 +651,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/11/ES6的展开语法/">ES6的展开语法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/10/ES6的类/">ES6的类</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/09/ES6的解构赋值/">ES6的解构赋值</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2018/07/08/ES6中的Proxy/">ES6中的Proxy</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/07/08/ES6的迭代协议/">ES6的迭代协议</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/07/08/Javascript中获取对象属性的方法/">Javascript中获取对象属性的方法</a>
             </li>
             
         </ul>
