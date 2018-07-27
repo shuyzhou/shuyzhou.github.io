@@ -165,6 +165,172 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2018/07/08/Javascript中的变量和常量/">
+                Javascript中的变量和常量
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-08</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="变量、常量声明方式"><a href="#变量、常量声明方式" class="headerlink" title="变量、常量声明方式"></a>变量、常量声明方式</h3><p>在<code>Javascript</code>中，声明常量的方式只有一种：<code>const</code>，而声明变量的方式有两种：<code>var</code>和<code>let</code>。<br>常量声明要求一个初始值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const a//SyntaxError: Missing initializer in const declaration</div></pre></td></tr></table></figure></p>
+<p>常量一旦被声明就不能被重新赋值，但这不意味着它的值不能改变，只是说明这个被定义的标识符不能被重新赋值：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">const a = &#123;&apos;key&apos;:&apos;value&apos;&#125;</div><div class="line">a = &#123;&apos;key&apos;:&apos;anotherValue&apos;&#125;//TypeError: Assignment to constant variable</div><div class="line">a.key = &apos;anotherValue&apos;</div><div class="line">console.log(a.key)//&apos;anotherValue&apos;</div></pre></td></tr></table></figure></p>
+<p>如果一个未声明变量被赋值时，将隐式地被创建为一个全局变量。这里<code>y</code>作为全局变量可以被<code>console.log</code>访问到，而局部变量<code>z</code>不能。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function x()&#123;</div><div class="line">    y = 1</div><div class="line">    var z = 2</div><div class="line">&#125;</div><div class="line">x()</div><div class="line">console.log(y)//1</div><div class="line">console.log(z)//ReferenceError: z is not defined</div></pre></td></tr></table></figure></p>
+<p>被<code>var</code>声明的变量，在同一作用域内可以被<code>var</code>再次声明并赋值，它的值将为最新的值。而被<code>let</code>和<code>const</code>声明的变量和常量不允许与同一作用域内其他变量、常量或函数名相同。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">let a = 1</div><div class="line">var a = 2// SyntaxError:Identifier &apos;a&apos; has already been declared</div><div class="line">var b = 1</div><div class="line">var b = 4</div><div class="line">b//4</div><div class="line">let b = 3// SyntaxError:Identifier &apos;b&apos; has already been declared</div><div class="line">const a = 1// SyntaxError:Identifier &apos;a&apos; has already been declared</div><div class="line">const b = 1// SyntaxError:Identifier &apos;b&apos; has already been declared</div></pre></td></tr></table></figure></p>
+<h3 id="函数作用域和块级作用域"><a href="#函数作用域和块级作用域" class="headerlink" title="函数作用域和块级作用域"></a>函数作用域和块级作用域</h3><p><code>Javascript</code>中，被花括号包起来的代码称为代码块，一个代码块前面可以有一个标志来对这个代码块做出说明，或作为<code>break</code>的目标：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    //Statement</div><div class="line">&#125;</div><div class="line">label:&#123;</div><div class="line">    //Statement</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>var</code>声明的变量以及函数是函数作用域，而<code>let</code>和<code>const</code>声明的变量和常量是块级作用域:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    var a = 2</div><div class="line">    const b = 10</div><div class="line">    let c = 1</div><div class="line">    function foo()&#123;</div><div class="line">        console.log(&apos;foo&apos;)</div><div class="line">    &#125;</div><div class="line">    console.log(a)</div><div class="line">    console.log(b)</div><div class="line">    console.log(c)</div><div class="line">&#125;</div><div class="line">console.log(a)</div><div class="line">console.log(b)</div><div class="line">console.log(c)</div><div class="line">foo()</div></pre></td></tr></table></figure></p>
+<p>以<code>var</code>和<code>let</code>为例看下两者的区别：由于<code>var</code>声明的其实是全局变量，因此<code>console.log</code>函数在执行时会在全局作用域对<code>i</code>进行标识符解析，而这时<code>i</code>的值已经变为3；而在<code>for</code>循环里<code>let</code>声明的变量<code>i</code>在每次进入循环体时就产生一个块级作用域，并且把<code>i</code>当时的值绑定在该作用域里，<code>console.log</code>函数在执行时会对相应的块级作用域做标识符解析，所以会打印出不同的值。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; 3;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line">for(let i = 0;i &lt; 3;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><p><code>var</code>声明的变量以及函数会经过变量提升，即不管在何处声明变量都等同于在函数的最开始声明该变量。<code>Javascript</code>引擎会在函数代码执行前处理所有<code>var</code>声明的变量声明，并将<code>undefined</code>赋值给变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">a = 2</div><div class="line">console.log(a)//2</div><div class="line">var a</div><div class="line">console.log(b)//undefined</div><div class="line">var b</div></pre></td></tr></table></figure></p>
+<p>同样，函数声明也会经过变量提升，但会被限制在声明它的语句块内。所以，最好还是将变量声明放在函数的顶部，以免出现<code>TypeError</code>异常。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">foo()//TypeError: foo is not a function</div><div class="line">&#123;</div><div class="line">    function foo()&#123;</div><div class="line">        console.log(&apos;foo&apos;)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//但下面的代码不会出现`TypeError`异常</div><div class="line">foo()</div><div class="line">function foo()&#123;</div><div class="line">    console.log(&apos;foo&apos;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>未声明的变量不会有变量提升，通常是在被赋值时才被声明：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(a)//ReferenceError: a is not defined</div><div class="line">a = 2//不会执行</div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">console.log(a)//undefined</div><div class="line">var a = 1</div></pre></td></tr></table></figure>
+<p><code>let</code>声明的变量不会有变量提升，在变量被声明之前，如果引用变量将导致<code>ReferenceError</code>，该变量处于从块开始到初始化处理的‘暂存死区’，<code>const</code>声明的常量也是如此。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function doSomething()&#123;</div><div class="line">    console.log(bar)//undefined</div><div class="line">    console.log(foo)//ReferenceError: foo is not defined</div><div class="line">    var bar = 1</div><div class="line">    let foo = 2</div><div class="line">&#125;</div><div class="line">doSomething()</div></pre></td></tr></table></figure></p>
+<h3 id="与词法作用域相结合的暂存死区"><a href="#与词法作用域相结合的暂存死区" class="headerlink" title="与词法作用域相结合的暂存死区"></a>与词法作用域相结合的暂存死区</h3><p>由于词法作用域，表达式<code>(foo + 55)</code>内的标识符<code>foo</code>将被解析为if块的<code>foo</code>，而不是覆盖值为33的<code>foo</code>。在这一行中，if块的<code>foo</code>已经在词法环境中创建，但尚未终止其初始化，它仍处于暂存死区：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function test()&#123;</div><div class="line">    var foo = 33</div><div class="line">    if(true)&#123;</div><div class="line">        let foo = (foo + 55)//ReferenceError: foo is not defined</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">test()</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/07/06/保存函数局部变量的方法/">
+                保存函数局部变量的方法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-06</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>大家都知道，<code>js</code>里某个函数的局部变量只能在该函数执行期间被该函数访问，那么怎样才能在函数结束后访问到该函数里的某些局部变量呢？下面是我总结的一些方法：</p>
+<h4 id="1-将给变量的值赋给更高层级的变量，比如全局变量"><a href="#1-将给变量的值赋给更高层级的变量，比如全局变量" class="headerlink" title="1.将给变量的值赋给更高层级的变量，比如全局变量"></a>1.将给变量的值赋给更高层级的变量，比如全局变量</h4><p>这种方法应该不用多说，大家都知道</p>
+<h4 id="2-利用闭包"><a href="#2-利用闭包" class="headerlink" title="2.利用闭包"></a>2.利用闭包</h4><p>什么是闭包，我之前的博文里已经说过了，就不多解释了。下面看一段代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line">//5,5,5,5,5</div></pre></td></tr></table></figure></p>
+<p>当<code>setTimeout</code>的参数函数执行时，<code>i</code>的值已经变成5了，那我们看看怎么利用闭包打印出0，1，2，3，4：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function(i)&#123;</div><div class="line">        return function()&#123;</div><div class="line">            console.log(i)</div><div class="line">        &#125;</div><div class="line">    &#125;(i))</div><div class="line">&#125;</div><div class="line">//0,1,2,3,4</div></pre></td></tr></table></figure></p>
+<p>在每次循环时，一个匿名函数被执行，并返回一个闭包，所以i的值被保存下来。</p>
+<h4 id="3-利用Function-prototype-bind方法"><a href="#3-利用Function-prototype-bind方法" class="headerlink" title="3.利用Function.prototype.bind方法"></a>3.利用<code>Function.prototype.bind</code>方法</h4><p>闭包需要在外面再包裹一层函数，有没有觉得很麻烦？其实函数的实例方法<code>bind</code>同样也能将变量保存下来：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function()&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;.bind(this,i))</div><div class="line">&#125;</div><div class="line">//0,1,2,3,4</div></pre></td></tr></table></figure></p>
+<blockquote>
+<h3 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h3><p>IE9以上的浏览器和其它现代浏览器都已实现HTML5定义的<code>setTimeout</code>函数，该函数从第三个参数开始的所有参数将会传入第一个参数定义的回调函数中，如下的代码也能打印出0，1，2，3，4：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">for(var i = 0;i &lt; 5;i++)&#123;</div><div class="line">    setTimeout(function(i)&#123;</div><div class="line">        console.log(i)</div><div class="line">    &#125;,0,i)</div><div class="line">&#125;</div><div class="line">//0,1,2,3,4</div></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="4-Generator"><a href="#4-Generator" class="headerlink" title="4.Generator"></a>4.<code>Generator</code></h3><p>利用<code>Generator</code>对象的<code>next</code>可以在其生成器函数外部访问该函数的内部变量：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function * exampleGenerator()&#123;</div><div class="line">    var x = 5</div><div class="line">    yield x</div><div class="line">&#125;</div><div class="line">var example = exampleGenerator()</div><div class="line">console.log(example.next().value)</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2018/07/05/ES6中的Promise对象/">
+                ES6中的Promise对象
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-05</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><p>由于浏览器中<code>JavaScript</code>的执行是单线程的，所以所有的网络操作、浏览器事件都是异步的，通过回调函数来执行的。当回调函数嵌套很深时，代码的可读性将下降，<code>Promise</code>就是为了解决这个问题而出现的。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>使用<code>new Promise(fn)</code>的语法会得到一个<code>Promise</code>对象，它的参数（通常是一个异步函数）将会被立刻执行。<code>Promise</code>对象有三种状态：<code>Pending</code>（进行中）、<code>Resolved</code>（已完成，又称 <code>Fulfilled</code>）和 <code>Rejected</code>（已失败），状态的转变只有两种可能：从 Pending 变为 <code>Resolved</code> 和从 <code>Pending</code> 变为 <code>Rejected</code>，而什么时候进行什么转变取决于异步函数的执行结果。<br><code>Promise</code>基本语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var promise = new Promise(function(resolve, reject) &#123;</div><div class="line">    if (/* 异步操作成功 */)&#123;</div><div class="line">        resolve(value)</div><div class="line">    &#125; else &#123;</div><div class="line">        reject(error)</div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line">promise.then(function(value) &#123;</div><div class="line">    // success</div><div class="line">&#125;, function(value) &#123;</div><div class="line">    // failure</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>当一个<code>Promise</code>对象被<code>resolve</code>掉时，它的状态将变成<code>resolved</code>，回调函数的参数就是<code>resolve</code>方法的参数。当它被reject掉时，它的状态将变为<code>rejected</code>，回调函数的参数则是<code>reject</code>方法的参数。当对一个<code>Promise</code>对象执行<code>then</code>方法时，如果它是<code>pending</code>状态，则在它状态变为<code>resolved</code>或<code>rejected</code>时将回调函数放入<code>js</code>的执行队列，如果它已经是<code>resolved</code>或<code>rejected</code>状态时则立刻将回调函数放入执行队列。</p>
+<h3 id="基本API"><a href="#基本API" class="headerlink" title="基本API"></a>基本<code>API</code></h3><h4 id="1-Promise-prototype-then"><a href="#1-Promise-prototype-then" class="headerlink" title="1.Promise.prototype.then()"></a>1.<code>Promise.prototype.then()</code></h4><p><code>then</code>方法是<code>Promise</code>对象的实例方法，用来给<code>Promise</code>对象定义回调函数，接受参数为两个函数：<code>Promise</code>的成功和失败情况的回调函数。<code>then</code>方法的返回值同样是一个<code>Promise</code>对象，这个对象的状态和回调函数的返回值有关。<br>简单来说，如果回调函数返回的是一个<code>Promise</code>对象，那么<code>then</code>方法返回的<code>Promise</code>对象状态与之同步，回调函数的参数也是一致的；如果回调函数返回的是一个值，那么<code>then</code>方法返回的<code>Promise</code>对象状态为<code>resolved</code>；如果回调函数抛出了一个错误，那么<code>then</code>方法返回的<code>Promise</code>对象状态为<code>rejected</code>。当对应某个状态的回调被省略或为非函数时，<code>then</code>方法会丢失该状态的回调函数，但不会产生错误。</p>
+<h4 id="2-Promise-prototype-catch"><a href="#2-Promise-prototype-catch" class="headerlink" title="2.Promise.prototype.catch()"></a>2.<code>Promise.prototype.catch()</code></h4><p><code>catch</code>方法是<code>Promise</code>对象的实例方法，用来给<code>Promise</code>对象定义失败是回调函数，是<code>then(null, ...)</code>的别名。它的返回值同样是一个<code>Promise</code>对象。</p>
+<h4 id="3-Promise-resolve"><a href="#3-Promise-resolve" class="headerlink" title="3.Promise.resolve()"></a>3.<code>Promise.resolve()</code></h4><p><code>resolve</code>方法返回一个状态为<code>resolved</code>的<code>Promise</code>对象，接受的参数将作为该<code>Promise</code>对象的值；如果接受的参数是<code>thenable</code>的（该参数有<code>then</code>方法），则<code>Promise</code>将采取该对象的最终形态作为该<code>Promise</code>对象的值；如果接受的参数为<code>Promise</code>对象，<code>resolve</code>方法将返回该<code>Promise</code>对象。</p>
+<h4 id="4-Promise-reject"><a href="#4-Promise-reject" class="headerlink" title="4.Promise.reject()"></a>4.<code>Promise.reject()</code></h4><p><code>reject</code>方法返回一个状态为<code>rejected</code>的<code>Promise</code>对象，接受的参数将作为该<code>Promise</code>对象的值</p>
+<h4 id="5-Promise-all"><a href="#5-Promise-all" class="headerlink" title="5.Promise.all()"></a>5.<code>Promise.all()</code></h4><p>该方法接受参数为可迭代的对象（例如数组），返回一个<code>Promise</code>对象。当该数组里所有<code>Promise</code>对象<code>resolve</code>时，该<code>Promise</code>对象的状态变为<code>resolved</code>；若有其中一个被<code>reject</code>，该<code>Promise</code>对象的状态变为<code>rejected</code>。</p>
+<h4 id="6-Promise-race"><a href="#6-Promise-race" class="headerlink" title="6.Promise.race()"></a>6.<code>Promise.race()</code></h4><p>该方法接受参数为可迭代的对象（例如数组），返回一个<code>Promise</code>对象。当该数组里任意一个<code>Promise</code>对象被<code>resolve</code>或<code>reject</code>时，该<code>Promise</code>对象的状态变为<code>resolved</code>或<code>rejected</code>。</p>
+<h4 id="7-Promise-prototype-finally"><a href="#7-Promise-prototype-finally" class="headerlink" title="7.Promise.prototype.finally()"></a>7.<code>Promise.prototype.finally()</code></h4><p>不管调用<code>finally</code>的<code>Promise</code>对象状态为<code>resolved</code>或<code>rejected</code>，该方法的回调函数都会被调用，且回调函数不接受参数。</p>
+<h3 id="异步执行"><a href="#异步执行" class="headerlink" title="异步执行"></a>异步执行</h3><p>知道了Promise异步编程的思想，下面的代码的打印信息就很容易理解了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">setTimeout(function()&#123;</div><div class="line">    console.log(1)</div><div class="line">&#125;)</div><div class="line">new Promise(function()&#123;</div><div class="line">    console.log(2)</div><div class="line">&#125;)</div><div class="line">Promise.resolve(function()&#123;</div><div class="line">    console.log(3)</div><div class="line">&#125;)</div><div class="line">console.log(4)</div><div class="line">//2，4，1</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/06/17/Vue源码阅读（二）：数据监听/">
+                Vue源码阅读（二）：数据监听
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-06-17</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>当刚开始看源码的时候，很多人都会觉得源码很难看懂，很容易让人想要放弃。对使用者来说，源码就像一个黑盒子，我们只会用它的功能，却不知道它的内部是怎么实现这些API的。所以，我们不妨先抛出一些相关问题：</p>
+<ol>
+<li>Vue怎么对输入的数据进行代理的？</li>
+<li>Vue怎么监听数据变化的？</li>
+<li>通过$data获取原始数据或重置数据是怎么实现的？</li>
+</ol>
+<p>接下来，让我们从源码中寻找答案。</p>
+<h3 id="对输入数据进行代理"><a href="#对输入数据进行代理" class="headerlink" title="对输入数据进行代理"></a>对输入数据进行代理</h3><p><code>vue</code>实例有一个内部属性<code>_data</code>，用来保存该实例的数据。<code>vue</code>通过<code>_proxy</code>方法绑定对<code>_data</code>的代理。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Vue.prototype._proxy = function (key) &#123;</div><div class="line">  if (!isReserved(key)) &#123;</div><div class="line">    var self = this</div><div class="line">    Object.defineProperty(self, key, &#123;</div><div class="line">      configurable: true,</div><div class="line">      enumerable: true,</div><div class="line">      get: function proxyGetter () &#123;</div><div class="line">        return self._data[key]</div><div class="line">      &#125;,</div><div class="line">      set: function proxySetter (val) &#123;</div><div class="line">        self._data[key] = val</div><div class="line">      &#125;</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="监听数据变化"><a href="#监听数据变化" class="headerlink" title="监听数据变化"></a>监听数据变化</h3><p><code>vue</code>利用<code>Observer</code>构造函数的实例来监听数据变化，首先看看<code>Observer</code>构造函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function Observer (value) &#123;</div><div class="line">  this.value = value</div><div class="line">  this.dep = new Dep()</div><div class="line">  def(value, &apos;__ob__&apos;, this)</div><div class="line">  if (isArray(value)) &#123;</div><div class="line">    var augment = hasProto</div><div class="line">      ? protoAugment</div><div class="line">      : copyAugment</div><div class="line">    augment(value, arrayMethods, arrayKeys)</div><div class="line">    this.observeArray(value)</div><div class="line">  &#125; else &#123;</div><div class="line">    this.walk(value)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>看下来发现有点晕了，<code>Observer</code>构造函数里又出现了新的构造函数和一大堆实例方法，因为<code>vue</code>发展了一个比较成熟的阶段，出现这种情况是很正常的。不要急，我们一个一个看。先粗略的看了下Dep构造函数，原来是管理订阅者的，先放在一边，我们以后再研究。<code>walk</code>方法对数据的每个属性都调用<code>convert</code>方法，<code>convert</code>方法其实是对<code>defineReactive</code>方法的包装，对数据的核心操作其实都在<code>defineReactive</code>方法里：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">function defineReactive (obj, key, val) &#123;</div><div class="line">  var dep = new Dep()</div><div class="line"></div><div class="line">  var property = Object.getOwnPropertyDescriptor(obj, key)</div><div class="line">  if (property &amp;&amp; property.configurable === false) &#123;</div><div class="line">    return</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // cater for pre-defined getter/setters</div><div class="line">  var getter = property &amp;&amp; property.get</div><div class="line">  var setter = property &amp;&amp; property.set</div><div class="line">  //递归监听该属性的值</div><div class="line">  var childOb = observe(val)</div><div class="line">  Object.defineProperty(obj, key, &#123;</div><div class="line">    enumerable: true,</div><div class="line">    configurable: true,</div><div class="line">    get: function reactiveGetter () &#123;</div><div class="line">      var value = getter ? getter.call(obj) : val</div><div class="line">      //这里省略了对dep的操作</div><div class="line">      return value</div><div class="line">    &#125;,</div><div class="line">    set: function reactiveSetter (newVal) &#123;</div><div class="line">      var value = getter ? getter.call(obj) : val</div><div class="line">      if (newVal === value) &#123;</div><div class="line">        return</div><div class="line">      &#125;</div><div class="line">      if (setter) &#123;</div><div class="line">        setter.call(obj, newVal)</div><div class="line">      &#125; else &#123;</div><div class="line">        val = newVal</div><div class="line">      &#125;</div><div class="line">      childOb = observe(newVal)</div><div class="line">      dep.notify()</div><div class="line">    &#125;</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>defineReactive</code>方法重新定义每个属性的<code>getter</code>和<code>setter</code>，并对该属性的值进行监听。在<code>observe</code>方法中，对这个值又new了一个新的<code>Observer</code>实例并返回，这样就实现了对数据的深层次的监听。在setter中，同样对新的值进行监听，并且利用notify方法发送消息给与该属性相关的<code>directive</code>。</p>
+<h3 id="data属性"><a href="#data属性" class="headerlink" title="$data属性"></a><code>$data</code>属性</h3><p><code>$data</code>属性定义在Vue的原型上的，<code>Vue</code>利用<code>defineProperty</code>方法重新定义了<code>$data</code>的<code>getter</code>和<code>setter</code>，当<code>$data</code>被访问时返回当前<code>vue</code>实例的<code>_data</code>属性，该实例的数据实际上是保存在这个属性里，而给<code>$data</code>赋值时则会调用实例方法<code>_setData</code>。<br>在<code>_setData</code>方法中，将新的data赋值给实例的<code>_data</code>属性。比较新的<code>data</code>和旧的<code>data</code>，对需要删除的属性解除代理，对于需要新增的属性绑定代理。接着，断开旧<code>data</code>对该实例的引用，调用<code>observe</code>方法对新的<code>data</code>进行监听，最后调用实例的<code>_digest</code>方法强制更新所有<code>watcher</code>。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2017/06/17/Vue源码阅读（三）：模板解析/">
                 Vue源码阅读（三）：模板解析
             </a>
@@ -409,207 +575,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/03/30/HTML语义化标签（二）/">
-                HTML语义化标签（二）
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-03-30</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/HTML/">HTML</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="删除文本"><a href="#删除文本" class="headerlink" title="删除文本"></a>删除文本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a dozen is &lt;del&gt;20&lt;/del&gt; 12 pieces</div></pre></td></tr></table></figure>
-<p><code>&lt;del&gt;</code>定义文档中已被删除的文本。</p>
-<h3 id="选项列表"><a href="#选项列表" class="headerlink" title="选项列表"></a>选项列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;myCar&quot; list=&quot;cars&quot; /&gt;</div><div class="line">&lt;datalist id=&quot;cars&quot;&gt;</div><div class="line">  &lt;option value=&quot;BMW&quot;&gt;</div><div class="line">  &lt;option value=&quot;Ford&quot;&gt;</div><div class="line">  &lt;option value=&quot;Volvo&quot;&gt;</div><div class="line">&lt;/datalist&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;datalist&gt;</code> 标签定义选项列表。一般与 input 元素配合使用该元素，来定义 input可能的值。需使用 input 元素的 list 属性来绑定 datalist。<br>关于<code>&lt;datalist&gt;</code>与<code>&lt;select&gt;</code>的区别，<code>&lt;datalist&gt;</code>允许用户自定义输入，<code>&lt;datalist&gt;</code>只是一种建议。</p>
-<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;embed src=&quot;helloworld.swf&quot; /&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;embed&gt;</code>标签定义嵌入的内容，比如插件。</p>
-<h3 id="表单组"><a href="#表单组" class="headerlink" title="表单组"></a>表单组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;form&gt;</div><div class="line">  &lt;fieldset&gt;</div><div class="line">    &lt;legend&gt;health information&lt;/legend&gt;</div><div class="line">    height: &lt;input type=&quot;text&quot; /&gt;</div><div class="line">    weight: &lt;input type=&quot;text&quot; /&gt;</div><div class="line">  &lt;/fieldset&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;fieldset&gt;</code>标签可将表单内的相关元素分组。<br>当一组表单元素放到<code>&lt;fieldset&gt;</code>标签内时，浏览器会以特殊方式来显示它们<br><code>&lt;legend&gt;</code>标签为<code>fieldset</code>元素定义标题。</p>
-<h3 id="插图"><a href="#插图" class="headerlink" title="插图"></a>插图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;figure&gt;</div><div class="line">  &lt;p&gt;黄浦江上的的卢浦大桥&lt;/p&gt;</div><div class="line">  &lt;img src=&quot;shanghai_lupu_bridge.jpg&quot; width=&quot;350&quot; height=&quot;234&quot; /&gt;</div><div class="line">&lt;/figure&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;figure&gt;</code>标签规定独立的流内容（图像、图表、照片、代码等等）。<br><code>figure</code>元素的内容应该与主内容相关，但如果被删除，则不应对文档流产生影响。</p>
-<h3 id="页脚"><a href="#页脚" class="headerlink" title="页脚"></a>页脚</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;footer&gt;</div><div class="line">  &lt;p&gt;Posted by: W3School&lt;/p&gt;</div><div class="line">  &lt;p&gt;Contact information: &lt;a href=&quot;mailto:someone@example.com&quot;&gt;someone@example.com&lt;/a&gt;.&lt;/p&gt;</div><div class="line">&lt;/footer&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;footer&gt;</code>标签定义文档或节的页脚，页脚通常包含文档的作者、版权信息、使用条款链接、联系信息等等。</p>
-<h3 id="页眉"><a href="#页眉" class="headerlink" title="页眉"></a>页眉</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;header&gt;</div><div class="line">&lt;h1&gt;Welcome to my homepage&lt;/h1&gt;</div><div class="line">&lt;p&gt;My name is Donald Duck&lt;/p&gt;</div><div class="line">&lt;/header&gt;</div><div class="line"></div><div class="line">&lt;p&gt;The rest of my home page...&lt;/p&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;header&gt;</code>标签定义文档的页眉（介绍信息）。</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/03/30/HTML语义化标签（一）/">
-                HTML语义化标签（一）
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-03-30</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/HTML/">HTML</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>总结了下自己不熟悉的且大部分浏览器支持的语义化标签，希望以后能多多注意。</p>
-<h3 id="块引用"><a href="#块引用" class="headerlink" title="块引用"></a>块引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;blockquote&gt;</div><div class="line">Here is a long quotation here is a long quotation here is a long quotation </div><div class="line">here is a long quotation here is a long quotation here is a long quotation </div><div class="line">&lt;/blockquote&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;blockquote&gt;</code>与 <code>&lt;/blockquote&gt;</code>之间的所有文本都会从常规文本中分离出来，经常会在左、右两边进行缩进（增加外边距），而且有时会使用斜体。也就是说，块引用拥有它们自己的空间。</p>
-<h3 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;article&gt;</div><div class="line">  &lt;h1&gt;Internet Explorer 9&lt;/h1&gt;</div><div class="line">  &lt;p&gt;Windows Internet Explorer 9（简称 IE9）于 2011 年 3 月 14 日发布.....&lt;/p&gt;</div><div class="line">&lt;/article&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;article&gt;</code> 标签规定独立的自包含内容，其有自身的意义，独立于站点的其余部分。</p>
-<h3 id="相关内容"><a href="#相关内容" class="headerlink" title="相关内容"></a>相关内容</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;Me and my family visited The Epcot center this summer.&lt;/p&gt;</div><div class="line">&lt;aside&gt;</div><div class="line">&lt;h4&gt;Epcot Center&lt;/h4&gt;</div><div class="line">The Epcot Center is a theme park in Disney World, Florida.</div><div class="line">&lt;/aside&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;aside&gt;</code> 标签定义其所处内容之外的与之相关的内容。</p>
-<h3 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;audio src=&quot;someaudio.wav&quot;&gt;</div><div class="line">您的浏览器不支持 audio 标签。</div><div class="line">&lt;/audio&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;audio&gt;</code> 标签定义声音，比如音乐或其他音频流</p>
-<h3 id="表格标题"><a href="#表格标题" class="headerlink" title="表格标题"></a>表格标题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;table border=&quot;1&quot;&gt;</div><div class="line">  &lt;caption&gt;Monthly savings&lt;/caption&gt;</div><div class="line">  &lt;tr&gt;</div><div class="line">    &lt;th&gt;Month&lt;/th&gt;</div><div class="line">    &lt;th&gt;Savings&lt;/th&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">  &lt;tr&gt;</div><div class="line">    &lt;td&gt;January&lt;/td&gt;</div><div class="line">    &lt;td&gt;$100&lt;/td&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;caption&gt;</code>标签定义表格标题。它必须紧随table标签之后。只能对每个表格定义一个标题，通常这个标题会被居中于表格之上。</p>
-<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;cite&gt;</div><div class="line">Here is a citation</div><div class="line">&lt;/cite&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;cite&gt;</code>标签通常表示它所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。<br>浏览器将以斜体显示引用的文本。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><code>&lt;code&gt;</code> 标签用于表示计算机源代码或者其他机器可以阅读的文本内容。这个标签将计算机代码与其它文本区分开来。</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/03/16/总结：元素居中的纯CSS方法/">
-                总结：元素居中的纯CSS方法
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-03-16</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/CSS/">CSS</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>总结下各种居中方式。</p>
-<h4 id="块级元素固定宽高"><a href="#块级元素固定宽高" class="headerlink" title="块级元素固定宽高"></a>块级元素固定宽高</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	position: absolute;/* or relative*/</div><div class="line">&#125;</div><div class="line">子元素 &#123;</div><div class="line">	position: absolute;</div><div class="line">	top:50%;</div><div class="line">	left:50%;</div><div class="line">	margin-top: -(元素高度/2);</div><div class="line">	margin-left: -(元素宽度/2);</div><div class="line">/* or transform:translate(-50% -50%);*/</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	border: 1px solid black;</div><div class="line">	position: absolute;</div><div class="line">	top: 0;</div><div class="line">	left: 0;</div><div class="line">	bottom: 0;</div><div class="line">	right: 0;</div><div class="line">	margin: auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>这里有一个很有意思的点，就是<code>position: absolute;</code>时浏览器计算元素位置的规则。规则比较复杂，粗略来讲，对于某元素，<code>left</code> + <code>margin-left</code> + <code>border-left-width</code> + <code>padding-left</code> + <code>width</code> + <code>padding-right</code> + <code>border-right-width</code> + <code>margin-right</code> + <code>right</code> = 包含块宽度。在这里，是<code>margin-left</code> + <code>width</code> + <code>margin-right</code> = 包含块宽度。而<code>margin: auto</code>使得<code>margin-left</code> = <code>margin-right</code>，导致元素居中。具体规则可以看<a href="https://segmentfault.com/a/1190000003820437#articleHeader9" target="_blank" rel="external">这里</a>。<br>这几种方式可使元素在父元素中居中。</p>
-<h4 id="块级元素固定宽"><a href="#块级元素固定宽" class="headerlink" title="块级元素固定宽"></a>块级元素固定宽</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	margin: 0 auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这种方式可使元素在父元素中水平居中。</p>
-<h4 id="内联元素水平居中"><a href="#内联元素水平居中" class="headerlink" title="内联元素水平居中"></a>内联元素水平居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	text-align:center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="文本垂直居中"><a href="#文本垂直居中" class="headerlink" title="文本垂直居中"></a>文本垂直居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	line-height:想要的文本高度;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="不定宽块级元素水平居中"><a href="#不定宽块级元素水平居中" class="headerlink" title="不定宽块级元素水平居中"></a>不定宽块级元素水平居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	float: left;</div><div class="line">	position:relative;</div><div class="line">	left:50%;</div><div class="line">&#125;</div><div class="line">元素 &#123;</div><div class="line">	position:relative;</div><div class="line">	left:-50%;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里利用了浮动自适应宽高的原理。对于一个不定宽高元素，浮动会使其变成块级元素，并使该块级元素的宽高尽可能小。关于浮动的细节可以看<a href="https://segmentfault.com/a/1190000006041960" target="_blank" rel="external">这里</a>;<br>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	text-align:center;</div><div class="line">&#125;</div><div class="line">元素 &#123;</div><div class="line">	display:inline;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h4 id="块级元素垂直居中"><a href="#块级元素垂直居中" class="headerlink" title="块级元素垂直居中"></a>块级元素垂直居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	display:table-cell;</div><div class="line">	vertical-align:middle;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在表格中<code>vertical-align:middle;</code>可以使表格的子元素垂直居中。</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/03/15/IFE学习心得/">
-                IFE学习心得
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-03-15</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/CSS/">CSS</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>最近参加了IFE2017新学期的课程，通过自学的方式做题闯关，解决了很多大大小小的问题。强化了我的基础知识体系，特别是CSS3。因为之前实习一直只负责js部分，而这一次的训练让我对CSS3有了一些新的了解。下面记录下我的心得：</p>
-<h3 id="display-none和visibility-hidden"><a href="#display-none和visibility-hidden" class="headerlink" title="display:none和visibility:hidden"></a><code>display:none</code>和<code>visibility:hidden</code></h3><p>这两个规则都表示隐藏某个元素，但其实有着本质的不同。前者作用的元素在文档流中不占位，而后者作用的元素在文档流中占位。换句话收，一个元素被加上了<code>display:none</code>样式，它将不出现在浏览器生成的渲染树中，对其它元素的位置无任何影响，所以浏览器不会去计算它的偏移量（<code>offsetWidth</code>和<code>offsetHeight</code>）；而一个元素被加上了<code>visibility:hidden</code>样式的话，它会被正常渲染，只是“看不见”而已。</p>
-<h3 id="transition和animation"><a href="#transition和animation" class="headerlink" title="transition和animation"></a><code>transition</code>和<code>animation</code></h3><p>这是CSS3实现动画的两种方式，但这两个属性在多个方面都有着不同的表现。下面的表格比较了它们不同之处：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>transition</th>
-<th>animation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>关键帧</td>
-<td>两帧</td>
-<td>可多帧</td>
-</tr>
-<tr>
-<td>触发方式</td>
-<td>事件触发</td>
-<td>可自动播放</td>
-</tr>
-<tr>
-<td>执行次数</td>
-<td>一次</td>
-<td>可多次</td>
-</tr>
-<tr>
-<td>可否暂停</td>
-<td>不能</td>
-<td>可以</td>
-</tr>
-<tr>
-<td>播放方向是否能逆向</td>
-<td>不能</td>
-<td>可以</td>
-</tr>
-</tbody>
-</table>
-<p>可以看出来，<code>transition</code>属性使某个CSS属性能从一个值平滑地过渡到另一个值，而<code>animation</code>属性是<code>transition</code>的补充，它能真正地实现动画效果。<code>animation</code>可以播放多关键帧的动画，动画可以多次执行并以正向-逆向-正向…的方式播放。了解所有<code>transition</code>属性看<a href="http://www.w3school.com.cn/css3/css3_transition.asp" target="_blank" rel="external">这里</a>,了解所有<code>animation</code>属性看<a href="http://www.w3school.com.cn/css3/css3_animation.asp" target="_blank" rel="external">这里</a>。</p>
-<h3 id="radio的魔力"><a href="#radio的魔力" class="headerlink" title="radio的魔力"></a>radio的魔力</h3><p>一组radio中可以被选择的只有一个，所以利用radio和label和兄弟选择器可以实现通过点击切换其状态的组件，例如导航栏、CSS3动画的播放和暂停按钮。具体Demo看<a href="http://shuyzhou.space/IFE2017/accordion/">这里</a>。</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -651,19 +616,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/19/JavaScript判断数组的方法/">JavaScript判断数组的方法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/19/Vue源码阅读（四）：diff算法/">Vue源码阅读（四）：diff算法</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/11/ES6的展开语法/">ES6的展开语法</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2018/07/10/ES6的类/">ES6的类</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/07/09/ES6的解构赋值/">ES6的解构赋值</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/07/08/ES6中的Proxy/">ES6中的Proxy</a>
             </li>
             
         </ul>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="接触Vue也有一段时间了，像我们这种数据可视化的产品通常有大量的数据要显示，所以经常用到v-for这个directive。而官方的教程中提到，建议给v-for循环出来的元素绑定key，而我有时候又会忘记绑定，导致时有bug，所以决定抽出点时间看看Vue的源码，搞清楚到底为什么要绑定key。
+diff">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="shuyzhou">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="Vue源码阅读（四）：diff算法"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="大周部落格"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>Vue源码阅读（四）：diff算法 - 大周部落格</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/myworks/">
+                    Myworks
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+        <div class="icon-box">
+  	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="40 50 140.1 140.1" xml:space="preserve">
+		<g>
+			<path id="edge" class="path" d="M134.8,81c17.8,29.7,22.6,61.3,14.1,80.1c-2.5,5.6-6.3,10.1-11.2,13c0,0-26.3,18.7-62.1,0
+		c-21.5-12.8-20.2-54.5,2.9-93.1C78.5,81,106.7,108.9,134.8,81z"/>
+			<path id="tail" class="path" d="M146.6,165.4c0,0,21.6-13,20.7-40.6"/>
+			<ellipse class="eyes" cx="88.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<ellipse class="eyes" cx="126.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<line class="path hands" x1="100" y1="143.1" x2="106.8" y2="147.8"/>
+			<line class="path hands" x1="106.8" y1="147.8" x2="100" y2="151.5"/>
+			<line class="path hands" x1="116.8" y1="143.1" x2="110" y2="147.8"/>
+			<line class="path hands" x1="110" y1="147.8" x2="116.8" y2="151.5"/>
+		</g>
+		<g id="normal">
+			<polyline id="mouth" points="116,124.8 108,124.8 100,124.8 	"/>
+		</g>
+		<g id="smile">
+			<path class="path" d="M100,125.7c0,0,2.5,4.7,7.7,0"/>
+			<path class="path" d="M115.4,125.7c0,0-2.5,4.7-7.7,0"/>
+			<ellipse class="blush" cx="81.8" cy="129.6" rx="1.8" ry="2.1"/>
+			<ellipse class="blush" cx="136.3" cy="129.6" rx="1.8" ry="2.1"/>
+		</g>
+	</svg>
+</div>
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/07/19/Vue源码阅读（四）：diff算法/">
+                Vue源码阅读（四）：diff算法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-19</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>接触Vue也有一段时间了，像我们这种数据可视化的产品通常有大量的数据要显示，所以经常用到<code>v-for</code>这个directive。而官方的教程中提到，建议给<code>v-for</code>循环出来的元素绑定key，而我有时候又会忘记绑定，导致时有bug，所以决定抽出点时间看看Vue的源码，搞清楚到底为什么要绑定key。</p>
+<h3 id="diff算法核心"><a href="#diff算法核心" class="headerlink" title="diff算法核心"></a>diff算法核心</h3><p>当Vue检测到<code>v-for</code>相关的数组数据发生变化时，Vue先会利用diff算法对比变化前的数组和变化后的数组，然后确定对Dom的操作。diff算法分为两个阶段：初始化和更新。</p>
+<h4 id="初始化Dom"><a href="#初始化Dom" class="headerlink" title="初始化Dom"></a>初始化Dom</h4><p>遍历数组元素，生成元素对应的Vue实例，将实例存入到缓存中，并将实例对应Dom元素插入到document中。</p>
+<h4 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h4><p>遍历数组元素，从缓存中查找是否已存在元素对应的实例，有的话标记该实例为可复用。遍历旧数组，从缓存中删除数组中不被复用的实例，并删除相应Dom元素。复用这些标记实例对应的Dom元素，并调整元素顺序，再将数组中新增的数据对应的Dom元素插入到document中。<br>关键就在，这个缓存其实是一个对象，它是v-for数据对应的实例的集合。实例的key的值是Vue按照一定规则得到的，如果用户给该实例绑定了key，那么key值就是绑定的表达式的值；如果用户没有绑定了key，那么key一般是该实例在数组中对应的下标值。所以，如果没有指定key的话，那么随着数组的变化元素的下标也产生了变化，导致从缓存中得到的是错误的实例，从而导致显示的bug。比如数组从[a,b,c]变化成[b,c]时，明明删除的是第一个元素a，但是由于b对应的下标变成了0，c的变成了1，结果被复用的是a和b对应的Dom元素。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>下面是和本文介绍有关的diff的核心代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div></pre></td><td class="code"><pre><div class="line">diff (data) &#123;</div><div class="line">  //...doSomething</div><div class="line">  // 遍历新数组并找到可以从旧数组中复用的实例</div><div class="line">  for (i = 0, l = data.length; i &lt; l; i++) &#123;</div><div class="line">    item = data[i]</div><div class="line">    key = convertedFromObject ? item.$key : null</div><div class="line">    value = convertedFromObject ? item.$value : item</div><div class="line">    //从缓存中获得可复用的实例</div><div class="line">    frag = !init &amp;&amp; this.getCachedFrag(value, i, key)</div><div class="line">    if (frag) &#123; // reusable fragment</div><div class="line">      frag.reused = true</div><div class="line">      // update $index</div><div class="line">      frag.scope.$index = i</div><div class="line">      // update $key</div><div class="line">      if (key) &#123;</div><div class="line">        frag.scope.$key = key</div><div class="line">      &#125;</div><div class="line">      //...doSomething</div><div class="line">    &#125; else &#123; //生成新实例并存入缓存</div><div class="line">      frag = this.create(value, alias, i, key)</div><div class="line">      frag.fresh = !init</div><div class="line">    &#125;</div><div class="line">    //存入实例数组</div><div class="line">    frags[i] = frag</div><div class="line">    //如果是初始化就直接插入到文档</div><div class="line">    if (init) &#123;</div><div class="line">      frag.before(end)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // we&apos;re done for the initial render.</div><div class="line">  if (init) &#123;</div><div class="line">    return</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // 遍历旧数组并清除不被复用的实例</div><div class="line">  //...doSomething</div><div class="line">  for (i = 0, l = oldFrags.length; i &lt; l; i++) &#123;</div><div class="line">    frag = oldFrags[i]</div><div class="line">    if (!frag.reused) &#123;//从缓存和文档中清除</div><div class="line">      this.deleteCachedFrag(frag)</div><div class="line">      this.remove(frag, removalIndex++, totalRemoved, inDocument)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  //...doSomething</div><div class="line">  // 最后，调整可复用的元素顺序，插入新元素</div><div class="line">  var targetPrev, prevEl, currentPrev</div><div class="line">  var insertionIndex = 0</div><div class="line">  for (i = 0, l = frags.length; i &lt; l; i++) &#123;</div><div class="line">    frag = frags[i]</div><div class="line">    // this is the frag that we should be after</div><div class="line">    targetPrev = frags[i - 1]</div><div class="line">    prevEl = targetPrev</div><div class="line">      ? targetPrev.staggerCb</div><div class="line">        ? targetPrev.staggerAnchor</div><div class="line">        : targetPrev.end || targetPrev.node</div><div class="line">      : start</div><div class="line">    if (frag.reused &amp;&amp; !frag.staggerCb) &#123;</div><div class="line">      currentPrev = findPrevFrag(frag, start, this.id)</div><div class="line">      //如果复用的元素在文档中的前置元素和在第一步生成的数组中的前一个元素不相同的话，需要调整元素位置</div><div class="line">      if (</div><div class="line">        currentPrev !== targetPrev &amp;&amp; (</div><div class="line">          !currentPrev ||</div><div class="line">          // optimization for moving a single item.</div><div class="line">          // thanks to suggestions by @livoras in #1807</div><div class="line">          findPrevFrag(currentPrev, start, this.id) !== targetPrev</div><div class="line">        )</div><div class="line">      ) &#123;//将frag插入到prewEl之前，并不会对frag重新渲染</div><div class="line">        this.move(frag, prevEl)</div><div class="line">      &#125;</div><div class="line">    &#125; else &#123;</div><div class="line">      //插入新元素</div><div class="line">      this.insert(frag, insertionIndex++, prevEl, inDocument)</div><div class="line">    &#125;//重置该标志</div><div class="line">    frag.reused = frag.fresh = false</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/Vue/">#Vue</a> <a href="/tags/源码/">#源码</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This is Sophia Zhou's personal blog. Enjoy yourself!
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/19/JavaScript判断数组的方法/">JavaScript判断数组的方法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/19/Vue源码阅读（四）：diff算法/">Vue源码阅读（四）：diff算法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/11/ES6的展开语法/">ES6的展开语法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/10/ES6的类/">ES6的类</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-categories">
+    <h2>Categories</h2>
+    <ul>
+        
+        <li>
+            <a class="footer-post" href="/categories/Nodejs/">Nodejs</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/CSS/">CSS</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/HTML/">HTML</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/JavaScript/">JavaScript</a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/shuyzhou">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:big_zhou@126.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Sophia Zhou. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

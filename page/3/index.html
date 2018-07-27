@@ -165,6 +165,207 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2017/03/30/HTML语义化标签（二）/">
+                HTML语义化标签（二）
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-03-30</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/HTML/">HTML</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <h3 id="删除文本"><a href="#删除文本" class="headerlink" title="删除文本"></a>删除文本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a dozen is &lt;del&gt;20&lt;/del&gt; 12 pieces</div></pre></td></tr></table></figure>
+<p><code>&lt;del&gt;</code>定义文档中已被删除的文本。</p>
+<h3 id="选项列表"><a href="#选项列表" class="headerlink" title="选项列表"></a>选项列表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;input id=&quot;myCar&quot; list=&quot;cars&quot; /&gt;</div><div class="line">&lt;datalist id=&quot;cars&quot;&gt;</div><div class="line">  &lt;option value=&quot;BMW&quot;&gt;</div><div class="line">  &lt;option value=&quot;Ford&quot;&gt;</div><div class="line">  &lt;option value=&quot;Volvo&quot;&gt;</div><div class="line">&lt;/datalist&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;datalist&gt;</code> 标签定义选项列表。一般与 input 元素配合使用该元素，来定义 input可能的值。需使用 input 元素的 list 属性来绑定 datalist。<br>关于<code>&lt;datalist&gt;</code>与<code>&lt;select&gt;</code>的区别，<code>&lt;datalist&gt;</code>允许用户自定义输入，<code>&lt;datalist&gt;</code>只是一种建议。</p>
+<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;embed src=&quot;helloworld.swf&quot; /&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;embed&gt;</code>标签定义嵌入的内容，比如插件。</p>
+<h3 id="表单组"><a href="#表单组" class="headerlink" title="表单组"></a>表单组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;form&gt;</div><div class="line">  &lt;fieldset&gt;</div><div class="line">    &lt;legend&gt;health information&lt;/legend&gt;</div><div class="line">    height: &lt;input type=&quot;text&quot; /&gt;</div><div class="line">    weight: &lt;input type=&quot;text&quot; /&gt;</div><div class="line">  &lt;/fieldset&gt;</div><div class="line">&lt;/form&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;fieldset&gt;</code>标签可将表单内的相关元素分组。<br>当一组表单元素放到<code>&lt;fieldset&gt;</code>标签内时，浏览器会以特殊方式来显示它们<br><code>&lt;legend&gt;</code>标签为<code>fieldset</code>元素定义标题。</p>
+<h3 id="插图"><a href="#插图" class="headerlink" title="插图"></a>插图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;figure&gt;</div><div class="line">  &lt;p&gt;黄浦江上的的卢浦大桥&lt;/p&gt;</div><div class="line">  &lt;img src=&quot;shanghai_lupu_bridge.jpg&quot; width=&quot;350&quot; height=&quot;234&quot; /&gt;</div><div class="line">&lt;/figure&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;figure&gt;</code>标签规定独立的流内容（图像、图表、照片、代码等等）。<br><code>figure</code>元素的内容应该与主内容相关，但如果被删除，则不应对文档流产生影响。</p>
+<h3 id="页脚"><a href="#页脚" class="headerlink" title="页脚"></a>页脚</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;footer&gt;</div><div class="line">  &lt;p&gt;Posted by: W3School&lt;/p&gt;</div><div class="line">  &lt;p&gt;Contact information: &lt;a href=&quot;mailto:someone@example.com&quot;&gt;someone@example.com&lt;/a&gt;.&lt;/p&gt;</div><div class="line">&lt;/footer&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;footer&gt;</code>标签定义文档或节的页脚，页脚通常包含文档的作者、版权信息、使用条款链接、联系信息等等。</p>
+<h3 id="页眉"><a href="#页眉" class="headerlink" title="页眉"></a>页眉</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;header&gt;</div><div class="line">&lt;h1&gt;Welcome to my homepage&lt;/h1&gt;</div><div class="line">&lt;p&gt;My name is Donald Duck&lt;/p&gt;</div><div class="line">&lt;/header&gt;</div><div class="line"></div><div class="line">&lt;p&gt;The rest of my home page...&lt;/p&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;header&gt;</code>标签定义文档的页眉（介绍信息）。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/03/30/HTML语义化标签（一）/">
+                HTML语义化标签（一）
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-03-30</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/HTML/">HTML</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>总结了下自己不熟悉的且大部分浏览器支持的语义化标签，希望以后能多多注意。</p>
+<h3 id="块引用"><a href="#块引用" class="headerlink" title="块引用"></a>块引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;blockquote&gt;</div><div class="line">Here is a long quotation here is a long quotation here is a long quotation </div><div class="line">here is a long quotation here is a long quotation here is a long quotation </div><div class="line">&lt;/blockquote&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;blockquote&gt;</code>与 <code>&lt;/blockquote&gt;</code>之间的所有文本都会从常规文本中分离出来，经常会在左、右两边进行缩进（增加外边距），而且有时会使用斜体。也就是说，块引用拥有它们自己的空间。</p>
+<h3 id="文章"><a href="#文章" class="headerlink" title="文章"></a>文章</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;article&gt;</div><div class="line">  &lt;h1&gt;Internet Explorer 9&lt;/h1&gt;</div><div class="line">  &lt;p&gt;Windows Internet Explorer 9（简称 IE9）于 2011 年 3 月 14 日发布.....&lt;/p&gt;</div><div class="line">&lt;/article&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;article&gt;</code> 标签规定独立的自包含内容，其有自身的意义，独立于站点的其余部分。</p>
+<h3 id="相关内容"><a href="#相关内容" class="headerlink" title="相关内容"></a>相关内容</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;Me and my family visited The Epcot center this summer.&lt;/p&gt;</div><div class="line">&lt;aside&gt;</div><div class="line">&lt;h4&gt;Epcot Center&lt;/h4&gt;</div><div class="line">The Epcot Center is a theme park in Disney World, Florida.</div><div class="line">&lt;/aside&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;aside&gt;</code> 标签定义其所处内容之外的与之相关的内容。</p>
+<h3 id="音频"><a href="#音频" class="headerlink" title="音频"></a>音频</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;audio src=&quot;someaudio.wav&quot;&gt;</div><div class="line">您的浏览器不支持 audio 标签。</div><div class="line">&lt;/audio&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;audio&gt;</code> 标签定义声音，比如音乐或其他音频流</p>
+<h3 id="表格标题"><a href="#表格标题" class="headerlink" title="表格标题"></a>表格标题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">&lt;table border=&quot;1&quot;&gt;</div><div class="line">  &lt;caption&gt;Monthly savings&lt;/caption&gt;</div><div class="line">  &lt;tr&gt;</div><div class="line">    &lt;th&gt;Month&lt;/th&gt;</div><div class="line">    &lt;th&gt;Savings&lt;/th&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">  &lt;tr&gt;</div><div class="line">    &lt;td&gt;January&lt;/td&gt;</div><div class="line">    &lt;td&gt;$100&lt;/td&gt;</div><div class="line">  &lt;/tr&gt;</div><div class="line">&lt;/table&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;caption&gt;</code>标签定义表格标题。它必须紧随table标签之后。只能对每个表格定义一个标题，通常这个标题会被居中于表格之上。</p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;cite&gt;</div><div class="line">Here is a citation</div><div class="line">&lt;/cite&gt;</div></pre></td></tr></table></figure>
+<p><code>&lt;cite&gt;</code>标签通常表示它所包含的文本对某个参考文献的引用，比如书籍或者杂志的标题。<br>浏览器将以斜体显示引用的文本。</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p><code>&lt;code&gt;</code> 标签用于表示计算机源代码或者其他机器可以阅读的文本内容。这个标签将计算机代码与其它文本区分开来。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/03/16/总结：元素居中的纯CSS方法/">
+                总结：元素居中的纯CSS方法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-03-16</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/CSS/">CSS</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>总结下各种居中方式。</p>
+<h4 id="块级元素固定宽高"><a href="#块级元素固定宽高" class="headerlink" title="块级元素固定宽高"></a>块级元素固定宽高</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	position: absolute;/* or relative*/</div><div class="line">&#125;</div><div class="line">子元素 &#123;</div><div class="line">	position: absolute;</div><div class="line">	top:50%;</div><div class="line">	left:50%;</div><div class="line">	margin-top: -(元素高度/2);</div><div class="line">	margin-left: -(元素宽度/2);</div><div class="line">/* or transform:translate(-50% -50%);*/</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	border: 1px solid black;</div><div class="line">	position: absolute;</div><div class="line">	top: 0;</div><div class="line">	left: 0;</div><div class="line">	bottom: 0;</div><div class="line">	right: 0;</div><div class="line">	margin: auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这里有一个很有意思的点，就是<code>position: absolute;</code>时浏览器计算元素位置的规则。规则比较复杂，粗略来讲，对于某元素，<code>left</code> + <code>margin-left</code> + <code>border-left-width</code> + <code>padding-left</code> + <code>width</code> + <code>padding-right</code> + <code>border-right-width</code> + <code>margin-right</code> + <code>right</code> = 包含块宽度。在这里，是<code>margin-left</code> + <code>width</code> + <code>margin-right</code> = 包含块宽度。而<code>margin: auto</code>使得<code>margin-left</code> = <code>margin-right</code>，导致元素居中。具体规则可以看<a href="https://segmentfault.com/a/1190000003820437#articleHeader9" target="_blank" rel="external">这里</a>。<br>这几种方式可使元素在父元素中居中。</p>
+<h4 id="块级元素固定宽"><a href="#块级元素固定宽" class="headerlink" title="块级元素固定宽"></a>块级元素固定宽</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	margin: 0 auto;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种方式可使元素在父元素中水平居中。</p>
+<h4 id="内联元素水平居中"><a href="#内联元素水平居中" class="headerlink" title="内联元素水平居中"></a>内联元素水平居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	text-align:center;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="文本垂直居中"><a href="#文本垂直居中" class="headerlink" title="文本垂直居中"></a>文本垂直居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	line-height:想要的文本高度;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="不定宽块级元素水平居中"><a href="#不定宽块级元素水平居中" class="headerlink" title="不定宽块级元素水平居中"></a>不定宽块级元素水平居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	float: left;</div><div class="line">	position:relative;</div><div class="line">	left:50%;</div><div class="line">&#125;</div><div class="line">元素 &#123;</div><div class="line">	position:relative;</div><div class="line">	left:-50%;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里利用了浮动自适应宽高的原理。对于一个不定宽高元素，浮动会使其变成块级元素，并使该块级元素的宽高尽可能小。关于浮动的细节可以看<a href="https://segmentfault.com/a/1190000006041960" target="_blank" rel="external">这里</a>;<br>或<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">父元素 &#123;</div><div class="line">	text-align:center;</div><div class="line">&#125;</div><div class="line">元素 &#123;</div><div class="line">	display:inline;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="块级元素垂直居中"><a href="#块级元素垂直居中" class="headerlink" title="块级元素垂直居中"></a>块级元素垂直居中</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">元素 &#123;</div><div class="line">	display:table-cell;</div><div class="line">	vertical-align:middle;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在表格中<code>vertical-align:middle;</code>可以使表格的子元素垂直居中。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
+            <a href="/2017/03/15/IFE学习心得/">
+                IFE学习心得
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2017-03-15</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/CSS/">CSS</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>最近参加了IFE2017新学期的课程，通过自学的方式做题闯关，解决了很多大大小小的问题。强化了我的基础知识体系，特别是CSS3。因为之前实习一直只负责js部分，而这一次的训练让我对CSS3有了一些新的了解。下面记录下我的心得：</p>
+<h3 id="display-none和visibility-hidden"><a href="#display-none和visibility-hidden" class="headerlink" title="display:none和visibility:hidden"></a><code>display:none</code>和<code>visibility:hidden</code></h3><p>这两个规则都表示隐藏某个元素，但其实有着本质的不同。前者作用的元素在文档流中不占位，而后者作用的元素在文档流中占位。换句话收，一个元素被加上了<code>display:none</code>样式，它将不出现在浏览器生成的渲染树中，对其它元素的位置无任何影响，所以浏览器不会去计算它的偏移量（<code>offsetWidth</code>和<code>offsetHeight</code>）；而一个元素被加上了<code>visibility:hidden</code>样式的话，它会被正常渲染，只是“看不见”而已。</p>
+<h3 id="transition和animation"><a href="#transition和animation" class="headerlink" title="transition和animation"></a><code>transition</code>和<code>animation</code></h3><p>这是CSS3实现动画的两种方式，但这两个属性在多个方面都有着不同的表现。下面的表格比较了它们不同之处：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>transition</th>
+<th>animation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>关键帧</td>
+<td>两帧</td>
+<td>可多帧</td>
+</tr>
+<tr>
+<td>触发方式</td>
+<td>事件触发</td>
+<td>可自动播放</td>
+</tr>
+<tr>
+<td>执行次数</td>
+<td>一次</td>
+<td>可多次</td>
+</tr>
+<tr>
+<td>可否暂停</td>
+<td>不能</td>
+<td>可以</td>
+</tr>
+<tr>
+<td>播放方向是否能逆向</td>
+<td>不能</td>
+<td>可以</td>
+</tr>
+</tbody>
+</table>
+<p>可以看出来，<code>transition</code>属性使某个CSS属性能从一个值平滑地过渡到另一个值，而<code>animation</code>属性是<code>transition</code>的补充，它能真正地实现动画效果。<code>animation</code>可以播放多关键帧的动画，动画可以多次执行并以正向-逆向-正向…的方式播放。了解所有<code>transition</code>属性看<a href="http://www.w3school.com.cn/css3/css3_transition.asp" target="_blank" rel="external">这里</a>,了解所有<code>animation</code>属性看<a href="http://www.w3school.com.cn/css3/css3_animation.asp" target="_blank" rel="external">这里</a>。</p>
+<h3 id="radio的魔力"><a href="#radio的魔力" class="headerlink" title="radio的魔力"></a>radio的魔力</h3><p>一组radio中可以被选择的只有一个，所以利用radio和label和兄弟选择器可以实现通过点击切换其状态的组件，例如导航栏、CSS3动画的播放和暂停按钮。具体Demo看<a href="http://shuyzhou.space/IFE2017/accordion/">这里</a>。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2016/12/22/Javascript常用表达式返回值/">
                 Javascript常用表达式返回值
             </a>
@@ -464,116 +665,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2016/11/29/JavaScript原型学习笔记/">
-                JavaScript原型学习笔记
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2016-11-29</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/JavaScript/">JavaScript</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>JS是一门面向对象的语言，和其它面向对象的语言不一样的是，在JS中没有类的概念。接触过C++、Java的人都清楚，类实现了对象之间的属性和方法共享，而类的继承实现了类的复用。在JS中，通过基于原型的继承实现了以上的功能。</p>
-<h3 id="1-构造函数、原型和实例"><a href="#1-构造函数、原型和实例" class="headerlink" title="1 构造函数、原型和实例"></a>1 构造函数、原型和实例</h3><p>在JS中，除了5种基本类型，其它都是对象，函数也是对象。而函数是一类特殊的对象，在每个函数对象被创建的时候，都带有一个prototype属性，这个属性指向函数的原型对象。该原型对象只有一个constructor属性，这个属性指向该函数。构造函数其实在结构上与一般的函数没有区别，但是构造函数一般被用来创建一个实例，所以为了与普通函数区分开，构造函数的函数名的第一个字母一般都是大写。</p>
-<p>通过new操作符，我们可以用一个构造函数创建一个实例。如果一个函数前面加上new操作符，JS引擎其实进行了如下几步操作：</p>
-<p>1.创建一个新对象并将该对象绑定在this上。</p>
-<p>2.使该新对象的[[prototype]]属性指向该构造函数的原型。这个[[prototype]]属性是一个内部属性，但很多浏览器都给每一个对象提供<strong>proto</strong>用于找到其[[prototype]]属性指向的对象。</p>
-<p>3.执行函数代码。</p>
-<p>4.返回新对象的引用。</p>
-<p>如果前面没有加new操作符，就会像普通函数一样执行构造函数。所以构造函数前面一定记得加上new。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var a = new A();//构造一个实例并使a指向它　　</div><div class="line">A();//执行该函数</div></pre></td></tr></table></figure></p>
-<p>通过给构造函数的原型添加属性和方法，能实现对象之间的属性和方法共享。对于一个实例，如果某个属性或者方法在其内部找不到的话JS引擎将去该实例的原型中查找。而p1和p2共享一个原型，所以相当于共享这个原型里的所有属性和方法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function Person(name)&#123;</div><div class="line">    this.name = name;</div><div class="line">&#125;</div><div class="line">Person.prototype.say=function()&#123;console.log(this.name);&#125;</div><div class="line">var p1 = new Person(&quot;joe&quot;);</div><div class="line">var p2 = new Person(&quot;sophia&quot;);</div><div class="line">p1.say();</div><div class="line">p2.say();</div></pre></td></tr></table></figure>
-<h3 id="2-原型链"><a href="#2-原型链" class="headerlink" title="2. 原型链"></a>2. 原型链</h3><p>当一个构造函数的原型对象是另外一个构造函数的实例时，就形成了原型链。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">function SuperType()&#123;</div><div class="line">    this.property = true;</div><div class="line">&#125;</div><div class="line">SuperType.prototype.getSuperValue = function()&#123;</div><div class="line">　　return this.property;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function SubType()&#123;</div><div class="line">　　this.subproperty = false;</div><div class="line">&#125;</div><div class="line">//继承了SuperType</div><div class="line">SubType.prototype = new SuperType();</div><div class="line">SubType.prototype.getSubValue = function()&#123;</div><div class="line">　　return this.subproperty;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var instance = new SubType();</div><div class="line">alert(instance.getSuperValue());//true</div></pre></td></tr></table></figure>
-<p>以上代码定义了两个类型SuperType和SubType，通过重新赋值给SubType的原型实现了SubType对SuperType的继承。然后给SubType.prototype添加了一个新方法，这样就在继承SuperType.prototype的继承上添加了新方法。这个例子中的构造函数、实例和原型的关系如图：</p>
-<p><img src="/images/prototype.png" alt=""></p>
-<p>可以看到的是，当一个构造函数的原型被赋值语句改变值后（实际上是让构造函数的prototype属性指向了另一个对象），它不会再有一个指向该构造函数的constructor属性。而且，由于SubType的原型是SuperType的一个实例，SubType的所有实例都会共享该SuperType实例的属性和方法。原型链的顶端是Object.prototype。Object.prototype的[[prototype]]属性为空。</p>
-<h3 id="3-确定原型和实例的关系"><a href="#3-确定原型和实例的关系" class="headerlink" title="3.确定原型和实例的关系"></a>3.确定原型和实例的关系</h3><p>有了原型链后，原型和实例的关系变得不那么直接了，有两种方法可以确定原型和实例的关系。</p>
-<p> instanceof<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alert(instance instanceof Object);//true</div><div class="line">alert(instance instanceof SuperType);//true</div><div class="line">alert(instance instanceof SubType);//true</div></pre></td></tr></table></figure></p>
-<p>只要是实例原型链上的对象，instanceof操作符都会返回true。</p>
-<p>isPrototypeOf()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">alert(Object.prototype.isPrototypeOf(instance));//true</div><div class="line">alert(SuperType.prototype.isPrototypeOf(instance));//true</div><div class="line">alert(SubType.prototype.isPrototypeOf(instance));//true</div></pre></td></tr></table></figure></p>
-<h3 id="4-重新原型方法"><a href="#4-重新原型方法" class="headerlink" title="4.重新原型方法"></a>4.重新原型方法</h3><p>虽然，当某些原生原型或第三方JS库定义的原型方法不满足我们的需求时，可以通过SuperType.prototype.xxx = function ooo(){…}的方式重写原型方法，但不建议这么做。可以重写我们自定义的类型SubType的原型方法。养成只修改自己创建的类型的习惯，可以避免一些将来可能会出现的错误。</p>
-<h3 id="5-hasOwnProperty"><a href="#5-hasOwnProperty" class="headerlink" title="5.hasOwnProperty"></a>5.hasOwnProperty</h3><p>在使用for in语句遍历对象时，它先查找对象的属性，如果没有会沿着原型链查找对象的原型，一直到Object的原型上。这样不可避免地会出现查找效率问题。hasOwnProperty是Object.prototype的一个方法，它能判断一个对象是否包含自定义属性而不是原型链上的属性。但如果一个对象改写了这个属性，就需要使用外部的 hasOwnProperty 函数来获取正确的结果。</p>
-<p>参考文章：</p>
-<p>1.<a href="http://www.nowamagic.net/librarys/veda/detail/1648" target="_blank" rel="external">http://www.nowamagic.net/librarys/veda/detail/1648</a></p>
-<p>2.JS高级程序设计</p>
-<p>3.知乎</p>
-
-        </div>
-    
-
-</div>
-            
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2016/11/28/JavaScript作用域学习笔记/">
-                JavaScript作用域学习笔记
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2016-11-28</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/JavaScript/">JavaScript</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="1-作用域和作用域链"><a href="#1-作用域和作用域链" class="headerlink" title="1.作用域和作用域链"></a>1.作用域和作用域链</h3><p>在JavaScript中，函数也是对象。对一个函数，每一个能被该函数访问的上下文对象称为该函数的作用域。作用域中的所有属性和方法都能被该函数访问到。在下面的代码中，函数f1和f2的作用域为全局活动对象，而函数f3的作用域为函数f2活动对象和全局活动对象。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">var i=5;</div><div class="line">funtion f1()&#123;</div><div class="line">  console.log(i);</div><div class="line">  console.log(j);  </div><div class="line">&#125;</div><div class="line"></div><div class="line">function f2()&#123;</div><div class="line">  var j=0;</div><div class="line">  console.log(&quot;hello world&quot;);</div><div class="line">  function f3()&#123;</div><div class="line">    console.log(j);</div><div class="line">  &#125;    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>每个函数都有一个[[Scope]]的内部属性，仅供JavaScript引擎访问。这个[[Scope]]指向该函数的作用域链。当一个函数被声明时，该函数能访问到的作用域就依次被放入该函数的作用域链中。此时，作用域链中的第一个对象是该函数声明时的包含环境（一般是其父函数的活动对象），第二个对象是上一层包含环境，一直到全局对象。最后，该函数的[[Scope]]属性将会指向该作用域链。</p>
-<p>在某函数被调用时，一个名为“运行期上下文”的内部对象被创建，该对象定义了函数执行时的环境。每一个运行期上下文被创建时，它的作用域链被初始化为当前运行函数的作用域链。还有一个“活动对象”被创建，该活动对象里存放着函数被调用时的形参、函数里的所有局部变量和this，对于没有被赋值的参数会初始化为undefine。然后该活动对象被推入运行期上下文的作用域链头部。当函数执行完毕时，该运行期上下文被销毁，对应的活动对象也随之销毁。</p>
-<h3 id="2-标识符解析"><a href="#2-标识符解析" class="headerlink" title="2 标识符解析"></a>2 标识符解析</h3><p>在函数执行过程中，每遇到一个变量，都会进行一次标识符解析。从运行期上下文的作用域链头部开始，查找同名的变量，找到了就使用该变量。如果没有就查找作用域链中的下一个对象，直到找到为止。所以全局变量会被同名的局部变量覆盖。</p>
-<h3 id="3-执行时改变作用域链"><a href="#3-执行时改变作用域链" class="headerlink" title="3 执行时改变作用域链"></a>3 执行时改变作用域链</h3><p>虽然函数的作用域链在声明时已经被[[Scope]]绑定了，但是Js中有两种方法可以在函数执行时临时改变函数的作用域链（其实改变的是当前运行期上下文的作用域链）。</p>
-<p>with语句</p>
-<p>当遇到with语句时，with后面圆括号中的对象将被临时的推入作用域链的头部，当with语句后面的代码块执行完毕时，该对象会被从作用域链中删除。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">funtion f4()&#123;</div><div class="line">  var t=&quot;hello&quot;;</div><div class="line">  with(obj)&#123;//在这一句obj将被加入到作用域链头部</div><div class="line">     console.log(a);</div><div class="line">    &#125; //在这里obj从作用域链中删除</div><div class="line">console.log(t);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>try…catch语句</p>
-<p>当遇到try…catch语句时，程序首先执行try代码块中的代码，如果发生错误则跳到catch代码块，此时异常对象将被临时地推入到作用域链的头部。</p>
-<p>function f5(){<br>  try{doSomething();}<br>  catch  (e) {//这里异常对象将被加入到作用域链头部<br>    console.log(e);<br>  }//这里异常对象将被从作用域链中删除<br>}</p>
-<h3 id="4-在函数开始声明局部变量"><a href="#4-在函数开始声明局部变量" class="headerlink" title="4 在函数开始声明局部变量"></a>4 在函数开始声明局部变量</h3><p>虽然说Js是函数作用域，在某个函数内的任何地方声明一个局部变量该函数都能访问到，不过还是有理由在函数的开始声明局部变量。前面说过，活动对象里没有被赋值的参数会初始化为undefine，在遇到赋值语句后，变量才被赋值。那么在类似下面的代码中，将发生不好的事情。标识符解析时，在echo的活动对象中找到了say变量，完全的覆盖了全局活动对象中的say变量。而say变量没有被赋值，所以才会发生下面的事情。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var say = &quot;hello!&quot;;</div><div class="line">function echo() &#123;</div><div class="line">     console.log(say);//undefine</div><div class="line">     var say = &quot;hi&quot;;//将&quot;hi&quot;赋值给say变量</div><div class="line">     console.log(say);//hi</div><div class="line">&#125;</div><div class="line"> </div><div class="line">echo();</div></pre></td></tr></table></figure>
-<h3 id="5-性能优化"><a href="#5-性能优化" class="headerlink" title="5 性能优化"></a>5 性能优化</h3><p>减少全局对象的使用</p>
-<p>由于全局对象始终处于作用域链的尾部，在标识符解析时总是最后一个被查找的对象，查找效率可想而知。记住，如果一个跨作用域的对象被引用了一次以上，则先把它存储到局部变量里再使用。</p>
-<p>尽量不用with</p>
-<p>with虽然可以省略长长的变量名，但是却带来了其它的性能问题。当进入with代码块时，活动对象变成了作用域链的第二个对象，增加了对函数局部变量的访问开销。所以with代码块中最好只使用被with绑定的对象的属性和方法。另外，with也不利于阅读代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function f(x, o) &#123;</div><div class="line">  with (o) </div><div class="line">    print(x);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>f被调用时，x有可能能取到值，也可能是undefined，如果能取到, 有可能是在o上取的值，也可能是函数的第一個参数x的值（如果o中沒有這個属性的話）。如果你忘记在作为第二個参数的对象o中定义x這個属性，程序并不會报错，只是取到另一个值而已。</p>
-<p>优化try…catch语句</p>
-<p>在catch代码块中尽量只访问异常对象，而减少对局部变量的访问。</p>
-<p>参考资料：</p>
-<p>1.<a href="http://www.laruence.com/2009/05/28/863.html" target="_blank" rel="external">http://www.laruence.com/2009/05/28/863.html</a></p>
-<p>2.<a href="http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html" target="_blank" rel="external">http://www.cnblogs.com/lhb25/archive/2011/09/06/javascript-scope-chain.html</a></p>
-<p>3.<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/with" target="_blank" rel="external">https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/with</a></p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -586,7 +677,7 @@
                 <a class="" href="/page/2/">
                     <i class="fa fa-chevron-left" aria-hidden="true"></i>
                 </a>
-                <a class="disabled" href="/">
+                <a class="" href="/page/4/">
                     <i class="fa fa-chevron-right" aria-hidden="true"></i>
                 </a>
             </div>
@@ -615,19 +706,19 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/19/JavaScript判断数组的方法/">JavaScript判断数组的方法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/19/Vue源码阅读（四）：diff算法/">Vue源码阅读（四）：diff算法</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/11/ES6的展开语法/">ES6的展开语法</a>
             </li>
             
             <li>
                 <a class="footer-post" href="/2018/07/10/ES6的类/">ES6的类</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/07/09/ES6的解构赋值/">ES6的解构赋值</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/07/08/ES6中的Proxy/">ES6中的Proxy</a>
             </li>
             
         </ul>
