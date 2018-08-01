@@ -165,6 +165,42 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2018/07/08/Javascript中获取对象属性的方法/">
+                Javascript中获取对象属性的方法
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-08</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p><code>Javascript</code>中获取一个对象全部属性的方法一共有三种：<code>for..in</code>操作符、<code>Object.getOwnPropertyNames()</code>和<code>Object.keys()</code>方法，而这三种方法不管是在使用上和结果都有不同的地方。</p>
+<h3 id="for-in"><a href="#for-in" class="headerlink" title="for..in"></a><code>for..in</code></h3><p>该语句是<code>Javascript</code>中最早用来遍历对象的语句，用法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for (variable in object) &#123;</div><div class="line">    //对对象的每个属性进行操作</div><div class="line">    //在每次迭代时，将不同的属性名分配给变量variable</div><div class="line">&#125;</div><div class="line">`for..in`以任意顺序遍历一个对象的可枚举属性，它不能保证属性被访问的顺序。循环将遍历对象本身的所有可枚举属性，以及对象从其原型中继承的可枚举属性</div></pre></td></tr></table></figure></p>
+<h3 id="Object-getOwnPropertyNames"><a href="#Object-getOwnPropertyNames" class="headerlink" title="Object.getOwnPropertyNames()"></a><code>Object.getOwnPropertyNames()</code></h3><p><code>Object.getOwnPropertyNames()</code>是ES5新增的获取变量自身属性的方法，该方法返回一个由指定对象的所有自身属性的属性名（包括不可枚举属性但不包括Symbol值作为名称的属性）组成的数组，基本语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object.getOwnPropertyNames(obj)</div><div class="line">//返回obj对象所有自身属性的属性名构成的数组</div></pre></td></tr></table></figure></p>
+<p>返回的数组中枚举属性的顺序与通过 for…in 循环（或 Object.keys）迭代该对象属性时一致，不可枚举属性的顺序未定义。<br>在<code>ES5</code>里，如果此方法的参数不是对象而是一个原始值，那么它会抛出 <code>TypeError</code>。在<code>ES2015</code>中，非对象的参数将被强制转换为一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Object.getOwnPropertyNames(&apos;foo&apos;);</div><div class="line">// TypeError: &quot;foo&quot; is not an object (ES5 code)</div><div class="line"></div><div class="line">Object.getOwnPropertyNames(&apos;foo&apos;);</div><div class="line">// [&apos;length&apos;, &apos;0&apos;, &apos;1&apos;, &apos;2&apos;]  (ES2015 code)</div></pre></td></tr></table></figure></p>
+<h3 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys()"></a><code>Object.keys()</code></h3><p><code>Object.keys()</code>同样也是ES5新增的获取变量自身属性的方法，它与<code>Object.getOwnPropertyNames()</code>方法不同之处在于它只遍历对象自身的可枚举属性，不会返回不可枚举属性。其基本语法如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object.keys(obj)</div><div class="line">//返回obj对象所有自身可枚举属性的属性名构成的数组</div></pre></td></tr></table></figure></p>
+<p>在<code>ES5</code>里，如果此方法的参数不是对象而是一个原始值，那么它会抛出 <code>TypeError</code>。在<code>ES2015</code>中，非对象的参数将被强制转换为一个对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Object.keys(&quot;foo&quot;);</div><div class="line">// TypeError: &quot;foo&quot; is not an object (ES5 code)</div><div class="line"></div><div class="line">Object.keys(&quot;foo&quot;);</div><div class="line">// [&quot;0&quot;, &quot;1&quot;, &quot;2&quot;]                   (ES2015 code)</div></pre></td></tr></table></figure></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2018/07/08/Javascript中的变量和常量/">
                 Javascript中的变量和常量
             </a>
@@ -533,48 +569,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/03/30/HTML语义化标签（三）/">
-                HTML语义化标签（三）
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-03-30</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/HTML/">HTML</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <h3 id="插入文本"><a href="#插入文本" class="headerlink" title="插入文本"></a>插入文本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">a dozen is &lt;ins&gt;12&lt;/ins&gt; pieces</div></pre></td></tr></table></figure>
-<p><code>&lt;ins&gt;</code>标签定义已经被插入文档中的文本。</p>
-<h3 id="图像映射"><a href="#图像映射" class="headerlink" title="图像映射"></a>图像映射</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;img src=&quot;planets.jpg&quot; border=&quot;0&quot; usemap=&quot;#planetmap&quot; alt=&quot;Planets&quot; /&gt;</div><div class="line"></div><div class="line">&lt;map name=&quot;planetmap&quot; id=&quot;planetmap&quot;&gt;</div><div class="line">  &lt;area shape=&quot;circle&quot; coords=&quot;180,139,14&quot; href =&quot;venus.html&quot; alt=&quot;Venus&quot; /&gt;</div><div class="line">  &lt;area shape=&quot;circle&quot; coords=&quot;129,161,10&quot; href =&quot;mercur.html&quot; alt=&quot;Mercury&quot; /&gt;</div><div class="line">  &lt;area shape=&quot;rect&quot; coords=&quot;0,0,110,260&quot; href =&quot;sun.html&quot; alt=&quot;Sun&quot; /&gt;</div><div class="line">&lt;/map&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;map&gt;</code>定义一个带有可点击区域的图像映射，<code>&lt;area&gt;</code>定义图像中可点击区域和其映射的url，<code>img</code>元素中的 “usemap” 属性引用 map 元素中的 “id” 或 “name” 属性。</p>
-<h3 id="标记文本"><a href="#标记文本" class="headerlink" title="标记文本"></a>标记文本</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;Do not forget to buy &lt;mark&gt;milk&lt;/mark&gt; today.&lt;/p&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;mark&gt;</code>标签定义带有记号的文本。</p>
-<h3 id="导航栏"><a href="#导航栏" class="headerlink" title="导航栏"></a>导航栏</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;nav&gt;</div><div class="line">&lt;a href=&quot;index.asp&quot;&gt;Home&lt;/a&gt;</div><div class="line">&lt;a href=&quot;html5_meter.asp&quot;&gt;Previous&lt;/a&gt;</div><div class="line">&lt;a href=&quot;html5_noscript.asp&quot;&gt;Next&lt;/a&gt;</div><div class="line">&lt;/nav&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;nav&gt;</code>标签定义导航链接的部分。</p>
-<h3 id="进度"><a href="#进度" class="headerlink" title="进度"></a>进度</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;progress value=&quot;22&quot; max=&quot;100&quot;&gt;&lt;/progress&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;progress&gt;</code>标签标示任务的进度（进程）</p>
-<h3 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;video src=&quot;movie.ogg&quot; controls=&quot;controls&quot;&gt;</div><div class="line">您的浏览器不支持 video 标签。</div><div class="line">&lt;/video&gt;</div></pre></td></tr></table></figure>
-<p><code>&lt;video&gt;</code>标签定义视频，比如电影片段或其他视频流。</p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -616,6 +610,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/31/雅虎前端性能优化原则之总结/">雅虎前端性能优化原则之总结</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/19/JavaScript判断数组的方法/">JavaScript判断数组的方法</a>
             </li>
             
@@ -625,10 +623,6 @@
             
             <li>
                 <a class="footer-post" href="/2018/07/11/ES6的展开语法/">ES6的展开语法</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/07/10/ES6的类/">ES6的类</a>
             </li>
             
         </ul>
@@ -646,15 +640,15 @@
         </li>
         
         <li>
+            <a class="footer-post" href="/categories/性能/">性能</a>
+        </li>
+        
+        <li>
             <a class="footer-post" href="/categories/CSS/">CSS</a>
         </li>
         
         <li>
             <a class="footer-post" href="/categories/HTML/">HTML</a>
-        </li>
-        
-        <li>
-            <a class="footer-post" href="/categories/JavaScript/">JavaScript</a>
         </li>
         
     </ul>

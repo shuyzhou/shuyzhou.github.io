@@ -165,6 +165,55 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2016/11/29/JavaScript闭包学习笔记/">
+                JavaScript闭包学习笔记
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2016-11-29</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>闭包是JS的一个特色，也是一个难点。利用闭包可以实现：</p>
+<p>1.在函数外部访问函数内部的局部变量</p>
+<p>2.保存函数的局部变量，使之在函数返回时不被回收</p>
+<p>3.实现私有成员和方法的封装</p>
+<p>看起来，很多的JS应用都需要依赖闭包来实现，所以弄清楚闭包有利于我们写出更高质量的代码。</p>
+<h3 id="什么是闭包？"><a href="#什么是闭包？" class="headerlink" title="什么是闭包？"></a>什么是闭包？</h3><blockquote>
+<p>闭包，是指语法域位于某个特定的区域，具有持续参照（读写）位于该区域内自身范围之外的执行域上的非持久型变量值能力的段落。这些外部执行域的非持久型变量神奇地保留它们在闭包最初定义（或创建）时的值（深连结）</p>
+</blockquote>
+<p>闭包的定义晦涩难懂，但说得确实是最全面的。简单来说，闭包是一个对象，从闭包里可以访问到其上一级作用域里的局部变量。由于闭包的存在，这些变量在上一级函数执行完后没有被销毁，而是被保存在了内存中。</p>
+<h3 id="闭包是怎么形成的？"><a href="#闭包是怎么形成的？" class="headerlink" title="闭包是怎么形成的？"></a>闭包是怎么形成的？</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function f2()&#123;</div><div class="line">  var j=0;</div><div class="line">  console.log(&quot;hello world&quot;);</div><div class="line">  function f3()&#123;</div><div class="line">    console.log(j);</div><div class="line">  &#125; </div><div class="line">  return f3;   </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是上次在说作用域链的时候用到的一个例子改了一下，添加了return语句。在执行f2函数时，函数f3被声明。根据作用域链的知识，函数f3可以访问到f2的活动对象。换一种说法，函数f3的作用域链应该是f2的运行期上下文的作用域链。如果没有return语句，当f2执行完毕后f2的运行期上下文会被销毁，而活动对象亦然。但当添加了return语句后，将有一个f2外部的引用指向f3，f3在f2执行完毕后仍然留在了内存里，这个时候f2的运行期上下文也被保留在了内存里，而函数f3就是一个闭包。</p>
+<p>上次说到，with语句或try…catch语句可以在执行某段代码时临时改变作用域链，那么在with代码块或异常代码块里定义的内部函数是不是也是闭包？答案是YES!</p>
+<h3 id="闭包保留的是引用"><a href="#闭包保留的是引用" class="headerlink" title="闭包保留的是引用"></a>闭包保留的是引用</h3><p>在函数f3声明时，f3的作用域链即是此时函数f2执行时的作用域链。当f3执行时，f3的运行期上下文的作用域链为f3的活动对象——&gt;f2的活动对象——&gt;f2函数定义时的作用域链…而f2的活动对象里保存着对局部变量j的引用。当f3函数被执行时，JS引擎在f2的活动对象里找到名为j的变量，此时f2已经执行完毕，j的值变成了5，而不是f3函数被声明时的1。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function f2()&#123;</div><div class="line">  var j=0;</div><div class="line">  console.log(j);</div><div class="line">  function f3()&#123;</div><div class="line">    console.log(j);</div><div class="line">  &#125; </div><div class="line">  j=5;</div><div class="line">  return f3;   </div><div class="line">&#125;</div><div class="line">var f3 = f2();</div><div class="line">f3();</div></pre></td></tr></table></figure></p>
+<h3 id="恰当使用闭包"><a href="#恰当使用闭包" class="headerlink" title="恰当使用闭包"></a>恰当使用闭包</h3><p>上面提到过，闭包很强大，许多JS应用离不开闭包。但是，绝不可滥用闭包。每利用以上方法将一个闭包赋值给一个变量时，一个运行期上下文将会被保留在内存里，频繁进行这样的操作将导致内存泄漏的问题。</p>
+<h3 id="关于闭包的样例和更多解释"><a href="#关于闭包的样例和更多解释" class="headerlink" title="关于闭包的样例和更多解释"></a>关于闭包的样例和更多解释</h3><p>关于闭包有很多讲得很好的解释，就不做搬运了。</p>
+<p><a href="http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2009/08/learning_javascript_closures.html</a></p>
+<p><a href="http://www.cnblogs.com/rubylouvre/archive/2009/07/24/1530074.html" target="_blank" rel="external">http://www.cnblogs.com/rubylouvre/archive/2009/07/24/1530074.html</a></p>
+<p><a href="http://www.jb51.net/article/18303.htm" target="_blank" rel="external">http://www.jb51.net/article/18303.htm</a></p>
+<p><a href="http://www.oschina.net/question/28_41112?fromerr=k4oXcGcE" target="_blank" rel="external">http://www.oschina.net/question/28_41112?fromerr=k4oXcGcE</a></p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2016/11/29/JavaScript原型学习笔记/">
                 JavaScript原型学习笔记
             </a>
@@ -311,6 +360,10 @@
         <ul>
             
             <li>
+                <a class="footer-post" href="/2018/07/31/雅虎前端性能优化原则之总结/">雅虎前端性能优化原则之总结</a>
+            </li>
+            
+            <li>
                 <a class="footer-post" href="/2018/07/19/JavaScript判断数组的方法/">JavaScript判断数组的方法</a>
             </li>
             
@@ -320,10 +373,6 @@
             
             <li>
                 <a class="footer-post" href="/2018/07/11/ES6的展开语法/">ES6的展开语法</a>
-            </li>
-            
-            <li>
-                <a class="footer-post" href="/2018/07/10/ES6的类/">ES6的类</a>
             </li>
             
         </ul>
@@ -341,15 +390,15 @@
         </li>
         
         <li>
+            <a class="footer-post" href="/categories/性能/">性能</a>
+        </li>
+        
+        <li>
             <a class="footer-post" href="/categories/CSS/">CSS</a>
         </li>
         
         <li>
             <a class="footer-post" href="/categories/HTML/">HTML</a>
-        </li>
-        
-        <li>
-            <a class="footer-post" href="/categories/JavaScript/">JavaScript</a>
         </li>
         
     </ul>

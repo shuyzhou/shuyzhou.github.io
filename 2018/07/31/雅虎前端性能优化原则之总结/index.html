@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="本文是对于雅虎前端性能优化原则的简单总结，原文请移步这里。
+减少HTTP请求次数合并js、css文件合并文件，体积不会发生变化，但相应的HTTP请求减少。
+CSS Sprites将多张背景图片合并成一张图片，利用CSS的background-image和background-position属性显示">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="shuyzhou">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="雅虎前端性能优化原则之总结"/>
+    
+
+    <!--Open Graph Description-->
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="大周部落格"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>雅虎前端性能优化原则之总结 - 大周部落格</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+
+    <!-- Google Analytics -->
+    
+
+
+</head>
+
+
+<body>
+
+<div class="bg-gradient"></div>
+<div class="bg-pattern"></div>
+
+<!-- Menu -->
+<!--Menu Links and Overlay-->
+<div class="menu-bg">
+    <div class="menu-container">
+        <ul>
+            
+            <li class="menu-item">
+                <a href="/">
+                    Home
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/archives">
+                    Archives
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/tags">
+                    Tags
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/categories">
+                    Categories
+                </a>
+            </li>
+            
+            <li class="menu-item">
+                <a href="/myworks/">
+                    Myworks
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+<!--Hamburger Icon-->
+<nav>
+    <a href="#menu"></a>
+</nav>
+
+<div class="container">
+
+    <!-- Main Content -->
+    <div class="row">
+    <div class="col-sm-12">
+
+        <!--Title and Logo-->
+        <header>
+    <div class="logo">
+        <a href="/"><i class="logo-icon fa fa-cube" aria-hidden="true"></i></a>
+        
+        <div class="icon-box">
+  	<svg id="bigzhou" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="40 50 140.1 140.1" xml:space="preserve">
+		<g>
+			<path id="edge" class="path" d="M134.8,81c17.8,29.7,22.6,61.3,14.1,80.1c-2.5,5.6-6.3,10.1-11.2,13c0,0-26.3,18.7-62.1,0
+		c-21.5-12.8-20.2-54.5,2.9-93.1C78.5,81,106.7,108.9,134.8,81z"/>
+			<path id="tail" class="path" d="M146.6,165.4c0,0,21.6-13,20.7-40.6"/>
+			<ellipse class="eyes" cx="88.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<ellipse class="eyes" cx="126.3" cy="114.8" rx="2.7" ry="2.8"/>
+			<line class="path hands" x1="100" y1="143.1" x2="106.8" y2="147.8"/>
+			<line class="path hands" x1="106.8" y1="147.8" x2="100" y2="151.5"/>
+			<line class="path hands" x1="116.8" y1="143.1" x2="110" y2="147.8"/>
+			<line class="path hands" x1="110" y1="147.8" x2="116.8" y2="151.5"/>
+		</g>
+		<g id="normal">
+			<polyline id="mouth" points="116,124.8 108,124.8 100,124.8 	"/>
+		</g>
+		<g id="smile">
+			<path class="path" d="M100,125.7c0,0,2.5,4.7,7.7,0"/>
+			<path class="path" d="M115.4,125.7c0,0-2.5,4.7-7.7,0"/>
+			<ellipse class="blush" cx="81.8" cy="129.6" rx="1.8" ry="2.1"/>
+			<ellipse class="blush" cx="136.3" cy="129.6" rx="1.8" ry="2.1"/>
+		</g>
+	</svg>
+</div>
+    </div>
+</header>
+
+        <section class="main">
+            
+<div class="post">
+
+    <div class="post-header">
+        <h1 class="title">
+            <a href="/2018/07/31/雅虎前端性能优化原则之总结/">
+                雅虎前端性能优化原则之总结
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-31</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/性能/">性能</a>
+                </span>
+            
+        </div>
+    </div>
+
+    <div class="content">
+
+        <!-- Gallery -->
+        
+
+        <!-- Post Content -->
+        <p>本文是对于雅虎前端性能优化原则的简单总结，原文请移步<a href="!http://developer.yahoo.com/performance/rules.html">这里</a>。</p>
+<h3 id="减少HTTP请求次数"><a href="#减少HTTP请求次数" class="headerlink" title="减少HTTP请求次数"></a>减少HTTP请求次数</h3><h4 id="合并js、css文件"><a href="#合并js、css文件" class="headerlink" title="合并js、css文件"></a>合并js、css文件</h4><p>合并文件，体积不会发生变化，但相应的HTTP请求减少。</p>
+<h4 id="CSS-Sprites"><a href="#CSS-Sprites" class="headerlink" title="CSS Sprites"></a>CSS Sprites</h4><p>将多张背景图片合并成一张图片，利用CSS的<code>background-image</code>和<code>background-position</code>属性显示相应背景，缺点是添加图片或改变原有图片大小都必须重新合成图片，并修改代码。</p>
+<h4 id="Image-maps"><a href="#Image-maps" class="headerlink" title="Image maps"></a>Image maps</h4><p>这个没看太懂，大概意思是一个页面有多张连起来的图片可以合并成一张图片？</p>
+<h4 id="内联图片"><a href="#内联图片" class="headerlink" title="内联图片"></a>内联图片</h4><p>现在一种很常见的方式是对一些体积小的图片（通常是图标之类的）进行base64编码，利用Data url将编码后的字符串嵌入到HTML中或CSS中。因为图片体积不大，所以并不会对嵌入后的文件加载时间造成很大影响。</p>
+<h3 id="利用CDN-Content-Delivery-Network"><a href="#利用CDN-Content-Delivery-Network" class="headerlink" title="利用CDN(Content Delivery Network)"></a>利用CDN(Content Delivery Network)</h3><p>有时会由于物理距离过远，导致资源加载时间很长，这种问题从软件上是无法解决的，只能在离用户较近的地方架设缓存服务器，这就是CDN。CDN中一般有多台服务器形成一个覆盖这世界上绝大多数地区的网络，一个应用的静态资源（一般是前端的一些资源）可以缓存在这些缓存服务器中，当用户访问一个域名时将自动从离用户最近的服务器中获取资源，这样将节省资源加载时间。</p>
+<h3 id="添加Expires或Cache-Control头"><a href="#添加Expires或Cache-Control头" class="headerlink" title="添加Expires或Cache-Control头"></a>添加<code>Expires</code>或<code>Cache-Control</code>头</h3><p>缓存静态资源提高页面加载效率，缓存分为强制缓存和协商缓存，利用<code>Expires</code>或<code>Cache-Control</code>头可以设定资源缓存的寿命，在缓存未过期之前对资源进行强制缓存。如果在缓存未过期之前你需要对资源进行更新的话，则必须改变文件名。</p>
+<h3 id="Gzip压缩响应"><a href="#Gzip压缩响应" class="headerlink" title="Gzip压缩响应"></a>Gzip压缩响应</h3><p>HTTP/1.1定义，<code>Accept-Encoding</code>请求头说明客户端接受的编码方式，最常见的如<code>Accept-Encoding:gzip, deflate</code>，而服务器根据该请求头选择一种编码方式对响应进行压缩，并将压缩方式返回在响应头中：<code>Content-Encoding: gzip</code>。</p>
+<h3 id="样式表链接放在head，脚本链接放在body底部"><a href="#样式表链接放在head，脚本链接放在body底部" class="headerlink" title="样式表链接放在head，脚本链接放在body底部"></a>样式表链接放在head，脚本链接放在body底部</h3><p>浏览器在解析body部分后开始渲染页面，样式表的加载不会阻塞浏览器渲染页面，所以样式表应该被尽快加载和解析，否则渲染出的页面将是无样式的；相反，脚本的加载和执行将阻塞其它资源加载和页面渲染，所以需要把脚本放在body底部，令它最后执行。在最新的标准中，<code>&lt;script&gt;</code>标签定义了defer属性和async属性，都是让脚本并行下载，但是defer下脚本按照顺序执行，而async不按顺序执行脚本。</p>
+<h3 id="避免CSS表达式"><a href="#避免CSS表达式" class="headerlink" title="避免CSS表达式"></a>避免CSS表达式</h3><p>在浏览页面时，即使用户的操作并不影响到样式的改变（比如移动鼠标），CSS表达式也会被重复计算很多次，这对页面性能有一定影响。</p>
+<h3 id="利用单独的文件替代内联脚本和样式"><a href="#利用单独的文件替代内联脚本和样式" class="headerlink" title="利用单独的文件替代内联脚本和样式"></a>利用单独的文件替代内联脚本和样式</h3><p>这使得脚本和样式可以被缓存起来，而不是每次都随着HTML一同被下载。</p>
+<h3 id="减少DNS查找次数"><a href="#减少DNS查找次数" class="headerlink" title="减少DNS查找次数"></a>减少DNS查找次数</h3><p>抛开缓存的因素，一个页面的资源有多少个域名就会产生多少次DNS查找。DNS查找需要一定时间，而减少DNS查找次数可以一定程度上节约响应时间。但域名同样影响到资源的并行下载，根据HTTP/1.1，浏览器最多同时加载两个相同域名的资源，而不同域名的资源则无此限制。所以推荐域名的个数在2-4个之间。</p>
+<h3 id="压缩JavaScript和CSS"><a href="#压缩JavaScript和CSS" class="headerlink" title="压缩JavaScript和CSS"></a>压缩JavaScript和CSS</h3><p>减少资源体积，节省带宽。</p>
+<h3 id="避免重定向"><a href="#避免重定向" class="headerlink" title="避免重定向"></a>避免重定向</h3><p>重定向会比普通请求要多一次请求，避免重定向将减少请求次数。</p>
+<h3 id="删除重复脚本"><a href="#删除重复脚本" class="headerlink" title="删除重复脚本"></a>删除重复脚本</h3><p>删除页面中重复引用的脚本，以免造成重复的请求或执行。</p>
+<h3 id="设置Etag"><a href="#设置Etag" class="headerlink" title="设置Etag"></a>设置Etag</h3><p>Etag是某个资源某个特定版本的标识符，浏览器利用它和<code>If-None-Match</code>头以及<code>Last-Modified</code>和<code>If-Modified-Since</code>来和服务器进行协商缓存。Etag存在一个问题就是当存在多台服务器时，不同服务器上某个资源同版本的Etag可能不同，这时就失去了它原有的利用缓存的功能。</p>
+<h3 id="缓存Ajax结果"><a href="#缓存Ajax结果" class="headerlink" title="缓存Ajax结果"></a>缓存Ajax结果</h3><p>这在某些情况下能提高一定程度的性能，但当数据变化时如何有效清除缓存是个问题。雅虎提出了一种方案，就是给请求的url添加一个参数（比如&amp;t=1190241612），每次需要从服务器获取数据而不是缓存时就改变该参数值，但也只适用于小部分情况，并不能成为一种通用的解决办法。</p>
+<h3 id="尽早刷新文档的输出"><a href="#尽早刷新文档的输出" class="headerlink" title="尽早刷新文档的输出"></a>尽早刷新文档的输出</h3><p>这个大概意思是说，以PHP为例，服务器处理HTML请求时不用全部拼接完再响应，而是先响应处理好的一部分（比如头部），然后在等待服务器拼接剩余部分时浏览器可以先加载头部中链接的资源。</p>
+<h3 id="拆分初始化负载"><a href="#拆分初始化负载" class="headerlink" title="拆分初始化负载"></a>拆分初始化负载</h3><p>页面加载时只加载初始化页面的资源，其它资源等初始化完成之后加载，可以减少渲染时间。</p>
+<h3 id="预加载资源"><a href="#预加载资源" class="headerlink" title="预加载资源"></a>预加载资源</h3><p>预加载接下来可能会需要的资源，能提高用户体验。</p>
+<h3 id="划分主域"><a href="#划分主域" class="headerlink" title="划分主域"></a>划分主域</h3><p>利用浏览器不同域的资源可以并行加载的特点，可以适当将静态资源放在不同域下，提高资源加载速率。</p>
+<h3 id="Ajax尽量使用GET方法"><a href="#Ajax尽量使用GET方法" class="headerlink" title="Ajax尽量使用GET方法"></a>Ajax尽量使用GET方法</h3><p>当使用XMLHttpRequest对象时，POST方法会发送两个包（头部和数据），而GET方法一般是一个包。当需要使用Ajax从服务器获取数据而不是发送数据时，尽量使用GET方法。</p>
+<h3 id="减小Cookie体积"><a href="#减小Cookie体积" class="headerlink" title="减小Cookie体积"></a>减小Cookie体积</h3><p>Cookie随着请求和响应发送，减小Cookie体积也就相应减少了请求和相应的体积。</p>
+<h3 id="图片优化"><a href="#图片优化" class="headerlink" title="图片优化"></a>图片优化</h3><p>可以对图片进行压缩，减少图片体积。</p>
+
+    </div>
+
+    
+
+    
+        <div class="post-tags">
+            <i class="fa fa-tags" aria-hidden="true"></i>
+            <a href="/tags/性能/">#性能</a>
+        </div>
+    
+
+    <!-- Comments -->
+    
+
+</div>
+        </section>
+
+    </div>
+</div>
+
+</div>
+
+<!-- Footer -->
+<div class="push"></div>
+
+<footer class="footer-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 footer-about">
+                <h2>About</h2>
+                <p>
+                    This is Sophia Zhou's personal blog. Enjoy yourself!
+                </p>
+            </div>
+            
+    <div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 recent-posts">
+        <h2>Recent Posts</h2>
+        <ul>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/31/雅虎前端性能优化原则之总结/">雅虎前端性能优化原则之总结</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/19/JavaScript判断数组的方法/">JavaScript判断数组的方法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/19/Vue源码阅读（四）：diff算法/">Vue源码阅读（四）：diff算法</a>
+            </li>
+            
+            <li>
+                <a class="footer-post" href="/2018/07/11/ES6的展开语法/">ES6的展开语法</a>
+            </li>
+            
+        </ul>
+    </div>
+
+
+
+            
+<div class="col-xs-6 col-sm-6 col-md-3 col-lg-3 footer-categories">
+    <h2>Categories</h2>
+    <ul>
+        
+        <li>
+            <a class="footer-post" href="/categories/Nodejs/">Nodejs</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/性能/">性能</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/CSS/">CSS</a>
+        </li>
+        
+        <li>
+            <a class="footer-post" href="/categories/HTML/">HTML</a>
+        </li>
+        
+    </ul>
+</div>
+
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <ul class="list-inline footer-social-icons">
+                    
+                    <li class="list-inline-item">
+                        <a href="https://github.com/shuyzhou">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-github"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <li class="list-inline-item">
+                        <a href="mailto:big_zhou@126.com">
+                            <span class="footer-icon-container">
+                                <i class="fa fa-envelope-o"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="footer-copyright">
+                    @Sophia Zhou. All right reserved | Design & Hexo <a href="http://www.codeblocq.com/">Jonathan Klughertz</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+<script src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+
+<!-- Tween Max -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/gsap/1.18.5/TweenMax.min.js"></script>
+
+<!-- Gallery -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/featherlight/1.3.5/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Custom JavaScript -->
+<script src="/js/main.js"></script>
+
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
