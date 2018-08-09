@@ -288,6 +288,47 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2018/07/15/装饰器模式和JavaScript中的装饰器/">
+                装饰器模式和JavaScript中的装饰器
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-15</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>装饰器模式可以在代码执行时，给某个对象动态地添加或修改某个功能，而不改变其本身的结构。</p>
+<h3 id="使用场景"><a href="#使用场景" class="headerlink" title="使用场景"></a>使用场景</h3><p>假设现在有个购物的应用程序，每一笔销售记录是一个sale对象，这个对象通过<code>getPrice</code>方法获得价格，这个价格应该是商品的基础价格再加上一些额外的税。一位顾客在加拿大魁北克省(加拿大魁北克省)，这种情况下，购买者需要支付联邦税(federal tax)和魁北克省税(provincial Québec tax)。此时你可能需要一些装饰器来装饰这个方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var sale = new Sale(100); // the price is 100 dollars</div><div class="line">sale = sale.decorate(&apos;fedtax&apos;); // add federal tax</div><div class="line">sale = sale.decorate(&apos;quebec&apos;); // add provincial tax</div><div class="line">sale = sale.decorate(&apos;money&apos;); // format like money</div><div class="line">sale.getPrice(); // &quot;$112.88&quot;</div></pre></td></tr></table></figure></p>
+<p>在其它场景中，购买者可能在一个没有省税的省，并且你也可能想用加币(Canadian dollars)格式化价格，那么你可以这样做：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var sale = new Sale(100); // the price is 100 dollars</div><div class="line">sale = sale.decorate(&apos;fedtax&apos;); // add federal tax</div><div class="line">sale = sale.decorate(&apos;cdn&apos;); // format using CDN</div><div class="line">sale.getPrice(); // &quot;CDN$ 105.00&quot;</div></pre></td></tr></table></figure></p>
+<p>这样看上去似乎比继承更加灵活，只需要一个或多个装饰器即可动态地调整对象，下面来看看装饰器模式的实现。</p>
+<h3 id="装饰器模式的实现"><a href="#装饰器模式的实现" class="headerlink" title="装饰器模式的实现"></a>装饰器模式的实现</h3><p>两种实现，一种是每一个装饰器的<code>getPrice</code>方法都调用前一个装饰器的<code>getPrice</code>方法，并在返回值的基础上做计算：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">function Sale(price) &#123;</div><div class="line">    this.price = price || 100;</div><div class="line">&#125;</div><div class="line">Sale.prototype.getPrice = function() &#123;</div><div class="line">    return this.price;</div><div class="line">&#125;</div><div class="line">//Sale.decorators里是预先定义好的一些装饰器</div><div class="line">Sale.decorators = &#123;&#125;</div><div class="line">Sale.decorators.fedtax = &#123;</div><div class="line">    getPrice: function() &#123;</div><div class="line">        var price = this.uber.getPrice();</div><div class="line">        price += price * 5 / 100;</div><div class="line">        return price;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Sale.decorators.quebec = &#123;</div><div class="line">    getPrice: function() &#123;</div><div class="line">        //...</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//这个函数定义了一个新的对象用来继承旧的对象</div><div class="line">Sale.prototype.decorate = function(decorator) &#123;</div><div class="line">    var F = function() &#123;&#125;,</div><div class="line">    overrides = this.constructor.decorators[decorator],</div><div class="line">    i,</div><div class="line">    newobj;</div><div class="line">    F.prototype = this;</div><div class="line">    newobj = new F();</div><div class="line">    newobj.uber = F.prototype;</div><div class="line">    for (i in overrides) &#123;</div><div class="line">        if (overrides.hasOwnProperty(i)) &#123;</div><div class="line">            newobj[i] = overrides[i];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return newobj;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>另一种是，将装饰器保存在内部维护的一个数组，对象的<code>getPrice</code>方法被调用时会自动遍历这个数组并依次执行所有装饰器的<code>getPrice</code>方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">var sale = new Sale(100); // the price is 100 dollars</div><div class="line">sale.decorate(&apos;fedtax&apos;); // add federal tax</div><div class="line">sale.decorate(&apos;quebec&apos;); // add provincial tax</div><div class="line">sale.decorate(&apos;money&apos;); // format like money</div><div class="line">sale.getPrice(); // &quot;$112.88&quot;</div><div class="line">//这些可以由下面的代码实现</div><div class="line">//这个Sale()构造方法现在有一个装饰器的list作为自身属性</div><div class="line">function Sale(price) &#123;</div><div class="line">    this.price = (price &gt; 0) || 100;</div><div class="line">    this.decorators_list = [];</div><div class="line">&#125;</div><div class="line">Sale.decorators = &#123;&#125;;</div><div class="line">Sale.decorators.fedtax = &#123;</div><div class="line">    getPrice: function(price) &#123;</div><div class="line">        return price + price * 5 / 100;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line">Sale.decorators.quebec = &#123;</div><div class="line">    getPrice: function(price) &#123;</div><div class="line">        //...</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">//这样的话需要特殊实现可以被装饰的方法，可以把这种特殊实现抽象到一个工厂方法</div><div class="line">Sale.prototype.decorate = function(decorator) &#123;</div><div class="line">    this.decorators_list.push(decorator);</div><div class="line">&#125;;</div><div class="line">Sale.prototype.getPrice = function() &#123;</div><div class="line">    var price = this.price,</div><div class="line">    i, max = this.decorators_list.length,</div><div class="line">    name;</div><div class="line">    for (i = 0; i &lt; max; i += 1) &#123;</div><div class="line">        name = this.decorators_list[i];</div><div class="line">        price = Sale.decorators[name].getPrice(price);</div><div class="line">    &#125;</div><div class="line">    return price;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="ES7中的装饰器"><a href="#ES7中的装饰器" class="headerlink" title="ES7中的装饰器"></a>ES7中的装饰器</h3><p>在ES6之前，实现装饰器模式需要大量的代码。而利用ES6的类和ES7中的Decorators，可以轻松地实现装饰器模式，实现对类的动态调整。ES7 的 decorator 概念是从Python借鉴来的，在Python里，decorator作用于一个目标函数，对这个目标函数做一些额外的操作，然后返回一个新的函数提到原来的目标函数。而ES7中的decorator进行着类似内部操作，然后利用<code>Object.defineProperty</code>方法重新定义目标方法。先来看一个简单的类：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">class Dog &#123;</div><div class="line">  bark () &#123;</div><div class="line">    return &apos;wang!wang!&apos;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果我们想让<code>bark</code> 这个方法成为一个只读的属性，那么可以定义一个readonly的decorator：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">// 这里的 `target` 是 `Dog.prototype`，key是属性名bark，descriptor是原始的descriptor</div><div class="line">function readonly(target, key, descriptor) &#123;</div><div class="line">  descriptor.writable = false</div><div class="line">  return descriptor</div><div class="line">&#125;</div><div class="line">//后把readonly装饰器作用到bark方法上：</div><div class="line">class Dog &#123;</div><div class="line">  @readonly</div><div class="line">  bark () &#123;</div><div class="line">    return &apos;wang!wang!&apos;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">let dog = new Dog()</div><div class="line">dog.bark = &apos;bark!bark!&apos;</div><div class="line">// Cannot assign to read only property &apos;bark&apos; of [object Object]</div></pre></td></tr></table></figure></p>
+<h3 id="作用在类本身的decorator"><a href="#作用在类本身的decorator" class="headerlink" title="作用在类本身的decorator"></a>作用在类本身的decorator</h3><p>如果把一个 decorator 作用到类上，则它的第一个参数 target 是类本身：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// 这里的 `target` 是类本身</div><div class="line">function doge (target) &#123;</div><div class="line">  target.isDoge = true</div><div class="line">&#125;</div><div class="line"></div><div class="line">@doge</div><div class="line">class Dog &#123;&#125;</div><div class="line"></div><div class="line">console.log(Dog.isDoge)</div><div class="line">// true</div></pre></td></tr></table></figure></p>
+<p>decorator可以是工厂方法，返回一个行为根据参数而变化的函数：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">function doge (isDoge) &#123;</div><div class="line">  return function(target) &#123;</div><div class="line">    target.isDoge = isDoge</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">@doge(true)</div><div class="line">class Dog &#123;&#125;</div><div class="line"></div><div class="line">console.log(Dog.isDoge)</div><div class="line">// true</div><div class="line"></div><div class="line">@doge(false)</div><div class="line">class Human &#123;&#125;</div><div class="line">console.log(Human.isDoge)</div><div class="line">// false</div></pre></td></tr></table></figure></p>
+<h3 id="装饰器和继承"><a href="#装饰器和继承" class="headerlink" title="装饰器和继承"></a>装饰器和继承</h3><p>装饰器和继承都可以实现对对象的修改，但装饰器明显更简单灵活，并且不会影响到对象的父类或子类。</p>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2018/07/11/ES6的展开语法/">
                 ES6的展开语法
             </a>
@@ -576,43 +617,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2018/07/08/Javascript中Symbol类型/">
-                JavaScript中Symbol类型
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2018-07-08</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/JavaScript/">JavaScript</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>在ES6之前，<code>JavaScript</code>中一共有六种数据类型：<code>undefined</code>、<code>null</code>、<code>boolean</code>、<code>string</code>、<code>number</code>和<code>object</code>，而ES6中新增了一种基本数据类型<code>symbol</code>。<code>symbol</code>值可由<code>Symbol</code>函数产生，并且<code>Symbol</code>拥有一些内置的<code>symbol</code>类型的静态属性（例如<code>Symbol.iterator</code>）。</p>
-<h3 id="symbol基本语法和用法"><a href="#symbol基本语法和用法" class="headerlink" title="symbol基本语法和用法"></a><code>symbol</code>基本语法和用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Symbol([description])</div></pre></td></tr></table></figure>
-<p><code>Symbol</code>函数不支持语法<code>new Symbol()</code>，每一个从<code>Symbol()</code>返回的<code>symbol</code>值都是唯一的，即使两次<code>Symbol()</code>接受的参数是同一个参数，返回的也不是同一个<code>symbol</code>值。<code>symbol</code>值可以用来作为对象属性的标识符，该属性不会被<code>for..of</code>和<code>Object.getOwnPropertyNames</code>返回，但会被<code>Object.getOwnPropertySymbols</code>返回。看起来，这是为了解决属性名冲突而存在的类型。当有两个以上的库对同一个对象做访问或修改时，难以做到某个库定义的内部属性和方法不会被其它库访问或修改，而<code>symbol</code>可以解决该问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">new Symbol()//TypeError: Symbol is not a constructor</div><div class="line">Symbol(&apos;foo&apos;) === Symbol(&apos;foo&apos;)//false</div><div class="line">var foo = Symbol(&apos;foo&apos;)</div><div class="line">var o = &#123;[foo]: &apos;foo&apos;&#125;</div><div class="line">console.log(o[foo])//foo</div></pre></td></tr></table></figure></p>
-<h3 id="Symbol的静态方法"><a href="#Symbol的静态方法" class="headerlink" title="Symbol的静态方法"></a><code>Symbol</code>的静态方法</h3><ul>
-<li><code>Symbol.for(key)</code><br>使用给的key搜索现有的<code>symbol</code>，如果找到则返回给<code>symbol</code>。否则将使用给定的key在全局<code>symbol</code>注册表中创建一个新的<code>symbol</code>，并返回该<code>symbol</code>。</li>
-<li><code>Symbol.keyFor(sym)</code><br>从全局<code>symbol</code>注册表中返回该<code>symbol</code>的key。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var foo = Symbol(&apos;foo&apos;)</div><div class="line">Symbol.for(&apos;foo&apos;)//Symbol(foo)</div><div class="line">Symbol.keyFor(foo)//undefined</div><div class="line">var bar = Symbol.for(&apos;bar&apos;)</div><div class="line">Symbol.keyFor(bar)//bar</div></pre></td></tr></table></figure></li>
-</ul>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -666,7 +670,7 @@
             </li>
             
             <li>
-                <a class="footer-post" href="/2018/07/11/ES6的展开语法/">ES6的展开语法</a>
+                <a class="footer-post" href="/2018/07/15/装饰器模式和JavaScript中的装饰器/">装饰器模式和JavaScript中的装饰器</a>
             </li>
             
         </ul>

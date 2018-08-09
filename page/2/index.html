@@ -165,6 +165,43 @@
 
     <div class="post-header index">
         <h1 class="title">
+            <a href="/2018/07/08/Javascript中Symbol类型/">
+                JavaScript中Symbol类型
+            </a>
+        </h1>
+        <div class="post-info">
+            
+                <span class="date">2018-07-08</span>
+            
+            
+            
+                <span class="category">
+                    <a href="/categories/JavaScript/">JavaScript</a>
+                </span>
+            
+        </div>
+    </div>
+
+    
+        <div class="content">
+            <p>在ES6之前，<code>JavaScript</code>中一共有六种数据类型：<code>undefined</code>、<code>null</code>、<code>boolean</code>、<code>string</code>、<code>number</code>和<code>object</code>，而ES6中新增了一种基本数据类型<code>symbol</code>。<code>symbol</code>值可由<code>Symbol</code>函数产生，并且<code>Symbol</code>拥有一些内置的<code>symbol</code>类型的静态属性（例如<code>Symbol.iterator</code>）。</p>
+<h3 id="symbol基本语法和用法"><a href="#symbol基本语法和用法" class="headerlink" title="symbol基本语法和用法"></a><code>symbol</code>基本语法和用法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Symbol([description])</div></pre></td></tr></table></figure>
+<p><code>Symbol</code>函数不支持语法<code>new Symbol()</code>，每一个从<code>Symbol()</code>返回的<code>symbol</code>值都是唯一的，即使两次<code>Symbol()</code>接受的参数是同一个参数，返回的也不是同一个<code>symbol</code>值。<code>symbol</code>值可以用来作为对象属性的标识符，该属性不会被<code>for..of</code>和<code>Object.getOwnPropertyNames</code>返回，但会被<code>Object.getOwnPropertySymbols</code>返回。看起来，这是为了解决属性名冲突而存在的类型。当有两个以上的库对同一个对象做访问或修改时，难以做到某个库定义的内部属性和方法不会被其它库访问或修改，而<code>symbol</code>可以解决该问题。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">new Symbol()//TypeError: Symbol is not a constructor</div><div class="line">Symbol(&apos;foo&apos;) === Symbol(&apos;foo&apos;)//false</div><div class="line">var foo = Symbol(&apos;foo&apos;)</div><div class="line">var o = &#123;[foo]: &apos;foo&apos;&#125;</div><div class="line">console.log(o[foo])//foo</div></pre></td></tr></table></figure></p>
+<h3 id="Symbol的静态方法"><a href="#Symbol的静态方法" class="headerlink" title="Symbol的静态方法"></a><code>Symbol</code>的静态方法</h3><ul>
+<li><code>Symbol.for(key)</code><br>使用给的key搜索现有的<code>symbol</code>，如果找到则返回给<code>symbol</code>。否则将使用给定的key在全局<code>symbol</code>注册表中创建一个新的<code>symbol</code>，并返回该<code>symbol</code>。</li>
+<li><code>Symbol.keyFor(sym)</code><br>从全局<code>symbol</code>注册表中返回该<code>symbol</code>的key。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var foo = Symbol(&apos;foo&apos;)</div><div class="line">Symbol.for(&apos;foo&apos;)//Symbol(foo)</div><div class="line">Symbol.keyFor(foo)//undefined</div><div class="line">var bar = Symbol.for(&apos;bar&apos;)</div><div class="line">Symbol.keyFor(bar)//bar</div></pre></td></tr></table></figure></li>
+</ul>
+
+        </div>
+    
+
+</div>
+            
+                
+<div class="post">
+
+    <div class="post-header index">
+        <h1 class="title">
             <a href="/2018/07/08/Javascript中获取对象属性的方法/">
                 Javascript中获取对象属性的方法
             </a>
@@ -522,53 +559,6 @@
 
 </div>
             
-                
-<div class="post">
-
-    <div class="post-header index">
-        <h1 class="title">
-            <a href="/2017/04/19/Vue.js入门练习：todo-list/">
-                Vue.js入门练习：todo-list
-            </a>
-        </h1>
-        <div class="post-info">
-            
-                <span class="date">2017-04-19</span>
-            
-            
-            
-                <span class="category">
-                    <a href="/categories/JavaScript/">JavaScript</a>
-                </span>
-            
-        </div>
-    </div>
-
-    
-        <div class="content">
-            <p>最近在学习Vue.js，做了一个小项目练练手，话说这个backbone的<a href="http://backbonejs.org/examples/todos/index.html" target="_blank" rel="external">Demo</a>真的很适合作为学习新框架的练手项目。。<br>我做的在<a href="http://shuyzhou.space/todo/">这里</a>。</p>
-<h3 id="创建一个Vue实例"><a href="#创建一个Vue实例" class="headerlink" title="创建一个Vue实例"></a>创建一个Vue实例</h3><p>Vue是一个专注于视图的框架，你只要给定数据和HTML模板，它能自动监听数据的变化并进行相应的DOM操作，使你可以把精力放在你的数据模型上。创建一个Vue实例非常简单，只需要给定根作用域的id，以及你的数据。这里我们需要一个标题，一个输入数据，以及一个装着todo item的列表。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">var data = &#123;</div><div class="line">    title: &apos;Todos&apos;,</div><div class="line">    items: [],</div><div class="line">    input: &apos;&apos;</div><div class="line">&#125;;</div><div class="line">var app = new Vue(&#123;</div><div class="line">    el: &apos;#todo-app&apos;,</div><div class="line">    data: data</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>在你的HTML代码里需要有<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;todo-app&quot;&gt;</div><div class="line">    &lt;header&gt;&#123;&#123;title&#125;&#125;&lt;/header&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;script src=&quot;dep/vue.js&quot;&gt;&lt;/script&gt;</div></pre></td></tr></table></figure></p>
-<p>这样一来，Vue会绑定给定的动态数据，并且app实例会代理你的data,当数据发生变化时相应的DOM元素随之变化。你可以试试在控制台输入下面的代码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">app.title = &apos;hello world&apos;;</div><div class="line">data.title = &apos;vue demo&apos;;</div></pre></td></tr></table></figure></p>
-<h3 id="数据的双向绑定"><a href="#数据的双向绑定" class="headerlink" title="数据的双向绑定"></a>数据的双向绑定</h3><p>现在我们需要一个输入表单，通过这个表单输入待办的事项，并且我们要拿到用户输入将其存储并显示出来。首先，需要进行数据双向绑定，从而当输入变化时对应数据产生变化。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;input v-on:keyup.enter=&quot;addItem&quot; v-model=&quot;input&quot; type=&quot;text&quot; name=&quot;input&quot; placeholder=&quot;what needs to be done?&quot;&gt;</div></pre></td></tr></table></figure></p>
-<p><code>v-model</code>是Vue的一个指令，Vue会自动识别写在HTML元素里的指令，所有指令都带有一个前缀<code>v-</code>以区别于DOM的原生属性。<code>v-model</code>指令创建双向绑定，输入变化会改变绑定数据，数据变化也会改变表单输入。</p>
-<h3 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h3><p>在用户输入事件发生时，我们需要存储待办事项并显示出来。<code>v-on</code>指令用来绑定事件的回掉函数，<code>keyup</code>是事件参数，它对应这原生DOM事件。<code>.enter</code>是修饰符，在这里指按下enter键的意思。<br>addItem函数主要做了两件事，存储输入并清空表单。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">addItem: function () &#123;</div><div class="line">    if(!!this.input)&#123;</div><div class="line">        this.items.push(&#123;id:uid++,title:this.input,done:false&#125;);</div><div class="line">        this.input = &apos;&apos;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>注意，所有的想要被Vue实例访问到的方法都需要写着methods对象中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var app = new Vue(&#123;</div><div class="line">    el: &apos;#todo-app&apos;,</div><div class="line">    data: data，</div><div class="line">    methods: &#123;...&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<h3 id="数据存储"><a href="#数据存储" class="headerlink" title="数据存储"></a>数据存储</h3><p>当数据改变时，我们希望把数据存储在本地。而一个Vue实例的生命周期如下图：<br><img src="/images/lifecycle.png" alt=""><br>Vue允许在生命周期中的某个阶段放入生命周期钩子，这不就是我们想要的吗？我们只需要在updated阶段的回调函数存储。并且在created阶段获取存储的数据即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">created: function () &#123;</div><div class="line">    var store = localStorage.getItem(&apos;todos&apos;);</div><div class="line">    if (store) &#123;</div><div class="line">        this.items = JSON.parse(store);</div><div class="line">    &#125;</div><div class="line">&#125;,</div><div class="line">updated: function () &#123;</div><div class="line">    var newstore = JSON.stringify(this.items);</div><div class="line">    localStorage.setItem(&apos;todos&apos;,newstore);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="Vue组件"><a href="#Vue组件" class="headerlink" title="Vue组件"></a>Vue组件</h3><p>组件的存在是为了将可以复用的代码封装出来,而我们的todo list中的每一个item都是相似的，都有着相同的结构和方法，所以我注册了一个全局组件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Vue.component(&apos;todo-item&apos;, &#123;</div><div class="line">    name: &apos;todo-item&apos;,</div><div class="line">    props: ...,</div><div class="line">    template: ...,</div><div class="line">    methods: ...</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
-<p>这样在HTML代码中我们就可以用我们的自定义组件了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;todo-item v-for=&quot;(item, index) in items&quot; :items=&quot;items&quot; :item=&quot;item&quot;  :index=&quot;index&quot; :key=&quot;item.id&quot;&gt;&lt;/todo-item&gt;</div></pre></td></tr></table></figure></p>
-<p>组件是一个特殊的Vue实例，它的作用域是独立的，组件并不能读取父实例的数据。所以父实例需要利用<code>props</code>选项向子组件传递数据，子组件要显式地用<code>props</code>选项声明它期待获得的数据：<code>props: [&#39;message&#39;]</code>。然后利用指令<code>v-bind</code>（v-bind:可缩写为:）绑定子组件的变量。这里传入了三个数据，分别是所有待办事项items、该组件对应的事项item和其在数组中的索引index。组件主要有了下面两个方法：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">removeItem: function () &#123;</div><div class="line">    this.items.splice(this.index, 1);</div><div class="line">&#125;,</div><div class="line">toggle: function () &#123;</div><div class="line">   var item = this.items[this.index];</div><div class="line">   item.done = !item.done;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>removeItem从数组中删除对应的事项，toggle切换事项的状态（已完成/未完成）。</p>
-<h3 id="改变item状态"><a href="#改变item状态" class="headerlink" title="改变item状态"></a>改变item状态</h3><p>选择一个item，它的状态将被标记成已完成，点击全选框可以标记/取消标记所有item。<br>首先，为全选框绑定一个数据和点击事件的回调。markAll代表全选框的选择状态，而点击事件发生时需要改变所有item的状态。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;label v-if=&quot;hasItem&quot;&gt;&lt;input v-on:click=&quot;doAll&quot; v-model=&quot;markAll&quot; type=&quot;checkbox&quot; name=&quot;allDone&quot;&gt;Mark all as complete&lt;/label&gt;</div></pre></td></tr></table></figure></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">doAll: function () &#123;</div><div class="line">    this.items.forEach(function (item) &#123;</div><div class="line">        item.done = this.markAll;</div><div class="line">    &#125;.bind(this));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>接着定义一个计算属性allDone，表示所有的item状态都为已完成，通过监控该属性的变化动态改变markAll属性的值。当item被一个一个勾选/取消时，全选框的勾选状态也相应改变。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">computed: &#123;</div><div class="line">    allDone: function () &#123;</div><div class="line">        if (this.items.length === 0) &#123;return false;&#125;</div><div class="line">        for (var item of this.items)&#123;</div><div class="line">            if (!item.done) &#123;return false;&#125;</div><div class="line">        &#125;</div><div class="line">        return true;</div><div class="line">    &#125;</div><div class="line">&#125;，</div><div class="line">watch: &#123;</div><div class="line">    allDone: function (val) &#123;</div><div class="line">        this.markAll = val;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p><a href="https://github.com/shuyzhou/vue-demo" target="_blank" rel="external">项目地址</a></p>
-
-        </div>
-    
-
-</div>
-            
         </section>
     </div>
 </div>
@@ -622,7 +612,7 @@
             </li>
             
             <li>
-                <a class="footer-post" href="/2018/07/11/ES6的展开语法/">ES6的展开语法</a>
+                <a class="footer-post" href="/2018/07/15/装饰器模式和JavaScript中的装饰器/">装饰器模式和JavaScript中的装饰器</a>
             </li>
             
         </ul>
